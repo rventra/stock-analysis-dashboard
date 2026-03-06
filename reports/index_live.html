@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Equity Research | Live Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --fool-green: #3D8B37;
+            --fool-navy: #1E3A5F;
+            --fool-red: #C41E3A;
+            --bg-dark: #0F172A;
+            --bg-panel: #1E293B;
+            --border: #334155;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-dark);
+            min-height: 100vh;
+        }
+        
+        /* Loading */
+        .loading-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: var(--bg-dark);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            gap: 16px;
+        }
+        
+        .loading-overlay.hidden { display: none; }
+        
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid var(--border);
+            border-top-color: var(--fool-green);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin { to { transform: rotate(360deg); } }
+        
+        .loading-text {
+            color: #94A3B8;
+            font-size: 14px;
+        }
+        
+        /* Error message */
+        .error-banner {
+            display: none;
+            background: var(--fool-red);
+            color: white;
+            padding: 12px;
+            text-align: center;
+            font-size: 13px;
+        }
+        
+        .error-banner.show { display: block; }
+        
+        /* Indices bar */
+        .indices-bar {
+            background: var(--bg-panel);
+            border-bottom: 1px solid var(--border);
+            padding: 10px 16px;
+        }
+        
+        .indices-container {
+            display: flex;
+            gap: 24px;
+            align-items: center;
+            overflow-x: auto;
+        }
+        
+        .index-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            white-space: nowrap;
+        }
+        
+        .index-name {
+            font-size: 11px;
+            font-weight: 600;
+            color: #94A3B8;
+            text-transform: uppercase;
+        }
+        
+        .index-value {
+            font-size: 14px;
+            font-weight: 700;
+            color: white;
+        }
+        
+        .index-change {
+            font-size: 12px;
+            font-weight: 600;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+        
+        .index-change.positive { color: #4ADE80; background: rgba(74, 222, 128, 0.1); }
+        .index-change.negative { color: #F87171; background: rgba(248, 113, 113, 0.1); }
+        
+        .index-divider {
+            width: 1px;
+            height: 20px;
+            background: var(--border);
+        }
+        
+        /* Main layout */
+        .main-layout {
+            display: flex;
+            height: calc(100vh - 85px);
+        }
+        
+        /* Sidebar */
+        .sidebar {
+            width: 220px;
+            background: var(--bg-panel);
+            border-right: 1px solid var(--border);
+            padding: 16px 10px;
+            overflow-y: auto;
+        }
+        
+        .sidebar-title {
+            font-size: 10px;
+            font-weight: 700;
+            color: #64748B;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
+            padding-left: 4px;
+        }
+        
+        .sidebar-stock {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 8px;
+            background: var(--bg-dark);
+            border-radius: 8px;
+            margin-bottom: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 1px solid transparent;
+        }
+        
+        .sidebar-stock:hover {
+            border-color: var(--fool-green);
+        }
+        
+        .sidebar-stock-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+        
+        .sidebar-ticker {
+            font-size: 13px;
+            font-weight: 700;
+            color: white;
+        }
+        
+        .sidebar-company {
+            font-size: 9px;
+            color: #64748B;
+        }
+        
+        .sidebar-price-info {
+            text-align: right;
+        }
+        
+        .sidebar-price {
+            font-size: 13px;
+            font-weight: 600;
+            color: white;
+        }
+        
+        .sidebar-change {
+            font-size: 10px;
+            font-weight: 600;
+        }
+        
+        .sidebar-change.positive { color: #4ADE80; }
+        .sidebar-change.negative { color: #F87171; }
+        
+        .sidebar-signal {
+            display: inline-block;
+            font-size: 8px;
+            font-weight: 700;
+            padding: 1px 4px;
+            border-radius: 3px;
+            margin-top: 2px;
+            text-transform: uppercase;
+        }
+        
+        .sidebar-signal.buy { background: rgba(61, 139, 55, 0.2); color: #4ADE80; }
+        .sidebar-signal.hold { background: rgba(245, 158, 11, 0.2); color: #FBBF24; }
+        
+        /* Main content */
+        .main-content {
+            flex: 1;
+            padding: 24px;
+            overflow-y: auto;
+            background: linear-gradient(180deg, var(--bg-dark) 0%, #162032 100%);
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 32px;
+            color: white;
+        }
+        
+        .header h1 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        
+        .header p {
+            font-size: 15px;
+            color: #94A3B8;
+        }
+        
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(61, 139, 55, 0.2);
+            border: 1px solid var(--fool-green);
+            padding: 6px 12px;
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-top: 12px;
+            color: #4ADE80;
+        }
+        
+        .badge-dot {
+            width: 6px;
+            height: 6px;
+            background: #4ADE80;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+        
+        /* Stock grid */
+        .stock-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+        
+        .stock-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 2px solid transparent;
+        }
+        
+        .stock-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+            border-color: var(--fool-green);
+        }
+        
+        .stock-card-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 4px;
+        }
+        
+        .stock-symbol {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--fool-navy);
+        }
+        
+        .stock-price-section {
+            text-align: right;
+        }
+        
+        .price-value {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--fool-navy);
+        }
+        
+        .price-change {
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .price-change.positive { color: var(--fool-green); }
+        .price-change.negative { color: var(--fool-red); }
+        
+        .company-name {
+            font-size: 12px;
+            color: #64748B;
+            margin-bottom: 8px;
+        }
+        
+        .signal-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+        
+        .signal-badge.buy { background: #E8F5E9; color: #2E7D32; }
+        .signal-badge.hold { background: #FFF8E1; color: #F57C00; }
+        
+        .signal-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: currentColor;
+        }
+        
+        .stock-metrics {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            padding: 12px;
+            background: #F9FAFB;
+            border-radius: 8px;
+        }
+        
+        .metric {
+            text-align: center;
+        }
+        
+        .metric-label {
+            font-size: 9px;
+            color: #64748B;
+            text-transform: uppercase;
+            margin-bottom: 2px;
+        }
+        
+        .metric-value {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--fool-navy);
+        }
+        
+        .view-btn {
+            width: 100%;
+            padding: 10px;
+            background: var(--fool-green);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-top: 12px;
+            cursor: pointer;
+        }
+        
+        /* News section */
+        .news-section {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 24px;
+        }
+        
+        .section-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--fool-navy);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 12px;
+        }
+        
+        .news-card {
+            padding: 14px;
+            background: #F9FAFB;
+            border-radius: 8px;
+            border-left: 3px solid var(--fool-green);
+        }
+        
+        .news-card.negative {
+            border-left-color: var(--fool-red);
+        }
+        
+        .news-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 6px;
+        }
+        
+        .news-ticker {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--fool-navy);
+        }
+        
+        .news-time {
+            font-size: 10px;
+            color: #94A3B8;
+        }
+        
+        .news-headline {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--fool-navy);
+            margin-bottom: 4px;
+            line-height: 1.4;
+        }
+        
+        .news-source {
+            font-size: 11px;
+            color: #64748B;
+        }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            color: #64748B;
+            font-size: 12px;
+            padding: 16px;
+        }
+        
+        /* Modal */
+        .report-modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.9);
+            z-index: 10000;
+            padding: 40px;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .report-modal.active {
+            display: flex;
+        }
+        
+        .report-frame-container {
+            width: 100%;
+            max-width: 800px;
+            height: 90vh;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .report-frame {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            background: white;
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 18px;
+        }
+        
+        /* Refresh indicator */
+        .refresh-indicator {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--bg-panel);
+            padding: 8px 14px;
+            border-radius: 6px;
+            font-size: 11px;
+            color: #94A3B8;
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .refresh-dot {
+            width: 6px;
+            height: 6px;
+            background: var(--fool-green);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        
+        @media (max-width: 768px) {
+            .sidebar { display: none; }
+            .main-content { padding: 16px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="spinner"></div>
+        <div class="loading-text">Loading market data...</div>
+    </div>
+
+    <!-- Error banner -->
+    <div class="error-banner" id="errorBanner"></div>
+
+    <!-- Market Indices Bar -->
+    <div class="indices-bar">
+        <div class="indices-container" id="indicesContainer">
+            <span style="color: #64748B; font-size: 13px;">Loading indices...</span>
+        </div>
+    </div>
+
+    <!-- Main Layout -->
+    <div class="main-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-title">Watchlist</div>
+            <div id="sidebarStocks"></div>
+            
+            <div class="sidebar-title" style="margin-top: 24px;">Market Status</div>
+            <div style="padding: 12px; background: var(--bg-dark); border-radius: 8px;">
+                <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 6px;">
+                    <div style="width: 6px; height: 6px; background: #4ADE80; border-radius: 50%;"></div>
+                    <span style="font-size: 12px; color: white; font-weight: 600;">Market Open</span>
+                </div>
+                <div style="font-size: 11px; color: #64748B;">NYSE • NASDAQ</div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="container">
+                <!-- Header -->
+                <header class="header">
+                    <h1>Equity Research Reports</h1>
+                    <p>AI-powered analysis with live market data</p>
+                    <div class="badge">
+                        <div class="badge-dot"></div>
+                        Live Updates
+                    </div>
+                </header>
+
+                <!-- Stock Cards -->
+                <div class="stock-grid" id="stockGrid"></div>
+
+                <!-- Latest News -->
+                <div class="news-section">
+                    <h2 class="section-title">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                            <path d="M4 8h16M4 12h8"/>
+                        </svg>
+                        Latest News
+                    </h2>
+                    <div class="news-grid" id="newsGrid"></div>
+                </div>
+
+                <!-- Footer -->
+                <footer class="footer">
+                    <p>Data refreshes every 30 seconds • Powered by MiniMax M2.5 • <span id="lastUpdate">Never</span></p>
+                </footer>
+            </div>
+        </main>
+    </div>
+
+    <!-- Report Modal -->
+    <div id="reportModal" class="report-modal" onclick="closeModal(event)">
+        <div class="report-frame-container">
+            <button class="close-modal" onclick="closeModal()">&times;</button>
+            <iframe id="reportFrame" class="report-frame"></iframe>
+        </div>
+    </div>
+
+    <!-- Refresh indicator -->
+    <div class="refresh-indicator">
+        <div class="refresh-dot"></div>
+        <span id="refreshText">Updating...</span>
+    </div>
+
+    <script>
+// Configuration
+const API_BASE = 'http://localhost:5000';
+const REFRESH_INTERVAL = 30000; // 30 seconds
+
+// Fallback data (shown if API fails)
+const FALLBACK_DATA = {
+    indices: {
+        'DJIA': { value: 43850.24, change: 0.42, positive: true },
+        'S&P 500': { value: 5956.12, change: 0.58, positive: true },
+        'NASDAQ': { value: 18952.36, change: 0.85, positive: true },
+        'Russell 2000': { value: 2245.18, change: -0.12, positive: false },
+        'VIX': { value: 14.82, change: -3.2, positive: false }
+    },
+    stocks: {
+        'NVDA': { price: 184.92, change: -5.44, positive: false, name: 'NVIDIA Corporation', signal: 'buy', target: 240, confidence: 'High' },
+        'AVGO': { price: 321.70, change: 1.20, positive: true, name: 'Broadcom Inc.', signal: 'buy', target: 415, confidence: 'High' },
+        'META': { price: 657.01, change: -0.80, positive: false, name: 'Meta Platforms', signal: 'hold', target: 710, confidence: 'Medium' },
+        'MSFT': { price: 401.72, change: 0.45, positive: true, name: 'Microsoft Corporation', signal: 'buy', target: 525, confidence: 'High' }
+    },
+    news: {
+        'NVDA': [
+            { headline: 'NVIDIA earnings beat expectations, AI demand surges', source: 'Reuters', time: '2h ago', sentiment: 'positive' },
+            { headline: 'NVDA announces new AI chip architecture', source: 'Bloomberg', time: '4h ago', sentiment: 'positive' }
+        ],
+        'AVGO': [
+            { headline: 'Broadcom VMware integration ahead of schedule', source: 'WSJ', time: '1h ago', sentiment: 'positive' },
+            { headline: 'AVGO raises dividend by 14%', source: 'MarketWatch', time: '3h ago', sentiment: 'positive' }
+        ],
+        'META': [
+            { headline: 'Meta faces new EU regulatory scrutiny', source: 'FT', time: '30m ago', sentiment: 'negative' },
+            { headline: 'Instagram reels monetization improving', source: 'TechCrunch', time: '5h ago', sentiment: 'positive' }
+        ],
+        'MSFT': [
+            { headline: 'Microsoft Copilot adoption accelerates', source: 'The Verge', time: '1h ago', sentiment: 'positive' },
+            { headline: 'Azure growth remains strong at 29% YoY', source: 'CNBC', time: '4h ago', sentiment: 'positive' }
+        ]
+    }
+};
+
+let currentData = { ...FALLBACK_DATA };
+
+// Format number with commas
+function formatNumber(num) {
+    if (num === undefined || num === null) return 'N/A';
+    return num.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+}
+
+// Format change with sign
+function formatChange(change) {
+    if (change === undefined || change === null) return 'N/A';
+    const sign = change >= 0 ? '+' : '';
+    return `${sign}${change.toFixed(2)}%`;
+}
+
+// Calculate upside percentage
+function calculateUpside(current, target) {
+    if (!current || !target) return 0;
+    return ((target - current) / current * 100).toFixed(1);
+}
+
+// Show error message
+function showError(message) {
+    const errorBanner = document.getElementById('errorBanner');
+    errorBanner.textContent = message;
+    errorBanner.classList.add('show');
+    setTimeout(() => errorBanner.classList.remove('show'), 5000);
+}
+
+// Hide loading overlay
+function hideLoading() {
+    document.getElementById('loadingOverlay').classList.add('hidden');
+}
+
+// Update indices bar
+function updateIndices(indices) {
+    const container = document.getElementById('indicesContainer');
+    if (!container || !indices) return;
+    
+    container.innerHTML = '';
+    
+    const indexNames = Object.keys(indices);
+    indexNames.forEach((name, index) => {
+        const data = indices[name];
+        const item = document.createElement('div');
+        item.className = 'index-item';
+        item.innerHTML = `
+            <span class="index-name">${name}</span>
+            <span class="index-value">${formatNumber(data.value)}</span>
+            <span class="index-change ${data.positive ? 'positive' : 'negative'}">${formatChange(data.change)}</span>
+        `;
+        container.appendChild(item);
+        
+        // Add divider if not last
+        if (index < indexNames.length - 1) {
+            const divider = document.createElement('div');
+            divider.className = 'index-divider';
+            container.appendChild(divider);
+        }
+    });
+}
+
+// Update sidebar
+function updateSidebar(stocks) {
+    const container = document.getElementById('sidebarStocks');
+    if (!container || !stocks) return;
+    
+    container.innerHTML = '';
+    
+    Object.entries(stocks).forEach(([ticker, data]) => {
+        const div = document.createElement('div');
+        div.className = 'sidebar-stock';
+        div.onclick = () => openReport(ticker);
+        div.innerHTML = `
+            <div class="sidebar-stock-info">
+                <span class="sidebar-ticker">${ticker}</span>
+                <span class="sidebar-company">${data.name.split(' ')[0]}</span>
+            </div>
+            <div class="sidebar-price-info">
+                <div class="sidebar-price">$${data.price.toFixed(2)}</div>
+                <div class="sidebar-change ${data.positive ? 'positive' : 'negative'}">${formatChange(data.change)}</div>
+                <span class="sidebar-signal ${data.signal}">${data.signal}</span>
+            </div>
+        `;
+        container.appendChild(div);
+    });
+}
+
+// Update stock cards
+function updateStockCards(stocks) {
+    const container = document.getElementById('stockGrid');
+    if (!container || !stocks) return;
+    
+    container.innerHTML = '';
+    
+    Object.entries(stocks).forEach(([ticker, data]) => {
+        const upside = calculateUpside(data.price, data.target);
+        const div = document.createElement('div');
+        div.className = 'stock-card';
+        div.onclick = () => openReport(ticker);
+        div.innerHTML = `
+            <div class="stock-card-header">
+                <div class="stock-symbol">${ticker}</div>
+                <div class="stock-price-section">
+                    <div class="price-value">$${data.price.toFixed(2)}</div>
+                    <div class="price-change ${data.positive ? 'positive' : 'negative'}">${formatChange(data.change)}</div>
+                </div>
+            </div>
+            <div class="company-name">${data.name}</div>
+            <div class="signal-badge ${data.signal}">
+                <div class="signal-dot"></div>
+                ${data.signal === 'buy' ? 'Buy' : 'Hold'}
+            </div>
+            <div class="stock-metrics">
+                <div class="metric">
+                    <div class="metric-label">Target</div>
+                    <div class="metric-value">$${data.target}</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-label">Upside</div>
+                    <div class="metric-value" style="color: var(--fool-green);">+${upside}%</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-label">Confidence</div>
+                    <div class="metric-value">${data.confidence}</div>
+                </div>
+            </div>
+            <button class="view-btn">View Report →</button>
+        `;
+        container.appendChild(div);
+    });
+}
+
+// Update news section
+function updateNews(news) {
+    const container = document.getElementById('newsGrid');
+    if (!container || !news) return;
+    
+    container.innerHTML = '';
+    
+    // Flatten all news and sort by time (simplified)
+    const allNews = [];
+    Object.entries(news).forEach(([ticker, articles]) => {
+        articles.forEach(article => {
+            allNews.push({ ...article, ticker });
+        });
+    });
+    
+    // Show first 6 articles
+    allNews.slice(0, 6).forEach(article => {
+        const div = document.createElement('div');
+        div.className = `news-card ${article.sentiment === 'negative' ? 'negative' : ''}`;
+        div.innerHTML = `
+            <div class="news-header">
+                <span class="news-ticker">${article.ticker}</span>
+                <span class="news-time">${article.time}</span>
+            </div>
+            <div class="news-headline">${article.headline}</div>
+            <div class="news-source">${article.source}</div>
+        `;
+        container.appendChild(div);
+    });
+}
+
+// Update last refresh time
+function updateRefreshTime() {
+    const now = new Date();
+    document.getElementById('lastUpdate').textContent = now.toLocaleTimeString();
+    document.getElementById('refreshText').textContent = 'Live';
+}
+
+// Fetch all data from API
+async function fetchData() {
+    console.log('[DASHBOARD] Fetching data...');
+    
+    try {
+        // Fetch all endpoints in parallel
+        const [indicesRes, stocksRes, newsRes] = await Promise.all([
+            fetch(`${API_BASE}/api/indices`).catch(() => null),
+            fetch(`${API_BASE}/api/stocks`).catch(() => null),
+            fetch(`${API_BASE}/api/news`).catch(() => null)
+        ]);
+        
+        // Parse responses
+        if (indicesRes && indicesRes.ok) {
+            currentData.indices = await indicesRes.json();
+        }
+        if (stocksRes && stocksRes.ok) {
+            currentData.stocks = await stocksRes.json();
+        }
+        if (newsRes && newsRes.ok) {
+            currentData.news = await newsRes.json();
+        }
+        
+        // Update UI
+        updateIndices(currentData.indices);
+        updateSidebar(currentData.stocks);
+        updateStockCards(currentData.stocks);
+        updateNews(currentData.news);
+        updateRefreshTime();
+        
+        console.log('[DASHBOARD] Data updated successfully');
+        
+    } catch (error) {
+        console.error('[DASHBOARD] Error fetching data:', error);
+        showError('Using cached data - server unavailable');
+        
+        // Use fallback data
+        updateIndices(currentData.indices);
+        updateSidebar(currentData.stocks);
+        updateStockCards(currentData.stocks);
+        updateNews(currentData.news);
+    } finally {
+        hideLoading();
+    }
+}
+
+// Open report modal
+function openReport(ticker) {
+    const files = {
+        'NVDA': 'NVDA_MiniMax_v2_20260226.html',
+        'AVGO': 'AVGO_MiniMax_v2_20260226.html',
+        'META': 'META_MiniMax_v2_20260226.html',
+        'MSFT': 'MSFT_MiniMax_v2_20260226.html'
+    };
+    
+    const modal = document.getElementById('reportModal');
+    const frame = document.getElementById('reportFrame');
+    frame.src = files[ticker] || '';
+    modal.classList.add('active');
+}
+
+// Close modal
+function closeModal(event) {
+    if (event && event.target !== event.currentTarget && event.target.className !== 'close-modal') return;
+    
+    document.getElementById('reportModal').classList.remove('active');
+    document.getElementById('reportFrame').src = '';
+}
+
+// Initialize
+document.addEventListener('DOMContentLoaded', () => {
+    console.log('[DASHBOARD] Initializing...');
+    
+    // Initial data load
+    fetchData();
+    
+    // Set up auto-refresh
+    setInterval(fetchData, REFRESH_INTERVAL);
+    
+    // Keyboard shortcut to close modal
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeModal();
+    });
+});
+    </script>
+</body>
+</html>

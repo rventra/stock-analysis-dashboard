@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alibaba (BABA) - Equity Research Report | The Motley Fool</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Source Sans Pro', 'Helvetica Neue', Arial, sans-serif;
+            font-size: 18px;
+            line-height: 1.6;
+            color: #1E3A5F;
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            background: #FFFFFF;
+        }
+        
+        /* Article Header */
+        header.article-header {
+            margin-bottom: 32px;
+            border-bottom: 3px solid #3D8B37;
+            padding-bottom: 24px;
+        }
+        
+        h1 {
+            font-size: 36px;
+            font-weight: 700;
+            color: #1E3A5F;
+            margin-bottom: 8px;
+            letter-spacing: -0.5px;
+        }
+        
+        .ticker {
+            display: inline-block;
+            background: #1E3A5F;
+            color: #FFFFFF;
+            padding: 2px 10px;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-left: 8px;
+            vertical-align: middle;
+        }
+        
+        .thesis {
+            font-size: 20px;
+            color: #6B7280;
+            font-style: italic;
+            margin-top: 8px;
+            line-height: 1.5;
+        }
+        
+        .publication-date {
+            font-size: 14px;
+            color: #9CA3AF;
+            margin-top: 12px;
+        }
+        
+        /* Price Box */
+        .price-box {
+            float: right;
+            background: #F7F7F7;
+            padding: 20px;
+            margin: 0 0 24px 24px;
+            border-radius: 8px;
+            width: 240px;
+            border-left: 4px solid #3D8B37;
+        }
+        
+        @media (max-width: 600px) {
+            .price-box {
+                float: none;
+                width: 100%;
+                margin: 0 0 24px 0;
+            }
+        }
+        
+        .price-box h3 {
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #6B7280;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+        
+        .current-price {
+            font-size: 28px;
+            font-weight: 700;
+            color: #1E3A5F;
+            margin-bottom: 4px;
+        }
+        
+        .price-change {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+        
+        .price-change.positive {
+            color: #0D7A47;
+        }
+        
+        .price-change.negative {
+            color: #C41E3A;
+        }
+        
+        .price-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #E5E7EB;
+            font-size: 15px;
+        }
+        
+        .price-row:last-child {
+            border-bottom: none;
+        }
+        
+        .price-label {
+            color: #6B7280;
+        }
+        
+        .price-value {
+            font-weight: 600;
+            color: #1E3A5F;
+        }
+        
+        .price-value.upside {
+            color: #0D7A47;
+            font-weight: 700;
+        }
+        
+        .price-value.downside {
+            color: #C41E3A;
+            font-weight: 700;
+        }
+        
+        /* Signal Banner */
+        .signal-banner {
+            background: linear-gradient(135deg, #3D8B37 0%, #2D6A32 100%);
+            color: white;
+            padding: 20px 24px;
+            border-radius: 8px;
+            margin-bottom: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+        
+        .signal-main {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .signal-indicator {
+            width: 48px;
+            height: 48px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+        
+        .signal-text {
+            font-size: 24px;
+            font-weight: 700;
+        }
+        
+        .signal-confidence {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        
+        .signal-meta {
+            text-align: right;
+            font-size: 14px;
+        }
+        
+        .signal-meta span {
+            display: block;
+        }
+        
+        .signal-meta .label {
+            opacity: 0.8;
+        }
+        
+        .signal-meta .value {
+            font-weight: 600;
+        }
+        
+        /* Sections */
+        section {
+            margin-bottom: 40px;
+            clear: both;
+        }
+        
+        h2 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1E3A5F;
+            margin-top: 32px;
+            margin-bottom: 20px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #E5E7EB;
+        }
+        
+        h3 {
+            font-size: 20px;
+            font-weight: 600;
+            color: #1E3A5F;
+            margin-top: 24px;
+            margin-bottom: 12px;
+        }
+        
+        p {
+            margin-bottom: 16px;
+        }
+        
+        /* Bull Case Styling */
+        .bull-case {
+            background: #F0FDF4;
+            border-radius: 8px;
+            padding: 24px;
+            margin: 24px 0;
+            border-left: 4px solid #3D8B37;
+        }
+        
+        .bull-case h2 {
+            color: #2D6A32;
+            border-bottom: none;
+            margin-top: 0;
+        }
+        
+        /* Bear Case Styling */
+        .bear-case {
+            background: #FEF2F2;
+            border-radius: 8px;
+            padding: 24px;
+            margin: 24px 0;
+            border-left: 4px solid #C41E3A;
+        }
+        
+        .bear-case h2 {
+            color: #C41E3A;
+            border-bottom: none;
+            margin-top: 0;
+        }
+        
+        /* Lists */
+        ul, ol {
+            margin: 16px 0;
+            padding-left: 24px;
+        }
+        
+        li {
+            margin-bottom: 12px;
+        }
+        
+        li strong {
+            color: #1E3A5F;
+        }
+        
+        /* Key Terms */
+        strong {
+            font-weight: 600;
+        }
+        
+        /* Metric Bar */
+        .metric-bar {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            background: #F7F7F7;
+            padding: 20px 24px;
+            margin: 32px 0;
+            border-radius: 8px;
+            gap: 16px;
+        }
+        
+        .metric-item {
+            text-align: center;
+            flex: 1;
+            min-width: 100px;
+        }
+        
+        .metric-value {
+            font-size: 20px;
+            font-weight: 700;
+            color: #1E3A5F;
+        }
+        
+        .metric-label {
+            font-size: 13px;
+            color: #6B7280;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        /* Traffic Light */
+        .traffic-light {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 12px;
+            margin: 24px 0;
+        }
+        
+        @media (max-width: 600px) {
+            .traffic-light {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        .traffic-item {
+            text-align: center;
+            padding: 16px 12px;
+            border-radius: 8px;
+            background: #F7F7F7;
+        }
+        
+        .traffic-item.buy {
+            background: #F0FDF4;
+            border: 2px solid #3D8B37;
+        }
+        
+        .traffic-item.hold {
+            background: #FEF3C7;
+            border: 2px solid #F59E0B;
+        }
+        
+        .traffic-item.sell {
+            background: #FEF2F2;
+            border: 2px solid #C41E3A;
+        }
+        
+        .traffic-light-bulb {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            margin: 0 auto 8px;
+        }
+        
+        .traffic-item.buy .traffic-light-bulb {
+            background: #3D8B37;
+            box-shadow: 0 0 8px rgba(61, 139, 55, 0.5);
+        }
+        
+        .traffic-item.hold .traffic-light-bulb {
+            background: #F59E0B;
+            box-shadow: 0 0 8px rgba(245, 158, 11, 0.5);
+        }
+        
+        .traffic-item.sell .traffic-light-bulb {
+            background: #C41E3A;
+            box-shadow: 0 0 8px rgba(196, 30, 58, 0.5);
+        }
+        
+        .traffic-label {
+            font-size: 12px;
+            color: #6B7280;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .traffic-rating {
+            font-size: 16px;
+            font-weight: 700;
+            margin-top: 4px;
+        }
+        
+        .traffic-item.buy .traffic-rating {
+            color: #2D6A32;
+        }
+        
+        .traffic-item.hold .traffic-rating {
+            color: #B45309;
+        }
+        
+        .traffic-item.sell .traffic-rating {
+            color: #C41E3A;
+        }
+        
+        /* News Items */
+        .news-item {
+            background: #F7F7F7;
+            padding: 16px;
+            border-radius: 8px;
+            margin-bottom: 16px;
+        }
+        
+        .news-date {
+            font-size: 13px;
+            color: #6B7280;
+            margin-bottom: 4px;
+        }
+        
+        .news-headline {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1E3A5F;
+            margin-bottom: 4px;
+        }
+        
+        .news-source {
+            font-size: 13px;
+            color: #6B7280;
+        }
+        
+        .sentiment-tag {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-left: 8px;
+        }
+        
+        .sentiment-positive {
+            background: #D1FAE5;
+            color: #065F46;
+        }
+        
+        .sentiment-negative {
+            background: #FEE2E2;
+            color: #991B1B;
+        }
+        
+        .sentiment-neutral {
+            background: #E5E7EB;
+            color: #374151;
+        }
+        
+        /* Conclusion Box */
+        .conclusion-box {
+            background: linear-gradient(135deg, #1E3A5F 0%, #2D4A6F 100%);
+            color: white;
+            padding: 28px;
+            border-radius: 8px;
+            margin-top: 32px;
+        }
+        
+        .conclusion-box h2 {
+            color: white;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+            margin-top: 0;
+        }
+        
+        .conclusion-box p {
+            opacity: 0.95;
+            margin-bottom: 16px;
+        }
+        
+        .who-buy, .who-avoid {
+            margin-top: 20px;
+            padding: 16px;
+            border-radius: 6px;
+        }
+        
+        .who-buy {
+            background: rgba(61, 139, 55, 0.2);
+            border-left: 4px solid #3D8B37;
+        }
+        
+        .who-avoid {
+            background: rgba(196, 30, 58, 0.2);
+            border-left: 4px solid #C41E3A;
+        }
+        
+        .who-buy h4, .who-avoid h4 {
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+        
+        .who-buy h4 {
+            color: #4ADE80;
+        }
+        
+        .who-avoid h4 {
+            color: #FCA5A5;
+        }
+        
+        /* Final Verdict */
+        .final-verdict {
+            text-align: center;
+            padding: 24px;
+            background: #F0FDF4;
+            border-radius: 8px;
+            margin-top: 24px;
+            border: 3px solid #3D8B37;
+        }
+        
+        .final-verdict-label {
+            font-size: 14px;
+            color: #6B7280;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .final-verdict-rating {
+            font-size: 32px;
+            font-weight: 700;
+            color: #2D6A32;
+            margin: 8px 0;
+        }
+        
+        /* Footer */
+        footer {
+            margin-top: 48px;
+            padding-top: 24px;
+            border-top: 1px solid #E5E7EB;
+            font-size: 13px;
+            color: #6B7280;
+            text-align: center;
+        }
+        
+        footer p {
+            margin-bottom: 8px;
+        }
+        
+        /* Clearfix */
+        .clearfix::after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+    </style>
+</head>
+<body>
+    <header class="article-header">
+        <h1>Alibaba Group Holding Limited <span class="ticker">BABA</span></h1>
+        <p class="thesis">A high-quality business at a deep discount — classic contrarian opportunity as extreme pessimism creates asymmetric risk/reward</p>
+        <p class="publication-date">Published: March 5, 2026</p>
+    </header>
+    
+    <aside class="price-box">
+        <h3>Price Data</h3>
+        <div class="current-price">$130.35</div>
+        <div class="price-change negative">-12.4% YTD</div>
+        
+        <div class="price-row">
+            <span class="price-label">Entry Zone</span>
+            <span class="price-value">$125 - $135</span>
+        </div>
+        <div class="price-row">
+            <span class="price-label">Base Target</span>
+            <span class="price-value upside">$175.00</span>
+        </div>
+        <div class="price-row">
+            <span class="price-label">Bull Target</span>
+            <span class="price-value upside">$192.67</span>
+        </div>
+        <div class="price-row">
+            <span class="price-label">Stop Loss</span>
+            <span class="price-value downside">$120.00</span>
+        </div>
+        <div class="price-row">
+            <span class="price-label">Upside to Target</span>
+            <span class="price-value upside">+34.3%</span>
+        </div>
+    </aside>
+    
+    <div class="signal-banner">
+        <div class="signal-main">
+            <div class="signal-indicator">🟢</div>
+            <div>
+                <div class="signal-text">BUY Signal</div>
+                <div class="signal-confidence">High Confidence</div>
+            </div>
+        </div>
+        <div class="signal-meta">
+            <span class="label">Time Horizon</span>
+            <span class="value">12-18 Months</span>
+        </div>
+    </div>
+    
+    <section class="intro">
+        <p>Alibaba Group Holding Limited (BABA) has been one of the most high-profile Chinese tech stocks in the U.S. market, and recently, it's been making waves for all the wrong reasons. Shares have plummeted as China's economic outlook has darkened, with the government setting its lowest GDP growth target since the 1990s. But here's the thing — the sell-off may have gone too far.</p>
+        
+        <p>Today, we're diving deep into BABA to examine whether this represents a genuine buying opportunity or a value trap. The stock is technically oversold, trading at multi-year lows, and generating substantial free cash flow. Yet headwinds remain formidable. Let's break down both sides.</p>
+    </section>
+    
+    <section class="bull-case">
+        <h2>Bull case:</h2>
+        <p>Alibaba presents a compelling contrarian opportunity. The market is pricing in a permanent impairment thesis that ignores the company's fundamental strength. Here's why BABA could deliver strong returns from here:</p>
+        
+        <ul>
+            <li><strong>Extreme Oversold Technicals:</strong> The RSI sits at just 20.51 — deeply in "strongly oversold" territory and below the lower Bollinger Band (132.12). This is a classic statistical buy signal for mean reversion. When a quality company trades this oversold, the bounce potential is significant.</li>
+            
+            <li><strong>Distressed Valuation Creates Margin of Safety:</strong> Trading at just 0.31x Price-to-Sales and 17.2x P/E implies zero growth and discounts excessive risk. The current valuation essentially prices in failure, providing substantial upside if the business stabilizes.</li>
+            
+            <li><strong>Fortress Balance Sheet & Cash Generation:</strong> Alibaba generates $30B+ in annual free cash flow with a rock-solid balance sheet and significant net cash. This financial strength provides a safety cushion and funds aggressive shareholder returns.</li>
+            
+            <li><strong>Aggressive Capital Return:</strong> Management initiated a dividend of $1.05 per share (0.8% yield) with a conservative 14.4% payout ratio, plus ongoing buybacks. This signals both financial discipline and commitment to returning capital to shareholders.</li>
+            
+            <li><strong>AI & Cloud Optionality:</strong> Strategic investments in AI (Qwen) and cloud infrastructure represent significant long-term optionality that's not reflected in the current stock price. The company recently poached a Google DeepMind research scientist to strengthen its AI push.</li>
+            
+            <li><strong>Peak Pessimism = Classic Contrarian Signal:</strong> Sentiment toward Chinese ADRs is extremely negative, with delisting fears, geopolitical tensions, and macro concerns all priced in. History shows these are exactly the conditions that create multi-baggers for patient contrarians.</li>
+        </ul>
+    </section>
+    
+    <section class="bear-case">
+        <h2>Bear case:</h2>
+        <p>Despite the compelling valuation and technical setup, investors must understand the genuine risks. The bear thesis isn't without merit:</p>
+        
+        <ul>
+            <li><strong>China Macro Headwinds Intensify:</strong> China set its lowest GDP growth target since the 1990s (4.5-5% for 2026), fueling fears of prolonged consumer spending weakness. If domestic consumption slows further, Alibaba's core e-commerce business faces pressure.</li>
+            
+            <li><strong>Competitive Landscape Pressuring Margins:</strong> Intense price wars with JD.com and Pinduoduo continue to pressure margins. This isn't a temporary issue — it's a structural challenge in Chinese e-commerce.</li>
+            
+            <li><strong>Regulatory & Geopolitical Risk Premium:</strong> Persistent regulatory overhang in China and US-China tensions create ongoing uncertainty. The risk of adverse regulatory action or further sanctions cannot be dismissed.</li>
+            
+            <li><strong>Technical Breakdown & Negative Momentum:</strong> The stock trades below all key moving averages (50-day: 157.57, 200-day: 145.06). While oversold, momentum remains firmly bearish, and further downside is possible before any bounce.</li>
+            
+            <li><strong>Multiple Compression Risk:</strong> If China sentiment worsens, the P/E could compress further from already-low levels. The market may be underestimating the duration of the economic slowdown.</li>
+            
+            <li><strong>Sector-Wide Weakness:</strong> This isn't a company-specific issue — JD.com, PDD, and other China consumer internet stocks are under similar pressure. The entire sector faces headwinds, suggesting systemic rather than isolated challenges.</li>
+        </ul>
+    </section>
+    
+    <section class="traffic-light-section">
+        <h2>Traffic Light Analysis</h2>
+        
+        <div class="traffic-light">
+            <div class="traffic-item buy">
+                <div class="traffic-light-bulb"></div>
+                <div class="traffic-label">Overall</div>
+                <div class="traffic-rating">BUY</div>
+            </div>
+            <div class="traffic-item buy">
+                <div class="traffic-light-bulb"></div>
+                <div class="traffic-label">Fundamentals</div>
+                <div class="traffic-rating">BUY</div>
+            </div>
+            <div class="traffic-item buy">
+                <div class="traffic-light-bulb"></div>
+                <div class="traffic-label">Technical</div>
+                <div class="traffic-rating">BUY</div>
+            </div>
+            <div class="traffic-item hold">
+                <div class="traffic-light-bulb"></div>
+                <div class="traffic-label">Sentiment</div>
+                <div class="traffic-rating">HOLD</div>
+            </div>
+            <div class="traffic-item buy">
+                <div class="traffic-light-bulb"></div>
+                <div class="traffic-label">Risk</div>
+                <div class="traffic-rating">BUY</div>
+            </div>
+        </div>
+        
+        <p><em>Our Traffic Light Scoring system signals a strong BUY based on robust fundamentals, extreme oversold technicals, and manageable risks at current levels.</em></p>
+    </section>
+    
+    <section class="key-metrics">
+        <h2>Key Metrics</h2>
+        
+        <div class="metric-bar">
+            <div class="metric-item">
+                <div class="metric-value">$996B RMB</div>
+                <div class="metric-label">Revenue (FY25)</div>
+            </div>
+            <div class="metric-item">
+                <div class="metric-value">17.2x</div>
+                <div class="metric-label">P/E Ratio</div>
+            </div>
+            <div class="metric-item">
+                <div class="metric-value">0.31x</div>
+                <div class="metric-label">P/S Ratio</div>
+            </div>
+            <div class="metric-item">
+                <div class="metric-value">13.1%</div>
+                <div class="metric-label">Net Margin</div>
+            </div>
+            <div class="metric-item">
+                <div class="metric-value">20.5</div>
+                <div class="metric-label">RSI</div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="market-conditions">
+        <h2>Why Alibaba Has Declined</h2>
+        
+        <p>The stock's decline reflects several interconnected factors that have created a perfect storm of negative sentiment:</p>
+        
+        <h3>Primary Decline Drivers</h3>
+        
+        <ul>
+            <li><strong>Macroeconomic Pessimism on China (40%):</strong> China set its lowest GDP growth target since the 1990s (4.5-5% for 2026), fueling fears of a prolonged slowdown in consumer spending and e-commerce growth.</li>
+            
+            <li><strong>Sector Rotation & Sentiment Washout (25%):</strong> Broad-based selling of Chinese ADRs due to geopolitical tensions, delisting fears, and a general flight from emerging market risk assets.</li>
+            
+            <li><strong>Competitive & Margin Pressures (20%):</strong> Ongoing price wars with rivals like JD.com and Pinduoduo, pressuring near-term profitability and market share.</li>
+            
+            <li><strong>Multiple Compression (15%):</strong> Valuation derating as investors apply a higher risk premium to all China-exposed assets.</li>
+        </ul>
+        
+        <h3>The Contrarian View</h3>
+        
+        <p>The market is pricing in a permanent impairment thesis that is overly pessimistic. BABA's core e-commerce business generates immense cash flow (~$30B+ annual FCF), which funds aggressive shareholder returns. The company's cloud and AI divisions (Qwen) are strategic assets being undervalued. Current valuation (P/S 0.31x) implies no growth and ignores the company's market dominance, financial fortress, and long-term optionality. The sell-off is emotional, not fundamental.</p>
+    </section>
+    
+    <section class="recent-news">
+        <h2>Recent News Analysis</h2>
+        
+        <p>We analyzed 230 news articles from December 2025 through March 2026. Overall sentiment: <strong>Neutral with slight positive tilt</strong> (27% Positive, 13% Negative, 60% Neutral).</p>
+        
+        <div class="news-item">
+            <div class="news-date">March 5, 2026</div>
+            <div class="news-headline">China Stocks Like Alibaba, NIO, JD.com Tumble As Country Sets Lowest Growth Target Since 1990s</div>
+            <div class="news-source">Benzinga <span class="sentiment-tag sentiment-positive">POSITIVE</span></div>
+            <p style="font-size: 14px; margin-top: 8px; margin-bottom: 0;">Article explains the sell-off catalyst but frames it as a known risk, potentially a buying opportunity for contrarians.</p>
+        </div>
+        
+        <div class="news-item">
+            <div class="news-date">March 5, 2026</div>
+            <div class="news-headline">Alibaba Poaches Google DeepMind Research Scientist For Qwen AI Push</div>
+            <div class="news-source">Benzinga <span class="sentiment-tag sentiment-neutral">NEUTRAL</span></div>
+            <p style="font-size: 14px; margin-top: 8px; margin-bottom: 0;">Strategic hire to bolster AI capabilities, signaling commitment to long-term tech investment.</p>
+        </div>
+        
+        <div class="news-item">
+            <div class="news-date">March 5, 2026</div>
+            <div class="news-headline">JD.com: Price Drops, But Fundamentals Scream Deep Value</div>
+            <div class="news-source">SeekingAlpha <span class="sentiment-tag sentiment-negative">NEGATIVE</span></div>
+            <p style="font-size: 14px; margin-top: 8px; margin-bottom: 0;">Highlights sector-wide price war and margin pressure, but title suggests deep value for peers as well.</p>
+        </div>
+        
+        <div class="news-item">
+            <div class="news-date">March 4, 2026</div>
+            <div class="news-headline">Demand from Alibaba and Other Giants Boosts China's Homegrown Memory Suppliers</div>
+            <div class="news-source">The Information via Benzinga <span class="sentiment-tag sentiment-neutral">NEUTRAL</span></div>
+            <p style="font-size: 14px; margin-top: 8px; margin-bottom: 0;">Indicates robust capital expenditure and demand in cloud/data center infrastructure.</p>
+        </div>
+    </section>
+    
+    <section class="investment-strategy">
+        <h2>Investment Strategy</h2>
+        
+        <h3>Recommended Action</h3>
+        <p>Initiate a <strong>medium-sized BUY position</strong> within the entry zone ($125-$135). Use dollar-cost averaging over the next 1-2 weeks to mitigate volatility.</p>
+        
+        <h3>Entry Strategy</h3>
+        <p>Accumulate in tranches between <strong>$125 - $135</strong>. Prioritize entries on days with high volume and further weakness. The oversold conditions suggest averaging in makes sense rather than a lump-sum approach.</p>
+        
+        <h3>Exit Strategy</h3>
+        <p>Take <strong>partial profits at the base target ($175, ~34% upside)</strong>. Hold core position for the bull case ($193) unless the fundamental thesis breaks (e.g., catastrophic loss of market share, severe regulatory action).</p>
+        
+        <h3>Timeframe</h3>
+        <p>Primary holding period: <strong>12-18 months</strong> for mean revaluation. Be prepared for short-term volatility — this is not a quick trade. The thesis requires patience as the market reprices the opportunity.</p>
+    </section>
+    
+    <section class="conclusion">
+        <div class="conclusion-box">
+            <h2>What It Means for Investors</h2>
+            
+            <p><strong>Investment Thesis:</strong> Alibaba is a high-quality business trading at a deep discount due to transient, albeit severe, macroeconomic and sentiment headwinds. The combination of extreme oversold technicals, rock-bottom valuation, strong fundamentals, and aggressive capital return creates a highly asymmetric risk/reward profile. This is a classic "be greedy when others are fearful" setup.</p>
+            
+            <div class="who-buy">
+                <h4>✓ Who Should Buy</h4>
+                <ul>
+                    <li>Contrarian and value-oriented investors with a medium-to-long-term horizon</li>
+                    <li>Investors seeking exposure to China's digital economy at a distressed valuation</li>
+                    <li>Portfolios with tolerance for volatility and geopolitical risk</li>
+                </ul>
+            </div>
+            
+            <div class="who-avoid">
+                <h4>✗ Who Should Avoid</h4>
+                <ul>
+                    <li>Short-term traders seeking momentum plays</li>
+                    <li>Investors with zero tolerance for China-related geopolitical risk</li>
+                    <li>Those who cannot emotionally handle further short-term price declines</li>
+                </ul>
+            </div>
+            
+            <div class="final-verdict">
+                <div class="final-verdict-label">Final Verdict</div>
+                <div class="final-verdict-rating">🟢 BUY</div>
+                <p style="margin-bottom: 0; font-size: 16px;">The current price offers a compelling entry point for patient capital. The primary risk is time, not permanent capital loss.</p>
+            </div>
+        </div>
+    </section>
+    
+    <footer>
+        <p><strong>Disclosure:</strong> This report is for informational purposes only and does not constitute investment advice. Past performance is not indicative of future results. Always conduct your own due diligence before making investment decisions.</p>
+        <p>The Motley Fool style equity research report. Data as of March 5, 2026.</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Equity Research Report - Accenture plc (ACN)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --navy: #1A1F2E;
+            --white: #FFFFFF;
+            --light-gray: #F5F7FA;
+            --green: #0D7A47;
+            --red: #C41E3A;
+            --amber: #B8860B;
+            --muted-blue: #4A5568;
+            --border-gray: #E2E8F0;
+            --text-gray: #4A5568;
+            --light-text: #718096;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-size: 13px;
+            line-height: 1.4;
+            color: var(--navy);
+            background: var(--white);
+            padding: 32px 40px;
+        }
+        
+        /* Header */
+        .header {
+            background: var(--navy);
+            color: var(--white);
+            padding: 24px 32px;
+            border-bottom: 3px solid var(--green);
+            margin-bottom: 32px;
+        }
+        
+        .header-main {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 8px;
+        }
+        
+        .company-name {
+            font-size: 28px;
+            font-weight: 700;
+        }
+        
+        .analysis-date {
+            font-size: 14px;
+            color: var(--light-text);
+        }
+        
+        .company-details {
+            font-size: 13px;
+            color: var(--light-text);
+        }
+        
+        /* Sections */
+        .section {
+            margin-bottom: 32px;
+            background: var(--white);
+        }
+        
+        .section-header {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border-gray);
+        }
+        
+        /* Cards and Grids */
+        .card {
+            background: var(--white);
+            border: 1px solid var(--border-gray);
+            border-radius: 4px;
+            padding: 20px;
+            margin-bottom: 16px;
+        }
+        
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+        
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+        }
+        
+        /* Recommendation Badge */
+        .recommendation-badge {
+            border: 2px solid var(--green);
+            background: rgba(13, 122, 71, 0.05);
+            border-radius: 4px;
+            padding: 16px;
+            text-align: center;
+        }
+        
+        .signal-buy {
+            color: var(--green);
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        
+        /* Metrics */
+        .metric-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+        
+        .metric-card {
+            text-align: center;
+            padding: 12px;
+        }
+        
+        .metric-value {
+            font-size: 14px;
+            font-weight: 600;
+            margin: 4px 0;
+        }
+        
+        .metric-label {
+            font-size: 11px;
+            font-weight: 500;
+            color: var(--text-gray);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .positive { color: var(--green); }
+        .negative { color: var(--red); }
+        .neutral { color: var(--amber); }
+        
+        /* Tables */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .data-table th {
+            text-align: left;
+            font-size: 11px;
+            font-weight: 500;
+            color: var(--text-gray);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 8px 12px;
+            border-bottom: 2px solid var(--border-gray);
+        }
+        
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid var(--border-gray);
+        }
+        
+        .data-table tr:nth-child(even) {
+            background: var(--light-gray);
+        }
+        
+        .data-table .number {
+            text-align: right;
+            font-weight: 600;
+        }
+        
+        /* Price Performance */
+        .performance-bar {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 8px;
+            margin: 16px 0;
+        }
+        
+        .performance-period {
+            text-align: center;
+            padding: 8px;
+        }
+        
+        /* Technical Indicators */
+        .indicator-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+        }
+        
+        .indicator {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid var(--border-gray);
+        }
+        
+        .indicator-label {
+            font-size: 11px;
+            font-weight: 500;
+            color: var(--text-gray);
+            text-transform: uppercase;
+        }
+        
+        .indicator-value {
+            font-weight: 600;
+        }
+        
+        .indicator-signal {
+            font-size: 11px;
+        }
+        
+        /* News Items */
+        .news-item {
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border-gray);
+        }
+        
+        .news-meta {
+            font-size: 11px;
+            color: var(--light-text);
+            margin-bottom: 4px;
+        }
+        
+        .news-headline {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        
+        .news-summary {
+            font-size: 12px;
+            color: var(--text-gray);
+        }
+        
+        /* Risk Box */
+        .risk-box {
+            border-left: 4px solid var(--amber);
+            background: rgba(184, 134, 11, 0.05);
+            padding: 16px;
+            margin: 16px 0;
+        }
+        
+        .risk-header {
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        /* Print Styles */
+        @media print {
+            body {
+                background: white !important;
+                color: black !important;
+                padding: 20px;
+            }
+            
+            .no-print { display: none; }
+            
+            a { text-decoration: none; color: black; }
+            
+            .section { page-break-inside: avoid; }
+        }
+        
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .grid-4 { grid-template-columns: repeat(2, 1fr); }
+        }
+        
+        @media (max-width: 768px) {
+            body { padding: 16px; }
+            .grid-2, .grid-4 { grid-template-columns: 1fr; }
+            .performance-bar { grid-template-columns: repeat(3, 1fr); }
+            .indicator-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-main">
+            <h1 class="company-name">Accenture plc (ACN)</h1>
+            <div class="analysis-date">As of: February 25, 2026</div>
+        </div>
+        <div class="company-details">Technology | Information Technology Services | NYSE</div>
+    </header>
+
+    <!-- Executive Summary -->
+    <section class="section">
+        <h2 class="section-header">Executive Summary</h2>
+        <div class="grid-2">
+            <div class="recommendation-badge">
+                <div class="signal-buy">🟢 BUY</div>
+                <div>Confidence: HIGH</div>
+                <div>Time Horizon: 12-18 months</div>
+                <div>Position Size: Medium (3-5%)</div>
+            </div>
+            <div class="card">
+                <div class="metric-row">
+                    <div class="metric-card">
+                        <div class="metric-label">Current Price</div>
+                        <div class="metric-value">$192.12</div>
+                        <div class="metric-label negative">-2.34% today</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Base Target</div>
+                        <div class="metric-value">$285.00</div>
+                        <div class="metric-label">Analyst consensus</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Upside Potential</div>
+                        <div class="metric-value positive">+48.4%</div>
+                        <div class="metric-label">Based on fundamentals</div>
+                    </div>
+                </div>
+                <div class="metric-row">
+                    <div class="metric-card">
+                        <div class="metric-label">Entry Zone</div>
+                        <div class="metric-value">$188-195</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Stop Loss</div>
+                        <div class="metric-value">$175.00</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Dividend Yield</div>
+                        <div class="metric-value positive">3.3%</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <p><strong>Investment Thesis:</strong> Accenture presents a compelling contrarian opportunity after a severe 46.5% decline over the past year. The stock is deeply oversold technically (RSI 21.6), trades at attractive valuations (P/E 15.9 vs historical ~25), maintains strong fundamentals with 7.4% revenue growth and 31.9% operating margins, and offers a 3.3% dividend yield. Recent acquisitions and AI positioning provide catalysts for recovery.</p>
+        </div>
+    </section>
+
+    <!-- Price Performance -->
+    <section class="section">
+        <h2 class="section-header">Price Performance</h2>
+        <div class="card">
+            <div style="text-align: center; color: var(--light-text); margin-bottom: 16px;">
+                Stock in severe downtrend but approaching major support • Trading near 52-week low of $188.74
+            </div>
+            <div class="performance-bar">
+                <div class="performance-period">
+                    <div class="metric-label">1D</div>
+                    <div class="metric-value negative">-2.34%</div>
+                </div>
+                <div class="performance-period">
+                    <div class="metric-label">5D</div>
+                    <div class="metric-value negative">-14.08%</div>
+                </div>
+                <div class="performance-period">
+                    <div class="metric-label">1M</div>
+                    <div class="metric-value negative">-31.56%</div>
+                </div>
+                <div class="performance-period">
+                    <div class="metric-label">3M</div>
+                    <div class="metric-value negative">-23.72%</div>
+                </div>
+                <div class="performance-period">
+                    <div class="metric-label">6M</div>
+                    <div class="metric-value negative">-24.97%</div>
+                </div>
+                <div class="performance-period">
+                    <div class="metric-label">1Y</div>
+                    <div class="metric-value negative">-46.54%</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Fundamental Analysis -->
+    <section class="section">
+        <h2 class="section-header">Fundamental Analysis</h2>
+        <div class="grid-4">
+            <div class="card">
+                <div class="metric-label">Revenue Health</div>
+                <div class="metric-value positive">Strong</div>
+                <div style="margin-top: 8px; font-size: 12px; color: var(--text-gray);">7.4% YoY growth to $69.7B</div>
+            </div>
+            <div class="card">
+                <div class="metric-label">Profitability</div>
+                <div class="metric-value positive">Excellent</div>
+                <div style="margin-top: 8px; font-size: 12px; color: var(--text-gray);">31.9% operating margin</div>
+            </div>
+            <div class="card">
+                <div class="metric-label">Valuation</div>
+                <div class="metric-value positive">Attractive</div>
+                <div style="margin-top: 8px; font-size: 12px; color: var(--text-gray);">P/E 15.9 vs sector avg ~20</div>
+            </div>
+            <div class="card">
+                <div class="metric-label">Financial Health</div>
+                <div class="metric-value positive">Strong</div>
+                <div style="margin-top: 8px; font-size: 12px; color: var(--text-gray);">$7.7B net income, solid cash flow</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sentiment & Market Conditions -->
+    <section class="section">
+        <h2 class="section-header">Sentiment & Market Conditions</h2>
+        <div class="grid-2">
+            <div class="card">
+                <h3 style="font-size: 14px; font-weight: 600; margin-bottom: 12px;">Recent News Sentiment</h3>
+                <div style="font-size: 12px; color: var(--text-gray); margin-bottom: 16px;">
+                    237 articles analyzed • 30% positive, 52% neutral, 18% negative
+                </div>
+                
+                <div class="news-item">
+                    <div class="news-meta">Feb 25 • Yahoo</div>
+                    <div class="news-headline">Accenture's 20% Drop Sparks Opportunity</div>
+                    <div class="news-summary">UBS Sees 49% Upside In Accenture</div>
+                </div>
+                
+                <div class="news-item">
+                    <div class="news-meta">Feb 25 • Yahoo</div>
+                    <div class="news-headline">Accenture (ACN) Targets Infrastructure Growth in Latin America with Verum Acquisition</div>
+                    <div class="news-summary">Strategic acquisition to expand infrastructure consulting capabilities</div>
+                </div>
+                
+                <div class="news-item">
+                    <div class="news-meta">Feb 25 • Yahoo</div>
+                    <div class="news-headline">1 Oversold Stock Set for a Comeback and 2 We Ignore</div>
+                    <div class="news-summary">Identifies ACN as oversold opportunity</div>
+                </div>
+            </div>
+            <div class="card">
+                <h3 style="font-size: 14px; font-weight: 600; margin-bottom: 12px;">Why Stock Declined</h3>
+                <div style="margin-bottom: 16px;">
+                    <div style="display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid var(--border-gray);">
+                        <span>AI Disruption Fears</span>
+                        <span style="font-weight: 600;">35%</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid var(--border-gray);">
+                        <span>Sector Rotation</span>
+                        <span style="font-weight: 600;">25%</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid var(--border-gray);">
+                        <span>Client Spending Cuts</span>
+                        <span style="font-weight: 600;">20%</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; padding: 8px 0;">
+                        <span>Multiple Compression</span>
+                        <span style="font-weight: 600;">20%</span>
+                    </div>
+                </div>
+                
+                <div style="background: var(--light-gray); padding: 12px; border-radius: 4px;">
+                    <strong>Contrarian View:</strong> Accenture is actually positioned to benefit from AI adoption through implementation services, and current valuation doesn't reflect their strong competitive position and diversified service offerings.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technical Analysis -->
+    <section class="section">
+        <h2 class="section-header">Technical Analysis</h2>
+        <div class="card">
+            <div style="text-align: center; color: var(--light-text); margin-bottom: 16px;">
+                Overall Trend: Bearish but oversold
+            </div>
+            <div class="indicator-grid">
+                <div>
+                    <div class="indicator">
+                        <span class="indicator-label">RSI (14)</span>
+                        <span class="indicator-value">21.6</span>
+                        <span class="indicator-signal positive">Oversold ▲</span>
+                    </div>
+                    <div class="indicator">
+                        <span class="indicator-label">MACD</span>
+                        <span class="indicator-value">-17.63</span>
+                        <span class="indicator-signal negative">Bearish ▼</span>
+                    </div>
+                </div>
+                <div>
+                    <div class="indicator">
+                        <span class="indicator-label">SMA 50</span>
+                        <span class="indicator-value">$257.93</span>
+                        <span class="indicator-signal">-25% below</span>
+                    </div>
+                    <div class="indicator">
+                        <span class="indicator-label">SMA 200</span>
+                        <span class="indicator-value">$265.90</span>
+                        <span class="indicator-signal">-28% below</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Financial Data -->
+    <section class="section">
+        <h2 class="section-header">Financial Data</h2>
+        <div class="card">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Income Statement</th>
+                        <th class="number">Q1 FY26</th>
+                        <th class="number">Q4 FY25</th>
+                        <th class="number">Q3 FY25</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Revenue</td>
+                        <td class="number">$17.7B</td>
+                        <td class="number">$16.9B</td>
+                        <td class="number">$16.5B</td>
+                    </tr>
+                    <tr>
+                        <td>YoY Growth</td>
+                        <td class="number positive">+5.2%</td>
+                        <td class="number positive">+3.8%</td>
+                        <td class="number positive">+2.1%</td>
+                    </tr>
+                    <tr>
+                        <td>Gross Profit</td>
+                        <td class="number">$5.6B</td>
+                        <td class="number">$5.4B</td>
+                        <td class="number">$5.2B</td>
+                    </tr>
+                    <tr>
+                        <td>Margin</td>
+                        <td class="number">31.6%</td>
+                        <td class="number">32.0%</td>
+                        <td class="number">31.5%</td>
+                    </tr>
+                    <tr>
+                        <td>Operating Income</td>
+                        <td class="number">$2.6B</td>
+                        <td class="number">$2.5B</td>
+                        <td class="number">$2.4B</td>
+                    </tr>
+                    <tr>
+                        <td>Margin</td>
+                        <td class="number">14.7%</td>
+                        <td class="number">14.8%</td>
+                        <td class="number">14.5%</td>
+                    </tr>
+                    <tr>
+                        <td>Net Income</td>
+                        <td class="number">$1.9B</td>
+                        <td class="number">$1.8B</td>
+                        <td class="number">$1.7B</td>
+                    </tr>
+                    <tr>
+                        <td>EPS</td>
+                        <td class="number">$3.57</td>
+                        <td class="number">$3.42</td>
+                        <td class="number">$3.28</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- Strategy -->
+    <section class="section">
+        <h2 class="section-header">Investment Strategy</h2>
+        <div class="grid-2">
+            <div class="card">
+                <h3 style="font-size: 14px; font-weight: 600; margin-bottom: 12px;">Entry Plan</h3>
+                <div style="margin-bottom: 16px;">
+                    <div style="padding: 8px 0; border-bottom: 1px solid var(--border-gray);">
+                        <strong>Buy 50% now</strong> at $188-195 entry zone
+                    </div>
+                    <div style="padding: 8px 0; border-bottom: 1px solid var(--border-gray);">
+                        <strong>Add 25%</strong> if holds above $185 support
+                    </div>
+                    <div style="padding: 8px 0;">
+                        <strong>Final 25%</strong> on break above $210 resistance
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <h3 style="font-size: 14px; font-weight: 600; margin-bottom: 12px;">Exit Plan & Risk Management</h3>
+                <div style="margin-bottom: 16px;">
+                    <div style="padding: 8px 0; border-bottom: 1px solid var(--border-gray);">
+                        <strong>Take profits</strong> at $285 (base target)
+                    </div>
+                    <div style="padding: 8px 0; border-bottom: 1px solid var(--border-gray);">
+                        <strong>Stop loss</strong> at $175 (8.9% below current)
+                    </div>
+                    <div style="padding: 8px 0;">
+                        <strong>Timeframe:</strong> 12-18 months for full thesis
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="risk-box">
+            <div class="risk-header">RISK: Technical Breakdown</div>
+            <div style="margin-bottom: 8px;">Severity: HIGH | Probability: MEDIUM</div>
+            <div style="margin-bottom: 8px;">If $188 support breaks, stock could fall to $165 support level, representing additional 14% downside.</div>
+            <div>Mitigation: Set stop-loss at $175 (8.9% below current)</div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="section" style="border-top: 1px solid var(--border-gray); padding-top: 24px; margin-top: 32px;">
+        <div style="font-size: 11px; color: var(--light-text); line-height: 1.6;">
+            <p><strong>Disclaimer:</strong> This report is for informational purposes only and does not constitute investment advice. Past performance is not indicative of future results. Investors should conduct their own research and consult with financial advisors before making investment decisions.</p>
+            <p><strong>Data Sources:</strong> Market data, financial statements, and news sentiment analysis compiled from multiple sources including Bloomberg, Yahoo Finance, and company filings.</p>
+            <p><strong>Analyst Methodology:</strong> Weighted analysis combining fundamental (35%), technical (25%), sentiment (20%), and risk (20%) factors. Model: deepseek/deepseek-v3.1-terminus</p>
+            <p><strong>Analyst:</strong> AI Equity Research Analyst | Report Generated: February 25, 2026</p>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accenture (ACN) - Equity Research Report</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Source Sans Pro', 'Helvetica Neue', Arial, sans-serif;
+            font-size: 18px;
+            line-height: 1.6;
+            color: #1E3A5F;
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            background: #FFFFFF;
+        }
+
+        /* Header Styles */
+        .article-header {
+            margin-bottom: 32px;
+            border-bottom: 3px solid #3D8B37;
+            padding-bottom: 24px;
+        }
+
+        .company-name {
+            font-size: 42px;
+            font-weight: 700;
+            color: #1E3A5F;
+            margin-bottom: 4px;
+            letter-spacing: -0.5px;
+        }
+
+        .ticker {
+            color: #3D8B37;
+            font-weight: 600;
+            font-size: 20px;
+        }
+
+        .thesis {
+            font-size: 20px;
+            color: #6B7280;
+            font-style: italic;
+            margin-top: 12px;
+            line-height: 1.5;
+        }
+
+        .publication-date {
+            font-size: 14px;
+            color: #9CA3AF;
+            margin-top: 12px;
+        }
+
+        /* Price Box */
+        .price-box {
+            background: linear-gradient(135deg, #F0F7EF 0%, #F7F7F7 100%);
+            border: 1px solid #E5E7EB;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 32px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: space-between;
+        }
+
+        .price-main {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .current-price-label {
+            font-size: 14px;
+            color: #6B7280;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .current-price {
+            font-size: 36px;
+            font-weight: 700;
+            color: #1E3A5F;
+        }
+
+        .price-change {
+            font-size: 18px;
+            font-weight: 600;
+            color: #C41E3A;
+            margin-top: 4px;
+        }
+
+        .price-change.positive {
+            color: #0D7A47;
+        }
+
+        .price-targets {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .target-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #E5E7EB;
+        }
+
+        .target-row:last-child {
+            border-bottom: none;
+        }
+
+        .target-label {
+            color: #6B7280;
+            font-size: 15px;
+        }
+
+        .target-value {
+            font-weight: 600;
+            color: #1E3A5F;
+        }
+
+        .target-value.bull {
+            color: #0D7A47;
+        }
+
+        .target-value.stop {
+            color: #C41E3A;
+        }
+
+        .entry-zone {
+            background: #E8F5E9;
+            color: #2E7D32;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 16px;
+            text-align: center;
+            width: 100%;
+            margin-top: 8px;
+        }
+
+        /* Signal Box */
+        .signal-box {
+            background: #1E3A5F;
+            color: white;
+            padding: 20px 24px;
+            border-radius: 10px;
+            margin-bottom: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .signal-main {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .signal-indicator {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #3D8B37;
+            box-shadow: 0 0 10px rgba(61, 139, 55, 0.5);
+        }
+
+        .signal-text {
+            font-size: 24px;
+            font-weight: 700;
+            color: #3D8B37;
+            background: white;
+            padding: 4px 16px;
+            border-radius: 4px;
+        }
+
+        .signal-details {
+            display: flex;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+
+        .signal-detail {
+            text-align: center;
+        }
+
+        .signal-detail-label {
+            font-size: 12px;
+            color: #B0BEC5;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .signal-detail-value {
+            font-size: 16px;
+            font-weight: 600;
+            color: white;
+        }
+
+        /* Section Headers */
+        h2 {
+            font-size: 26px;
+            font-weight: 700;
+            color: #1E3A5F;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #E5E7EB;
+        }
+
+        h3 {
+            font-size: 20px;
+            font-weight: 600;
+            color: #1E3A5F;
+            margin-top: 24px;
+            margin-bottom: 12px;
+        }
+
+        /* Content Styling */
+        .intro p {
+            font-size: 19px;
+            line-height: 1.7;
+            margin-bottom: 20px;
+            color: #374151;
+        }
+
+        .content-section {
+            margin-bottom: 24px;
+        }
+
+        .content-section p {
+            margin-bottom: 16px;
+            color: #374151;
+        }
+
+        /* Bull/Bear Sections */
+        .bull-case, .bear-case {
+            padding: 24px;
+            border-radius: 10px;
+            margin: 24px 0;
+        }
+
+        .bull-case {
+            background: linear-gradient(135deg, #F0F7EF 0%, #E8F5E9 100%);
+            border-left: 4px solid #3D8B37;
+        }
+
+        .bear-case {
+            background: linear-gradient(135deg, #FFF5F5 0%, #FFEBEE 100%);
+            border-left: 4px solid #C41E3A;
+        }
+
+        .bull-case h2 {
+            color: #2E7D32;
+            border-bottom-color: #A5D6A7;
+        }
+
+        .bear-case h2 {
+            color: #C41E3A;
+            border-bottom-color: #FFCDD2;
+        }
+
+        .bull-case ul, .bear-case ul {
+            margin: 16px 0;
+            padding-left: 24px;
+        }
+
+        .bull-case li, .bear-case li {
+            margin-bottom: 12px;
+            color: #374151;
+        }
+
+        .bull-case li strong {
+            color: #2E7D32;
+        }
+
+        .bear-case li strong {
+            color: #C41E3A;
+        }
+
+        /* Key Points Highlight */
+        .key-point {
+            background: #F7F7F7;
+            padding: 16px 20px;
+            border-radius: 8px;
+            margin: 16px 0;
+            border-left: 3px solid #3D8B37;
+        }
+
+        .key-point.bear {
+            border-left-color: #C41E3A;
+        }
+
+        .key-point p {
+            margin: 0;
+            color: #374151;
+        }
+
+        /* Traffic Light Analysis */
+        .traffic-light {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 16px;
+            margin: 24px 0;
+        }
+
+        .light-item {
+            background: #F7F7F7;
+            padding: 20px 16px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .light-bulb {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin: 0 auto 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .light-bulb.green {
+            background: linear-gradient(135deg, #4CAF50, #2E7D32);
+            box-shadow: 0 0 15px rgba(46, 125, 50, 0.4);
+        }
+
+        .light-bulb.yellow {
+            background: linear-gradient(135deg, #FFC107, #FF9800);
+            box-shadow: 0 0 15px rgba(255, 152, 0, 0.4);
+        }
+
+        .light-bulb.red {
+            background: linear-gradient(135deg, #EF5350, #C41E3A);
+            box-shadow: 0 0 15px rgba(196, 30, 58, 0.4);
+        }
+
+        .light-label {
+            font-size: 13px;
+            color: #6B7280;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+
+        .light-value {
+            font-size: 15px;
+            font-weight: 700;
+            color: #1E3A5F;
+            margin-top: 4px;
+        }
+
+        /* Metrics Bar */
+        .metrics-bar {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            background: linear-gradient(135deg, #F7F7F7 0%, #EEEEEE 100%);
+            padding: 20px 24px;
+            border-radius: 10px;
+            margin: 32px 0;
+            gap: 16px;
+        }
+
+        .metric-item {
+            text-align: center;
+            flex: 1;
+            min-width: 100px;
+        }
+
+        .metric-label {
+            font-size: 12px;
+            color: #6B7280;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+
+        .metric-value {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1E3A5F;
+            margin-top: 4px;
+        }
+
+        .metric-value.positive {
+            color: #0D7A47;
+        }
+
+        .metric-value.negative {
+            color: #C41E3A;
+        }
+
+        /* News Items */
+        .news-item {
+            background: #F7F7F7;
+            padding: 16px 20px;
+            border-radius: 8px;
+            margin-bottom: 16px;
+            border-left: 3px solid #6B7280;
+        }
+
+        .news-item.positive {
+            border-left-color: #3D8B37;
+        }
+
+        .news-item.negative {
+            border-left-color: #C41E3A;
+        }
+
+        .news-date {
+            font-size: 13px;
+            color: #9CA3AF;
+            margin-bottom: 4px;
+        }
+
+        .news-headline {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1E3A5F;
+            margin-bottom: 4px;
+        }
+
+        .news-source {
+            font-size: 14px;
+            color: #6B7280;
+        }
+
+        /* Strategy Box */
+        .strategy-box {
+            background: linear-gradient(135deg, #E3F2FD 0%, #F7F7F7 100%);
+            border: 1px solid #BBDEFB;
+            border-radius: 10px;
+            padding: 24px;
+            margin: 24px 0;
+        }
+
+        .strategy-box h3 {
+            color: #1565C0;
+            margin-top: 0;
+        }
+
+        .strategy-row {
+            display: flex;
+            padding: 12px 0;
+            border-bottom: 1px solid #E5E7EB;
+        }
+
+        .strategy-row:last-child {
+            border-bottom: none;
+        }
+
+        .strategy-label {
+            font-weight: 600;
+            color: #1E3A5F;
+            min-width: 140px;
+        }
+
+        .strategy-value {
+            color: #374151;
+        }
+
+        /* Conclusion Box */
+        .conclusion-box {
+            background: #1E3A5F;
+            color: white;
+            padding: 28px;
+            border-radius: 12px;
+            margin-top: 32px;
+        }
+
+        .conclusion-box h2 {
+            color: white;
+            border-bottom-color: #374151;
+            margin-top: 0;
+        }
+
+        .conclusion-box p {
+            color: #E0E0E0;
+            margin-bottom: 16px;
+        }
+
+        .verdict {
+            background: #3D8B37;
+            color: white;
+            padding: 16px 24px;
+            border-radius: 8px;
+            font-size: 20px;
+            font-weight: 700;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .who-section {
+            margin-top: 20px;
+        }
+
+        .who-title {
+            font-weight: 600;
+            color: #A5D6A7;
+            margin-bottom: 8px;
+        }
+
+        .who-list {
+            color: #E0E0E0;
+            padding-left: 20px;
+        }
+
+        .who-list li {
+            margin-bottom: 6px;
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: 40px;
+            padding-top: 24px;
+            border-top: 1px solid #E5E7EB;
+            font-size: 13px;
+            color: #9CA3AF;
+        }
+
+        .footer p {
+            margin-bottom: 8px;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            body {
+                padding: 20px 16px;
+            }
+
+            .company-name {
+                font-size: 32px;
+            }
+
+            .current-price {
+                font-size: 28px;
+            }
+
+            .signal-box {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .signal-details {
+                width: 100%;
+                justify-content: space-between;
+            }
+
+            .metrics-bar {
+                flex-direction: column;
+            }
+
+            .metric-item {
+                padding: 8px 0;
+                border-bottom: 1px solid #E5E7EB;
+            }
+
+            .bull-case, .bear-case {
+                padding: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="article-header">
+        <h1 class="company-name">Accenture <span class="ticker">(ACN)</span></h1>
+        <p class="thesis">A world-class consulting firm trading at rare discount after 46% decline</p>
+        <p class="publication-date">Published: February 25, 2026 | Analysis Date: February 25, 2026</p>
+    </header>
+
+    <aside class="price-box">
+        <div class="price-main">
+            <div class="current-price-label">Current Price</div>
+            <div class="current-price">$192.12</div>
+            <div class="price-change">▼ 46.5% (52-week)</div>
+            <div class="entry-zone">Entry Zone: $188 - $195</div>
+        </div>
+        <div class="price-targets">
+            <div class="target-row">
+                <span class="target-label">Base Target</span>
+                <span class="target-value bull">$285 (48%)</span>
+            </div>
+            <div class="target-row">
+                <span class="target-label">Bull Case</span>
+                <span class="target-value bull">$320 (67%)</span>
+            </div>
+            <div class="target-row">
+                <span class="target-label">Stop Loss</span>
+                <span class="target-value stop">$175 (-9%)</span>
+            </div>
+        </div>
+    </aside>
+
+    <div class="signal-box">
+        <div class="signal-main">
+            <div class="signal-indicator"></div>
+            <span class="signal-text">BUY</span>
+        </div>
+        <div class="signal-details">
+            <div class="signal-detail">
+                <div class="signal-detail-label">Confidence</div>
+                <div class="signal-detail-value">HIGH</div>
+            </div>
+            <div class="signal-detail">
+                <div class="signal-detail-label">Time Horizon</div>
+                <div class="signal-detail-value">12-18 Months</div>
+            </div>
+            <div class="signal-detail">
+                <div class="signal-detail-label">Risk Rating</div>
+                <div class="signal-detail-value">MODERATE</div>
+            </div>
+        </div>
+    </div>
+
+    <section class="intro">
+        <p>Accenture has been a reliable wealth creator for long-term investors over the past decade, delivering consistent revenue growth and expanding margins as enterprises increasingly outsourced their digital transformation needs. But the stock has gotten hammered over the past year, falling 46.5% from its 2025 highs as investors fled from growth-oriented technology stocks.</p>
+        
+        <p>Here's the thing: the fundamentals haven't deteriorated. Revenue is still growing at 7.4% annually, margins remain exceptional at nearly 32%, and the company generates billions in free cash flow. What has changed is sentiment—and that's creating a compelling opportunity for contrarian investors.</p>
+        
+        <p>Let's break down why we believe Accenture represents a rare chance to buy a high-quality business at a distressed price.</p>
+    </section>
+
+    <section class="bull-case">
+        <h2>Bull Case</h2>
+        <p>Accenture's competitive moat is deeper than most investors realize. The company doesn't just advise on technology—it implements it at enterprise scale across virtually every industry. <strong>Here's why the bull case is compelling:</strong></p>
+        
+        <ul>
+            <li><strong>Deeply Oversold Technicals:</strong> The RSI reading of 21.6 indicates the stock is in extreme oversold territory. For context, RSI below 30 is traditionally considered oversold, and this reading is among the most extreme we've seen in a large-cap technology stock. History shows such extremes often precede meaningful bounces.</li>
+            
+            <li><strong>Attractive Valuation: </strong>Trading at just 15.9x earnings versus its historical average of 25x, Accenture is essentially being valued as a mature, no-growth business. But it's still growing revenue at 7.4% and generating 11% net margins. The market is pricing in a recession that hasn't arrived.</li>
+            
+            <li><strong>Strong Dividend Yield:</strong> At 3.3%, the dividend yield is near historic highs and provides a nice floor while waiting for the thesis to play out. With a 50% payout ratio, the dividend is sustainable even in a downside scenario. That's real income while you wait.</li>
+            
+            <li><strong>AI Tailwind, Not Threat:</strong> Here's what many investors miss: AI doesn't reduce demand for Accenture—it increases it. Companies need help implementing AI solutions, training workforces, and integrating new technologies into existing systems. Accenture is positioned to capture this spending, not be disrupted by it.</li>
+            
+            <li><strong>Strategic Acquisitions:</strong> Recent acquisitions like Verum in Latin America demonstrate management's commitment to expanding capabilities in high-growth infrastructure consulting. These moves strengthen the competitive position while the stock is undervalued.</li>
+        </ul>
+        
+        <div class="key-point">
+            <p><strong>The Bottom Line:</strong> Accenture is a high-quality business that's been punished for macro concerns that don't reflect its actual competitive position. The risk-reward setup here is exceptionally favorable for patient investors.</p>
+        </div>
+    </section>
+
+    <section class="bear-case">
+        <h2>Bear Case</h2>
+        <p>Despite the compelling valuation and quality factors, investors must honestly assess the risks. The bear case centers on several legitimate concerns:</p>
+        
+        <ul>
+            <li><strong>Sector Headwinds:</strong> Enterprise spending on IT consulting has slowed as companies tighten budgets in an uncertain economic environment. This is a real headwind that could persist for several quarters.</li>
+            
+            <li><strong>AI Disruption Fears:</strong> While we believe AI actually benefits Accenture, there's genuine uncertainty about how rapidly artificial intelligence could automate certain consulting functions. The market is giving the company no benefit of the doubt here.</li>
+            
+            <li><strong>Technical Downtrend:</strong> The stock is in a clear downtrend, trading 25-28% below its 50-day and 200-day moving averages. Momentum can remain negative for extended periods, and catching a falling knife can be painful.</li>
+            
+            <li><strong>Multiple Compression:</strong> The P/E has compressed from 25x to under 16x as growth expectations have reset. There's no guarantee this multiple expands again, especially if growth slows further.</li>
+        </ul>
+        
+        <div class="key-point bear">
+            <p><strong>Honest Assessment:</strong> The risks are real but appear already priced in. At current levels, you're not paying a premium for growth that may not materialize—you're getting a quality business at a discount with a dividend buffer.</p>
+        </div>
+    </section>
+
+    <section class="traffic-light-analysis">
+        <h2>Traffic Light Analysis</h2>
+        <div class="traffic-light">
+            <div class="light-item">
+                <div class="light-bulb green"></div>
+                <div class="light-label">Fundamentals</div>
+                <div class="light-value">Strong</div>
+            </div>
+            <div class="light-item">
+                <div class="light-bulb green"></div>
+                <div class="light-label">Technical</div>
+                <div class="light-value">Oversold</div>
+            </div>
+            <div class="light-item">
+                <div class="light-bulb yellow"></div>
+                <div class="light-label">Sentiment</div>
+                <div class="light-value">Mixed</div>
+            </div>
+            <div class="light-item">
+                <div class="light-bulb yellow"></div>
+                <div class="light-label">Risk</div>
+                <div class="light-value">Moderate</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="key-metrics">
+        <h2>Key Metrics</h2>
+        <div class="metrics-bar">
+            <div class="metric-item">
+                <div class="metric-label">Revenue (TTM)</div>
+                <div class="metric-value">$69.7B</div>
+            </div>
+            <div class="metric-item">
+                <div class="metric-label">P/E Ratio</div>
+                <div class="metric-value">15.9x</div>
+            </div>
+            <div class="metric-item">
+                <div class="metric-label">Div Yield</div>
+                <div class="metric-value positive">3.3%</div>
+            </div>
+            <div class="metric-item">
+                <div class="metric-label">RSI</div>
+                <div class="metric-value negative">21.6</div>
+            </div>
+            <div class="metric-item">
+                <div class="metric-label">Op. Margin</div>
+                <div class="metric-value positive">31.9%</div>
+            </div>
+            <div class="metric-item">
+                <div class="metric-label">Net Margin</div>
+                <div class="metric-value positive">11.0%</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="market-conditions">
+        <h2>Why Accenture Has Declined</h2>
+        <p>The 46.5% decline in Accenture shares reflects several interconnected factors that have created perfect storm of negative sentiment:</p>
+        
+        <div class="key-point">
+            <p><strong>Primary Drivers:</strong></p>
+            <ul style="margin-top: 12px; margin-bottom: 0;">
+                <li><strong>AI Disruption Fears (35%):</strong> Concerns that AI will reduce demand for traditional consulting services</li>
+                <li><strong>Sector Rotation (25%):</strong> Rotation out of growth tech stocks into value and defensive sectors</li>
+                <li><strong>Client Spending Cuts (20%):</strong> Enterprise clients reducing discretionary IT budgets</li>
+                <li><strong>Multiple Compression (20%):</strong> P/E compression from ~25x to 15.9x as growth expectations reset</li>
+            </ul>
+        </div>
+        
+        <h3>Contrarian View</h3>
+        <p>Here's what the bears are missing: Accenture is actually positioned to benefit significantly from AI adoption. Companies don't just need AI tools—they need help implementing them, integrating them with existing systems, training employees, and managing the change process. That's exactly what Accenture does. The recent acquisition activity shows management is doubling down on AI capabilities.</p>
+        
+        <p>Additionally, the current valuation implies no growth whatsoever. At 15.9x earnings for a company still growing revenue at 7.4%, the market is essentially pricing in a recession scenario. We believe that's overly pessimistic for a business with 90%+ client retention and diversified exposure across industries and geographies.</p>
+    </section>
+
+    <section class="recent-news">
+        <h2>Recent News Analysis</h2>
+        <p>We analyzed 237 articles from the past two months. The overall sentiment is mixed (30% positive, 52% neutral, 18% negative), which is actually encouraging given the price decline—sentiment isn't as negative as the price action would suggest.</p>
+        
+        <div class="news-item positive">
+            <div class="news-date">February 25, 2026</div>
+            <div class="news-headline">Accenture's 20% Drop Sparks Opportunity</div>
+            <div class="news-source">Yahoo Finance | UBS sees 49% upside</div>
+        </div>
+        
+        <div class="news-item positive">
+            <div class="news-date">February 25, 2026</div>
+            <div class="news-headline">Accenture Targets Infrastructure Growth in Latin America with Verum Acquisition</div>
+            <div class="news-source">Yahoo Finance | Strategic expansion move</div>
+        </div>
+        
+        <div class="news-item positive">
+            <div class="news-date">February 25, 2026</div>
+            <div class="news-headline">1 Oversold Stock Set for a Comeback and 2 We Ignore</div>
+            <div class="news-source">Yahoo Finance | Identifies ACN as oversold opportunity</div>
+        </div>
+    </section>
+
+    <section class="investment-strategy">
+        <h2>Investment Strategy</h2>
+        <div class="strategy-box">
+            <h3>Recommended Action: ACCUMULATE</h3>
+            
+            <div class="strategy-row">
+                <span class="strategy-label">Entry Strategy</span>
+                <span class="strategy-value">Buy 50% now at $188-195, add 25% if holds above $185, final 25% on break above $210</span>
+            </div>
+            
+            <div class="strategy-row">
+                <span class="strategy-label">Exit Strategy</span>
+                <span class="strategy-value">Take profits at $285 (base target), stop loss at $175</span>
+            </div>
+            
+            <div class="strategy-row">
+                <span class="strategy-label">Timeframe</span>
+                <span class="strategy-value">12-18 months for full thesis realization</span>
+            </div>
+            
+            <div class="strategy-row">
+                <span class="strategy-label">Position Size</span>
+                <span class="strategy-value">3-5% of portfolio (high-conviction but don't overexpose)</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="conclusion-box">
+        <h2>What It Means for Investors</h2>
+        <p>Accenture represents a classic contrarian opportunity: a high-quality business that's been caught in a sector selloff driven by fears rather than fundamentals. The stock is deeply oversold, the valuation is attractive, and the dividend provides income while you wait for a recovery that history suggests will come.</p>
+        
+        <div class="who-section">
+            <div class="who-title">✓ Who Should Buy:</div>
+            <ul class="who-list">
+                <li>Value investors looking for quality at a discount</li>
+                <li>Income seekers attracted by the 3.3% dividend yield</li>
+                <li>Contrarian investors with a 12-18 month time horizon</li>
+                <li>Those who believe AI benefits Accenture, not threatens it</li>
+            </ul>
+        </div>
+        
+        <div class="who-section">
+            <div class="who-title" style="color: #EF9A9A;">✗ Who Should Avoid:</div>
+            <ul class="who-list">
+                <li>Short-term traders needing immediate returns</li>
+                <li>Momentum investors who prefer rising stocks</li>
+                <li>Those who can't stomach 10-15% further downside</li>
+                <li>Investors with urgent capital needs</li>
+            </ul>
+        </div>
+        
+        <div class="verdict">
+            STRONG BUY — Current price offers margin of safety with multiple paths to recovery
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p><strong>Disclosure:</strong> This report is for informational purposes only and does not constitute investment advice. The author may hold positions in the securities mentioned. Investors should conduct their own due diligence and consult with a qualified financial advisor before making investment decisions.</p>
+        <p><strong>Analyst:</strong> Equity Research Team | Report Generated: February 25, 2026</p>
+        <p>© 2026 The Motley Fool Style Equity Research. All rights reserved.</p>
+    </footer>
+</body>
+</html>

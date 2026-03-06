@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NVIDIA (NVDA) - Equity Research Report | The Motley Fool</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Reset and Base Styles */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --fool-green: #3D8B37;
+            --dark-green: #2D6A32;
+            --fool-orange: #FF6B35;
+            --navy: #1E3A5F;
+            --light-gray: #F7F7F7;
+            --white: #FFFFFF;
+            --positive: #0D7A47;
+            --negative: #C41E3A;
+            --neutral: #6B7280;
+        }
+
+        body {
+            font-family: 'Source Sans Pro', 'Helvetica Neue', Arial, sans-serif;
+            font-size: 18px;
+            line-height: 1.6;
+            color: var(--navy);
+            background: var(--white);
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* Typography */
+        h1 {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--navy);
+            letter-spacing: -0.5px;
+        }
+
+        h2 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            color: var(--navy);
+            border-bottom: 2px solid var(--fool-green);
+            padding-bottom: 8px;
+            display: inline-block;
+        }
+
+        h3 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-top: 24px;
+            margin-bottom: 12px;
+            color: var(--navy);
+        }
+
+        p {
+            margin-bottom: 20px;
+        }
+
+        .thesis {
+            font-size: 20px;
+            color: var(--neutral);
+            font-style: italic;
+            margin-bottom: 32px;
+            line-height: 1.5;
+        }
+
+        .lead {
+            font-size: 20px;
+            font-weight: 400;
+            color: var(--navy);
+            margin-bottom: 28px;
+        }
+
+        /* Article Header */
+        .article-header {
+            margin-bottom: 24px;
+        }
+
+        .article-meta {
+            font-size: 14px;
+            color: var(--neutral);
+            margin-top: 8px;
+        }
+
+        /* Price Box */
+        .price-box {
+            background: var(--light-gray);
+            border-radius: 12px;
+            padding: 24px;
+            margin: 0 0 32px 0;
+            border-left: 5px solid var(--fool-green);
+        }
+
+        .price-box-header {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--neutral);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 16px;
+        }
+
+        .price-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .price-item {
+            flex: 1;
+            min-width: 120px;
+        }
+
+        .price-label {
+            font-size: 13px;
+            color: var(--neutral);
+            margin-bottom: 4px;
+        }
+
+        .price-value {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--navy);
+        }
+
+        .price-value.large {
+            font-size: 28px;
+        }
+
+        .price-value.positive {
+            color: var(--positive);
+        }
+
+        .price-value.negative {
+            color: var(--negative);
+        }
+
+        .price-change {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--negative);
+        }
+
+        .price-divider {
+            height: 1px;
+            background: #ddd;
+            margin: 16px 0;
+        }
+
+        .target-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .target-item {
+            flex: 1;
+            min-width: 100px;
+            text-align: center;
+            padding: 12px;
+            background: var(--white);
+            border-radius: 8px;
+        }
+
+        .target-label {
+            font-size: 12px;
+            color: var(--neutral);
+            margin-bottom: 4px;
+        }
+
+        .target-value {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--positive);
+        }
+
+        .target-value.stop {
+            color: var(--negative);
+        }
+
+        /* Signal Badge */
+        .signal-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .signal-badge.buy {
+            background: rgba(61, 139, 55, 0.1);
+            color: var(--fool-green);
+            border: 2px solid var(--fool-green);
+        }
+
+        .signal-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: currentColor;
+        }
+
+        /* Traffic Light Analysis */
+        .traffic-light {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 12px;
+            margin: 32px 0;
+            padding: 20px;
+            background: var(--light-gray);
+            border-radius: 12px;
+        }
+
+        .traffic-item {
+            text-align: center;
+        }
+
+        .traffic-light-bulb {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            margin: 0 auto 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .traffic-light-bulb.green {
+            background: var(--positive);
+            box-shadow: 0 0 12px rgba(13, 122, 71, 0.4);
+        }
+
+        .traffic-light-bulb.yellow {
+            background: var(--fool-orange);
+            box-shadow: 0 0 12px rgba(255, 107, 53, 0.4);
+        }
+
+        .traffic-light-bulb.red {
+            background: var(--negative);
+            box-shadow: 0 0 12px rgba(196, 30, 58, 0.4);
+        }
+
+        .traffic-light-bulb.gray {
+            background: var(--neutral);
+        }
+
+        .traffic-label {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--neutral);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .traffic-value {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--navy);
+            margin-top: 4px;
+        }
+
+        /* Key Metrics Bar */
+        .metrics-bar {
+            display: flex;
+            justify-content: space-between;
+            background: var(--light-gray);
+            padding: 16px 20px;
+            margin: 32px 0;
+            border-radius: 8px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .metric {
+            text-align: center;
+            flex: 1;
+            min-width: 100px;
+        }
+
+        .metric-value {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--navy);
+        }
+
+        .metric-label {
+            font-size: 12px;
+            color: var(--neutral);
+            margin-top: 2px;
+        }
+
+        /* Bull and Bear Cases */
+        .case-section {
+            margin: 32px 0;
+        }
+
+        .bull-case {
+            background: rgba(13, 122, 71, 0.05);
+            border-radius: 12px;
+            padding: 24px;
+            border-left: 4px solid var(--positive);
+        }
+
+        .bear-case {
+            background: rgba(196, 30, 58, 0.05);
+            border-radius: 12px;
+            padding: 24px;
+            border-left: 4px solid var(--negative);
+        }
+
+        .case-list {
+            list-style: none;
+            margin-top: 16px;
+        }
+
+        .case-list li {
+            position: relative;
+            padding-left: 24px;
+            margin-bottom: 16px;
+            font-size: 17px;
+        }
+
+        .case-list li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            font-weight: 700;
+        }
+
+        .bull-case .case-list li::before {
+            color: var(--positive);
+        }
+
+        .bear-case .case-list li::before {
+            color: var(--negative);
+        }
+
+        strong {
+            font-weight: 600;
+            color: var(--navy);
+        }
+
+        /* News Section */
+        .news-item {
+            padding: 16px;
+            background: var(--light-gray);
+            border-radius: 8px;
+            margin-bottom: 12px;
+        }
+
+        .news-headline {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--navy);
+            margin-bottom: 6px;
+        }
+
+        .news-meta {
+            font-size: 13px;
+            color: var(--neutral);
+        }
+
+        .sentiment-badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-left: 8px;
+        }
+
+        .sentiment-badge.positive {
+            background: rgba(13, 122, 71, 0.15);
+            color: var(--positive);
+        }
+
+        .sentiment-badge.negative {
+            background: rgba(196, 30, 58, 0.15);
+            color: var(--negative);
+        }
+
+        .sentiment-badge.neutral {
+            background: rgba(107, 114, 128, 0.15);
+            color: var(--neutral);
+        }
+
+        /* Strategy Section */
+        .strategy-box {
+            background: var(--navy);
+            color: var(--white);
+            border-radius: 12px;
+            padding: 24px;
+            margin: 32px 0;
+        }
+
+        .strategy-box h2 {
+            color: var(--white);
+            border-bottom-color: var(--fool-green);
+            margin-top: 0;
+        }
+
+        .strategy-box p {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .strategy-list {
+            list-style: none;
+            margin-top: 16px;
+        }
+
+        .strategy-list li {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 12px;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .strategy-list li::before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: var(--fool-green);
+            font-weight: 700;
+        }
+
+        /* Conclusion Box */
+        .conclusion-box {
+            background: linear-gradient(135deg, var(--fool-green) 0%, var(--dark-green) 100%);
+            color: var(--white);
+            border-radius: 12px;
+            padding: 28px;
+            margin: 32px 0;
+        }
+
+        .conclusion-box h2 {
+            color: var(--white);
+            border-bottom-color: rgba(255, 255, 255, 0.3);
+            margin-top: 0;
+        }
+
+        .conclusion-box p {
+            color: rgba(255, 255, 255, 0.95);
+        }
+
+        .verdict {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--white);
+            margin-top: 20px;
+            padding-top: 16px;
+            border-top: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .investor-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 16px;
+        }
+
+        .investor-tag {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: 48px;
+            padding-top: 24px;
+            border-top: 1px solid #eee;
+            font-size: 13px;
+            color: var(--neutral);
+        }
+
+        .footer p {
+            margin-bottom: 8px;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            body {
+                padding: 24px 16px;
+                font-size: 16px;
+            }
+
+            h1 {
+                font-size: 28px;
+            }
+
+            h2 {
+                font-size: 20px;
+            }
+
+            .thesis, .lead {
+                font-size: 17px;
+            }
+
+            .price-row {
+                flex-direction: column;
+                gap: 16px;
+            }
+
+            .traffic-light {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .metrics-bar {
+                flex-direction: column;
+                gap: 16px;
+            }
+
+            .metric {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                text-align: left;
+            }
+
+            .target-row {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <article>
+        <!-- Article Header -->
+        <header class="article-header">
+            <h1>NVIDIA Corporation (NVDA)</h1>
+            <p class="thesis">A dominant AI infrastructure leader trading at an attractive entry point after post-earnings selloff</p>
+            <div class="article-meta">Published February 26, 2026 | Equity Research</div>
+        </header>
+
+        <!-- Signal Badge -->
+        <div class="signal-badge buy">
+            <span class="signal-dot"></span>
+            BUY Signal
+        </div>
+
+        <!-- Price Box -->
+        <aside class="price-box">
+            <div class="price-box-header">Investment Highlights</div>
+            
+            <div class="price-row">
+                <div class="price-item">
+                    <div class="price-label">Current Price</div>
+                    <div class="price-value large">$184.92</div>
+                </div>
+                <div class="price-item">
+                    <div class="price-label">Today's Change</div>
+                    <div class="price-value negative">-5.44%</div>
+                </div>
+            </div>
+            
+            <div class="price-row">
+                <div class="price-item">
+                    <div class="price-label">Entry Zone</div>
+                    <div class="price-value">$175 - $185</div>
+                </div>
+                <div class="price-item">
+                    <div class="price-label">Time Horizon</div>
+                    <div class="price-value">12-18 Months</div>
+                </div>
+            </div>
+
+            <div class="price-divider"></div>
+
+            <div class="target-row">
+                <div class="target-item">
+                    <div class="target-label">Base Target</div>
+                    <div class="target-value">$240</div>
+                </div>
+                <div class="target-item">
+                    <div class="target-label">Bull Target</div>
+                    <div class="target-value">$275</div>
+                </div>
+                <div class="target-item">
+                    <div class="target-label">Stop Loss</div>
+                    <div class="target-value stop">$165</div>
+                </div>
+            </div>
+
+            <div class="price-divider"></div>
+
+            <div class="price-row">
+                <div class="price-item">
+                    <div class="price-label">Upside to Base</div>
+                    <div class="price-value positive">+29.8%</div>
+                </div>
+                <div class="price-item">
+                    <div class="price-label">Upside to Bull</div>
+                    <div class="price-value positive">+48.7%</div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Traffic Light Analysis -->
+        <div class="traffic-light">
+            <div class="traffic-item">
+                <div class="traffic-light-bulb green"></div>
+                <div class="traffic-label">Overall</div>
+                <div class="traffic-value">BUY</div>
+            </div>
+            <div class="traffic-item">
+                <div class="traffic-light-bulb green"></div>
+                <div class="traffic-label">Fundamentals</div>
+                <div class="traffic-value">Strong Buy</div>
+            </div>
+            <div class="traffic-item">
+                <div class="traffic-light-bulb yellow"></div>
+                <div class="traffic-label">Technical</div>
+                <div class="traffic-value">Hold</div>
+            </div>
+            <div class="traffic-item">
+                <div class="traffic-light-bulb gray"></div>
+                <div class="traffic-label">Sentiment</div>
+                <div class="traffic-value">Neutral</div>
+            </div>
+            <div class="traffic-item">
+                <div class="traffic-light-bulb yellow"></div>
+                <div class="traffic-label">Risk</div>
+                <div class="traffic-value">Moderate</div>
+            </div>
+        </div>
+
+        <!-- Key Metrics -->
+        <section class="key-metrics">
+            <div class="metrics-bar">
+                <div class="metric">
+                    <span class="metric-value">$130.5B</span>
+                    <span class="metric-label">Revenue (FY25)</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-value">45.7x</span>
+                    <span class="metric-label">P/E (TTM)</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-value">17.4x</span>
+                    <span class="metric-label">Forward P/E</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-value">75%</span>
+                    <span class="metric-label">Gross Margin</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-value">56%</span>
+                    <span class="metric-label">Net Margin</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Introduction -->
+        <section class="intro">
+            <p class="lead">NVIDIA Corporation is the undisputed leader in AI accelerator chips, powering the infrastructure that drives the artificial intelligence revolution. Following a significant post-earnings selloff, the stock presents a compelling buying opportunity for long-term investors.</p>
+            
+            <p>Despite reporting exceptional financial results that demonstrated continued explosive growth, shares declined <strong>-5.44% today</strong> as investors reacted to concerns about the sustainability of the AI investment cycle. However, we believe this decline represents an overreaction—a healthy consolidation within a powerful secular uptrend rather than a fundamental deterioration.</p>
+            
+            <p>The company's <strong>FY25 revenue of $130.5 billion</strong> represents 114% year-over-year growth, with margins expanding to levels that would make any software company envious. With a forward P/E of just 17.4x—reasonable for a company of NVIDIA's growth profile—shares are trading at an attractive entry point for investors with a 12-18 month horizon.</p>
+        </section>
+
+        <!-- Bull Case -->
+        <section class="case-section bull-case">
+            <h2>Bull Case: Why NVDA Could Outperform</h2>
+            <p>Despite near-term volatility, NVIDIA's fundamental position has never been stronger. Here's why the stock could deliver significant upside:</p>
+            
+            <ul class="case-list">
+                <li><strong>Dominant market position in AI infrastructure</strong>: NVIDIA's CUDA ecosystem and GPU architecture create an almost insurmountable competitive moat. The company supplies the vast majority of AI training infrastructure globally, with no credible alternative in sight.</li>
+                
+                <li><strong>Explosive revenue and earnings growth</strong>: FY25 revenue of $130.5B represents 114% growth from FY24 ($60.9B). More impressively, <strong>gross profit reached $97.9B with a 75% margin</strong>, and net income hit $72.9B—a 56% net margin that demonstrates extraordinary operating leverage.</li>
+                
+                <li><strong>Attractive forward valuation</strong>: While trailing P/E of 45.7x appears expensive, the forward P/E of 17.4x is quite reasonable given the growth runway. The market has already priced in a significant growth slowdown that may not materialize.</li>
+                
+                <li><strong>Long-term AI investment cycle remains early</strong>: TSMC's guidance of 60% AI chip CAGR through 2029 underscores that the AI infrastructure build-out is in its early innings. NVIDIA will be the primary beneficiary of this multi-year tailwind.</li>
+                
+                <li><strong>Strong technical support</strong>: The stock is testing key support levels near $170-$174 (SMA200 and Fibonacci levels). The golden cross remains intact (SMA50 $185.6 > SMA200 $174.7), suggesting the long-term trend remains bullish.</li>
+            </ul>
+        </section>
+
+        <!-- Bear Case -->
+        <section class="case-section bear-case">
+            <h2>Bear Case: Why NVDA Could Underperform</h2>
+            <p>Investors must consider the significant risks that could limit NVIDIA's upside or cause further declines:</p>
+            
+            <ul class="case-list">
+                <li><strong>High valuation invites volatility</strong>: Even with the recent decline, NVIDIA trades at elevated multiples. The stock's <strong>beta of 2.31</strong> means it will significantly outperform on the upside but also decline more sharply during market corrections.</li>
+                
+                <li><strong>AI growth sustainability concerns</strong>: Analysts (including BofA) have highlighted ongoing fears about potential AI investment deceleration. After massive capital expenditure cycles, customers may pause or reduce spending.</li>
+                
+                <li><strong>Vulnerability to profit-taking</strong>: After years of exceptional outperformance, the stock is susceptible to continued selling by holders looking to lock in gains. This technical pressure can persist even when fundamentals remain strong.</li>
+                
+                <li><strong>Competitive threats</strong>: While NVIDIA's moat is wide, AMD continues to gain share in the GPU market. Custom silicon from cloud customers (Amazon, Google, Microsoft) could eventually reduce addressable market.</li>
+                
+                <li><strong>Gaming segment constraints</strong>: Management expects gaming chip shortages to persist through year-end, which could pressure that segment near-term.</li>
+            </ul>
+        </section>
+
+        <!-- Market Conditions -->
+        <section class="market-conditions">
+            <h2>Why the Stock Declined Today</h2>
+            <p>The post-earnings selloff reflects several factors that, in our view, are largely short-term in nature:</p>
+            
+            <h3>Primary Factors Driving the Decline</h3>
+            <p><strong>AI Growth Fears (40% weight)</strong>: Despite strong results, investors are questioning the sustainability of the AI investment cycle. BofA analysis highlighted ongoing concerns about potential AI growth slowdown, triggering profit-taking.</p>
+            
+            <p><strong>Valuation Compression (30% weight)</strong>: After a massive run-up, the market is compressing forward earnings multiples. Investors are questioning whether the growth premium is fully priced, leading to multiple contraction.</p>
+            
+            <p><strong>Sector-Wide Pressure (20% weight)</strong>: Broad technology and semiconductor sector weakness, potentially driven by fears of higher interest rates or rotation into other market segments, has weighed on semiconductor stocks broadly.</p>
+            
+            <p><strong>Supply Chain Commentary (10% weight)</strong>: Management's comments on gaming chip shortages persisting through year-end may have raised concerns about broader supply constraints or end-market demand issues.</p>
+
+            <h3>Our Contrarian View</h3>
+            <p>We believe the selloff is an overreaction. NVIDIA's competitive moat in AI accelerators is wider than ever, and the long-term AI infrastructure build-out is in its early innings. The current valuation of <strong>17.4x forward P/E already prices in a significant growth slowdown</strong>—which may not materialize given the secular tailwinds.</p>
+            
+            <p>The decline to key technical support offers an attractive entry point for long-term investors. We view this as a buying opportunity, not a warning sign.</p>
+        </section>
+
+        <!-- Recent News Analysis -->
+        <section class="news-analysis">
+            <h2>Recent News Sentiment</h2>
+            <p>We analyzed <strong>249 articles</strong> from the past 48 hours. Overall sentiment is <strong>slightly positive</strong>, though mixed due to the post-earnings reaction.</p>
+            
+            <div class="news-item">
+                <div class="news-headline">AI Concerns Among Factors Driving Nvidia Post-Earnings Selloff, BofA Says</div>
+                <div class="news-meta">Yahoo Finance | Feb 26, 2026 <span class="sentiment-badge negative">Negative</span></div>
+            </div>
+            
+            <div class="news-item">
+                <div class="news-headline">TSMC Expects AI Chip Revenue to Grow at a 60% CAGR Through 2029</div>
+                <div class="news-meta">Yahoo Finance | Feb 26, 2026 <span class="sentiment-badge positive">Positive</span></div>
+            </div>
+            
+            <div class="news-item">
+                <div class="news-headline">Nvidia expects gaming chips shortage to last until year-end</div>
+                <div class="news-meta">Yahoo Finance | Feb 26, 2026 <span class="sentiment-badge neutral">Neutral</span></div>
+            </div>
+        </section>
+
+        <!-- Investment Strategy -->
+        <section class="strategy-box">
+            <h2>Investment Strategy</h2>
+            <p>Based on our analysis, we recommend the following approach for NVIDIA:</p>
+            
+            <ul class="strategy-list">
+                <li><strong>Recommended Action</strong>: BUY on weakness. Accumulate in the $175-$185 entry zone.</li>
+                
+                <li><strong>Entry Strategy</strong>: Scale in over 2-3 tranches. First tranche at current levels (~$185), second near $178, third near $173 if reached.</li>
+                
+                <li><strong>Exit Strategy</strong>: Take partial profits at Base Target ($240). Hold core position for Bull Case ($275). Set stop-loss on entire position if closes below $165 (violation of key support).</li>
+                
+                <li><strong>Timeframe</strong>: Primary investment horizon is 12-18 months. Suitable for investors with high risk tolerance and long-term growth focus.</li>
+            </ul>
+        </section>
+
+        <!-- Conclusion -->
+        <section class="conclusion-box">
+            <h2>What It Means for Investors</h2>
+            <p><strong>Investment Thesis</strong>: NVIDIA is the foundational pick for the AI era. The recent selloff is a healthy consolidation within a powerful secular uptrend, driven by short-term fears rather than a deterioration in the long-term thesis. The company's financial performance is stellar, and its valuation on a forward basis is justifiable.</p>
+            
+            <p>Investors should use this weakness to build a position. The risk/reward at current levels is favorable, with 30%+ upside to our base target and nearly 50% to our bull case, versus limited downside to our stop loss.</p>
+            
+            <p><strong>Who Should Buy:</strong></p>
+            <div class="investor-tags">
+                <span class="investor-tag">Growth-oriented investors</span>
+                <span class="investor-tag">AI megatrend exposure seekers</span>
+                <span class="investor-tag">12+ month horizon</span>
+                <span class="investor-tag">High risk tolerance</span>
+            </div>
+            
+            <p style="margin-top: 16px;"><strong>Who Should Avoid:</strong></p>
+            <div class="investor-tags">
+                <span class="investor-tag">Short-term traders</span>
+                <span class="investor-tag">Income-focused investors</span>
+                <span class="investor-tag">Extremely risk-averse</span>
+                <span class="investor-tag">AI bubble skeptics</span>
+            </div>
+            
+            <div class="verdict">
+                🟢 FINAL VERDICT: BUY
+                <br><span style="font-size: 16px; font-weight: 400; opacity: 0.9;">Despite near-term turbulence, NVIDIA's fundamental dominance, reasonable forward valuation, and critical role in the AI infrastructure build-out make it a core holding for the next phase of technological transformation.</span>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p><strong>Disclosure:</strong> This report is for informational purposes only and does not constitute investment advice. Investors should conduct their own due diligence and consult with a qualified financial advisor before making investment decisions.</p>
+            <p><strong>Analyst:</strong> The Motley Fool Research Team | <strong>Report Date:</strong> February 26, 2026</p>
+            <p><strong>Important Note:</strong> Stock prices and market conditions are subject to change. Past performance does not guarantee future results. NVIDIA, NVIDIA Corporation, and all related trademarks are property of their respective owners.</p>
+        </footer>
+    </article>
+</body>
+</html>

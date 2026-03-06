@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+.venv
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Data files - keep generated reports for deployment
+# financial_data/
+# technical_data/
+# news_data/
+# recommendations/
+
+# AWS
+*.log
+.aws-sam/

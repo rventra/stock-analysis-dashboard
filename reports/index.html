@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Analysis Dashboard | AI-Powered Equity Research</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --fool-green: #3D8B37;
+            --fool-navy: #1E3A5F;
+            --fool-red: #C41E3A;
+            --fool-yellow: #F59E0B;
+            --bg-dark: #0F172A;
+            --bg-card: #1E293B;
+            --border: #334155;
+            --text-primary: #F9FAFB;
+            --text-secondary: #94A3B8;
+            --accent: #3B82F6;
+        }
+
+        body {
+            font-family: 'Inter', 'Source Sans Pro', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--fool-navy) 0%, #0F172A 50%, #1E3A5F 100%);
+            padding: 80px 20px;
+            text-align: center;
+            border-bottom: 3px solid var(--fool-green);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 20% 50%, rgba(61, 139, 55, 0.15) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 50%, rgba(59, 130, 246, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+        }
+
+        .hero-icon {
+            font-size: 56px;
+        }
+
+        .hero p {
+            font-size: 20px;
+            color: var(--text-secondary);
+            margin-bottom: 32px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 48px;
+            flex-wrap: wrap;
+        }
+
+        .hero-stat {
+            text-align: center;
+        }
+
+        .hero-stat-value {
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--fool-green);
+        }
+
+        .hero-stat-label {
+            font-size: 14px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Features Section */
+        .features {
+            background: var(--bg-card);
+            padding: 48px 20px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .features-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 32px;
+        }
+
+        .feature {
+            text-align: center;
+            padding: 24px;
+        }
+
+        .feature-icon {
+            font-size: 40px;
+            margin-bottom: 16px;
+        }
+
+        .feature h3 {
+            font-size: 18px;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+        }
+
+        .feature p {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        /* News Section */
+        .news-section {
+            padding: 64px 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+        }
+
+        .section-header h2 {
+            font-size: 28px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section-header h2 span {
+            font-size: 28px;
+        }
+
+        .last-updated {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 24px;
+        }
+
+        .news-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .news-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.3);
+        }
+
+        .news-image {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            background: var(--bg-dark);
+        }
+
+        .news-content {
+            padding: 20px;
+        }
+
+        .news-meta {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+        }
+
+        .news-ticker {
+            background: var(--accent);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .news-source {
+            color: var(--text-secondary);
+            font-size: 12px;
+        }
+
+        .sentiment-badge {
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .sentiment-badge.positive {
+            background: #ECFDF5;
+            color: #059669;
+        }
+
+        .sentiment-badge.negative {
+            background: #FEF2F2;
+            color: #DC2626;
+        }
+
+        .sentiment-badge.neutral {
+            background: #F3F4F6;
+            color: #6B7280;
+        }
+
+        .news-headline {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            line-height: 1.4;
+            color: var(--text-primary);
+        }
+
+        .news-summary {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+            line-height: 1.5;
+        }
+
+        .news-time {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        /* Table Section */
+        .table-section {
+            padding: 64px 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .table-wrapper {
+            background: var(--bg-card);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead {
+            background: rgba(0,0,0,0.2);
+        }
+
+        th {
+            padding: 16px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-secondary);
+            border-bottom: 1px solid var(--border);
+        }
+
+        td {
+            padding: 16px;
+            border-bottom: 1px solid var(--border);
+            font-size: 14px;
+        }
+
+        tr:hover {
+            background: rgba(255,255,255,0.03);
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        .ticker-cell {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .ticker-symbol {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        .company-name {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .sector-tag {
+            background: rgba(59, 130, 246, 0.15);
+            color: #60A5FA;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .price {
+            font-family: 'SF Mono', monospace;
+            font-weight: 600;
+        }
+
+        .price.target {
+            color: #4ADE80;
+        }
+
+        .upside {
+            color: #4ADE80;
+            font-weight: 600;
+        }
+
+        .signal-badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 13px;
+        }
+
+        .confidence {
+            color: var(--text-secondary);
+            font-size: 13px;
+        }
+
+        .view-btn {
+            background: var(--accent);
+            color: white;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 13px;
+            display: inline-block;
+            transition: background 0.2s;
+        }
+
+        .view-btn:hover {
+            background: #2563EB;
+        }
+
+        /* Footer */
+        .footer {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 32px 20px;
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 13px;
+            border-top: 1px solid var(--border);
+        }
+
+        .footer a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 32px;
+            }
+
+            .hero-icon {
+                font-size: 40px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            .hero-stats {
+                gap: 24px;
+            }
+
+            .hero-stat-value {
+                font-size: 28px;
+            }
+
+            .news-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-header {
+                flex-direction: column;
+                gap: 16px;
+                align-items: flex-start;
+            }
+
+            .table-wrapper {
+                overflow-x: auto;
+            }
+
+            table {
+                min-width: 800px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>
+                <span class="hero-icon">📊</span>
+                Stock Analysis Dashboard
+            </h1>
+            <p>AI-powered equity research reports with traffic light scoring. Get actionable insights, price targets, and sentiment analysis for 6 tracked stocks.</p>
+            <div class="hero-stats">
+                <div class="hero-stat">
+                    <div class="hero-stat-value">6</div>
+                    <div class="hero-stat-label">Stocks Tracked</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="hero-stat-value">5</div>
+                    <div class="hero-stat-label">Buy Signals</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="hero-stat-value">+0%</div>
+                    <div class="hero-stat-label">Avg Upside</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="features">
+        <div class="features-container">
+            <div class="feature">
+                <div class="feature-icon">🤖</div>
+                <h3>AI-Powered Analysis</h3>
+                <p>DeepSeek AI analyzes fundamentals, technicals, and sentiment to generate intelligent recommendations.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🚦</div>
+                <h3>Traffic Light Scoring</h3>
+                <p>Clear visual signals: Green (Buy), Yellow (Hold), Red (Sell) based on multi-factor analysis.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">📈</div>
+                <h3>Price Targets</h3>
+                <p>AI-generated price targets with confidence levels and time horizons for each stock.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">📰</div>
+                <h3>Real-Time News</h3>
+                <p>Latest market news with sentiment analysis to keep you informed on market movements.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- News Section -->
+    <section class="news-section">
+        <div class="section-header">
+            <h2><span>📰</span> Latest Market News</h2>
+            <span class="last-updated">Updated: March 06, 2026</span>
+        </div>
+        <div class="news-grid">
+            
+        <div class="news-card">
+            
+            <div class="news-content">
+                <div class="news-meta">
+                    <span class="news-ticker">BABA</span>
+                    <span class="news-source">SeekingAlpha</span>
+                    <span class="sentiment-badge negative">Bearish</span>
+                </div>
+                <h3 class="news-headline">JD.com: Price Drops, But Fundamentals Scream Deep Value</h3>
+                <p class="news-summary">...</p>
+                <span class="news-time">Mar 05, 08:16 AM</span>
+            </div>
+        </div>
+        
+        <div class="news-card">
+            <img src="https://cdn.benzinga.com/files/images/story/2026/03/05/Qwen.jpeg?width=2048&height=1536" alt="" class="news-image" onerror="this.style.display='none'">
+            <div class="news-content">
+                <div class="news-meta">
+                    <span class="news-ticker">BABA</span>
+                    <span class="news-source">Benzinga</span>
+                    <span class="sentiment-badge neutral">Neutral</span>
+                </div>
+                <h3 class="news-headline">Alibaba Poaches Google DeepMind Research Scientist For Qwen AI Push</h3>
+                <p class="news-summary">Alibaba hires former Google DeepMind scientist to strengthen Qwen AI team, following departure of Lin Junyang as technic...</p>
+                <span class="news-time">Mar 05, 04:39 AM</span>
+            </div>
+        </div>
+        
+        <div class="news-card">
+            
+            <div class="news-content">
+                <div class="news-meta">
+                    <span class="news-ticker">BABA</span>
+                    <span class="news-source">Benzinga</span>
+                    <span class="sentiment-badge neutral">Neutral</span>
+                </div>
+                <h3 class="news-headline">'Demand from Alibaba and Other Giants Boosts China's Homegrown Memory Suppliers' - The Information</h3>
+                <p class="news-summary">https://www.theinformation.com/articles/demand-alibaba-giants-boosts-chinas-homegrown-memory-suppliers...</p>
+                <span class="news-time">Mar 05, 04:29 AM</span>
+            </div>
+        </div>
+        
+        <div class="news-card">
+            <img src="https://s.yimg.com/rz/stage/p/yahoo_finance_en-US_h_p_finance_2.png" alt="" class="news-image" onerror="this.style.display='none'">
+            <div class="news-content">
+                <div class="news-meta">
+                    <span class="news-ticker">AVGO</span>
+                    <span class="news-source">Yahoo</span>
+                    <span class="sentiment-badge positive">Bullish</span>
+                </div>
+                <h3 class="news-headline">Is Sandisk Stock Still a Buy After its 1,750% Surge?</h3>
+                <p class="news-summary">Sandisk's stock has risen over 1,700% since it was spun off from Western Digital one year ago....</p>
+                <span class="news-time">Feb 26, 03:50 PM</span>
+            </div>
+        </div>
+        
+        <div class="news-card">
+            <img src="https://s.yimg.com/rz/stage/p/yahoo_finance_en-US_h_p_finance_2.png" alt="" class="news-image" onerror="this.style.display='none'">
+            <div class="news-content">
+                <div class="news-meta">
+                    <span class="news-ticker">META</span>
+                    <span class="news-source">Yahoo</span>
+                    <span class="sentiment-badge positive">Bullish</span>
+                </div>
+                <h3 class="news-headline">Is Sandisk Stock Still a Buy After its 1,750% Surge?</h3>
+                <p class="news-summary">Sandisk's stock has risen over 1,700% since it was spun off from Western Digital one year ago....</p>
+                <span class="news-time">Feb 26, 03:50 PM</span>
+            </div>
+        </div>
+        
+        <div class="news-card">
+            <img src="https://s.yimg.com/rz/stage/p/yahoo_finance_en-US_h_p_finance_2.png" alt="" class="news-image" onerror="this.style.display='none'">
+            <div class="news-content">
+                <div class="news-meta">
+                    <span class="news-ticker">MSFT</span>
+                    <span class="news-source">Yahoo</span>
+                    <span class="sentiment-badge positive">Bullish</span>
+                </div>
+                <h3 class="news-headline">Is Sandisk Stock Still a Buy After its 1,750% Surge?</h3>
+                <p class="news-summary">Sandisk's stock has risen over 1,700% since it was spun off from Western Digital one year ago....</p>
+                <span class="news-time">Feb 26, 03:50 PM</span>
+            </div>
+        </div>
+        
+        <div class="news-card">
+            <img src="https://s.yimg.com/rz/stage/p/yahoo_finance_en-US_h_p_finance_2.png" alt="" class="news-image" onerror="this.style.display='none'">
+            <div class="news-content">
+                <div class="news-meta">
+                    <span class="news-ticker">AVGO</span>
+                    <span class="news-source">Yahoo</span>
+                    <span class="sentiment-badge neutral">Neutral</span>
+                </div>
+                <h3 class="news-headline">Nasdaq, S&P 500 Snap Two-Day Advance Amid Nvidia-Led Tech Pullback</h3>
+                <p class="news-summary">The Nasdaq Composite and the S&P 500 closed lower Thursday after a two-day advance as Nvidia (NVDA)...</p>
+                <span class="news-time">Feb 26, 03:49 PM</span>
+            </div>
+        </div>
+        
+        <div class="news-card">
+            <img src="https://s.yimg.com/rz/stage/p/yahoo_finance_en-US_h_p_finance_2.png" alt="" class="news-image" onerror="this.style.display='none'">
+            <div class="news-content">
+                <div class="news-meta">
+                    <span class="news-ticker">AVGO</span>
+                    <span class="news-source">Yahoo</span>
+                    <span class="sentiment-badge negative">Bearish</span>
+                </div>
+                <h3 class="news-headline">US Equity Indexes Mixed as Financials Help Partially Offset Sell-Off in Chipmakers</h3>
+                <p class="news-summary">US equity indexes closed mixed on Thursday as gains in financials helped partially offset a sell-off...</p>
+                <span class="news-time">Feb 26, 03:44 PM</span>
+            </div>
+        </div>
+        
+        <div class="news-card">
+            <img src="https://s.yimg.com/rz/stage/p/yahoo_finance_en-US_h_p_finance_2.png" alt="" class="news-image" onerror="this.style.display='none'">
+            <div class="news-content">
+                <div class="news-meta">
+                    <span class="news-ticker">META</span>
+                    <span class="news-source">Yahoo</span>
+                    <span class="sentiment-badge neutral">Neutral</span>
+                </div>
+                <h3 class="news-headline">Peter Schiff: If You Invested $10,000 In Bitcoin In 2021, You'd Be Down $900—But Not With Gold</h3>
+                <p class="news-summary">Long-time Bitcoin (CRYPTO: BTC) critic Peter Schiff argues that investors would have fared far better holding gold than ...</p>
+                <span class="news-time">Feb 26, 03:30 PM</span>
+            </div>
+        </div>
+        
+        <div class="news-card">
+            <img src="https://s.yimg.com/rz/stage/p/yahoo_finance_en-US_h_p_finance_2.png" alt="" class="news-image" onerror="this.style.display='none'">
+            <div class="news-content">
+                <div class="news-meta">
+                    <span class="news-ticker">META</span>
+                    <span class="news-source">Yahoo</span>
+                    <span class="sentiment-badge neutral">Neutral</span>
+                </div>
+                <h3 class="news-headline">NuScale Power Reports Fourth Quarter and Full Year 2025 Results</h3>
+                <p class="news-summary">CORVALLIS, Ore., February 26, 2026--NuScale Power Corporation (NYSE: SMR) announced results for the fourth quarter and f...</p>
+                <span class="news-time">Feb 26, 03:15 PM</span>
+            </div>
+        </div>
+        
+        <div class="news-card">
+            <img src="https://s.yimg.com/rz/stage/p/yahoo_finance_en-US_h_p_finance_2.png" alt="" class="news-image" onerror="this.style.display='none'">
+            <div class="news-content">
+                <div class="news-meta">
+                    <span class="news-ticker">MSFT</span>
+                    <span class="news-source">Yahoo</span>
+                    <span class="sentiment-badge positive">Bullish</span>
+                </div>
+                <h3 class="news-headline">CoreWeave beats quarterly revenue estimates on strong AI-related demand</h3>
+                <p class="news-summary">CoreWeave beat Wall Street estimates for  quarterly revenue on Thursday, benefiting ‌from the artificial intelligence bo...</p>
+                <span class="news-time">Feb 26, 03:10 PM</span>
+            </div>
+        </div>
+        
+        <div class="news-card">
+            <img src="https://s.yimg.com/rz/stage/p/yahoo_finance_en-US_h_p_finance_2.png" alt="" class="news-image" onerror="this.style.display='none'">
+            <div class="news-content">
+                <div class="news-meta">
+                    <span class="news-ticker">MSFT</span>
+                    <span class="news-source">Yahoo</span>
+                    <span class="sentiment-badge neutral">Neutral</span>
+                </div>
+                <h3 class="news-headline">Dell forecasts fiscal 2027 revenue above estimates on rising AI server demand</h3>
+                <p class="news-summary">Dell forecast fiscal 2027 revenue above Wall Street estimates on Thursday, betting on growing demand for its artificial ...</p>
+                <span class="news-time">Feb 26, 03:09 PM</span>
+            </div>
+        </div>
+        
+        </div>
+    </section>
+
+    <!-- Stock Table Section -->
+    <section class="table-section">
+        <div class="section-header">
+            <h2><span>🎯</span> Stock Recommendations</h2>
+        </div>
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Company</th>
+                        <th>Sector</th>
+                        <th>Current Price</th>
+                        <th>Target Price</th>
+                        <th>Upside</th>
+                        <th>Signal</th>
+                        <th>Confidence</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+        <tr>
+            <td>
+                <div class="ticker-cell">
+                    <span class="ticker-symbol">ACN</span>
+                    <span class="company-name">Accenture plc</span>
+                </div>
+            </td>
+            <td><span class="sector-tag">Technology</span></td>
+            <td class="price">$192.12</td>
+            <td class="price target">$285.00</td>
+            <td class="upside">48.4%</td>
+            <td>
+                <span class="signal-badge" style="background: #ECFDF5; color: #0D7A47; border: 1px solid #0D7A47;">
+                    🟢 BUY
+                </span>
+            </td>
+            <td><span class="confidence">HIGH</span></td>
+            <td>
+                <a href="ACN_MiniMax_Report_20260306.html" class="view-btn">View Report</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div class="ticker-cell">
+                    <span class="ticker-symbol">AVGO</span>
+                    <span class="company-name">Broadcom Inc.</span>
+                </div>
+            </td>
+            <td><span class="sector-tag">Technology</span></td>
+            <td class="price">$321.70</td>
+            <td class="price target">$415.00</td>
+            <td class="upside">N/A</td>
+            <td>
+                <span class="signal-badge" style="background: #ECFDF5; color: #0D7A47; border: 1px solid #0D7A47;">
+                    🟢 BUY
+                </span>
+            </td>
+            <td><span class="confidence">HIGH</span></td>
+            <td>
+                <a href="AVGO_MiniMax_Report_20260306.html" class="view-btn">View Report</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div class="ticker-cell">
+                    <span class="ticker-symbol">BABA</span>
+                    <span class="company-name">Alibaba Group Holding Limited</span>
+                </div>
+            </td>
+            <td><span class="sector-tag">Consumer Cyclical</span></td>
+            <td class="price">$130.35</td>
+            <td class="price target">$175.00</td>
+            <td class="upside">N/A</td>
+            <td>
+                <span class="signal-badge" style="background: #ECFDF5; color: #0D7A47; border: 1px solid #0D7A47;">
+                    🟢 BUY
+                </span>
+            </td>
+            <td><span class="confidence">HIGH</span></td>
+            <td>
+                <a href="BABA_MiniMax_Report_20260306.html" class="view-btn">View Report</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div class="ticker-cell">
+                    <span class="ticker-symbol">META</span>
+                    <span class="company-name">Meta Platforms, Inc.</span>
+                </div>
+            </td>
+            <td><span class="sector-tag">Communication Services</span></td>
+            <td class="price">$657.01</td>
+            <td class="price target">$710.00</td>
+            <td class="upside">8.1%</td>
+            <td>
+                <span class="signal-badge" style="background: #FFFBEB; color: #F59E0B; border: 1px solid #F59E0B;">
+                    🟡 HOLD
+                </span>
+            </td>
+            <td><span class="confidence">MEDIUM</span></td>
+            <td>
+                <a href="META_MiniMax_Report_20260306.html" class="view-btn">View Report</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div class="ticker-cell">
+                    <span class="ticker-symbol">MSFT</span>
+                    <span class="company-name">Microsoft Corporation</span>
+                </div>
+            </td>
+            <td><span class="sector-tag">Technology</span></td>
+            <td class="price">$401.72</td>
+            <td class="price target">$525.00</td>
+            <td class="upside">30.7%</td>
+            <td>
+                <span class="signal-badge" style="background: #ECFDF5; color: #0D7A47; border: 1px solid #0D7A47;">
+                    🟢 BUY
+                </span>
+            </td>
+            <td><span class="confidence">HIGH</span></td>
+            <td>
+                <a href="MSFT_MiniMax_Report_20260306.html" class="view-btn">View Report</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div class="ticker-cell">
+                    <span class="ticker-symbol">NVDA</span>
+                    <span class="company-name">NVIDIA Corporation</span>
+                </div>
+            </td>
+            <td><span class="sector-tag">Technology</span></td>
+            <td class="price">$184.92</td>
+            <td class="price target">$240.00</td>
+            <td class="upside">N/A</td>
+            <td>
+                <span class="signal-badge" style="background: #ECFDF5; color: #0D7A47; border: 1px solid #0D7A47;">
+                    🟢 BUY
+                </span>
+            </td>
+            <td><span class="confidence">HIGH</span></td>
+            <td>
+                <a href="NVDA_MiniMax_Report_20260306.html" class="view-btn">View Report</a>
+            </td>
+        </tr>
+        
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>Data powered by YFinance, Finnhub, and DeepSeek AI | Reports generated with MiniMax M2.5 via OpenRouter</p>
+        <p style="margin-top: 8px;">
+            <a href="design.md">View Design System</a> |
+            <a href="AGENTS.md">Project Documentation</a>
+        </p>
+    </footer>
+
+    <script>
+        // Add click handling for news cards
+        document.querySelectorAll('.news-card').forEach(card => {
+            card.style.cursor = 'pointer';
+            card.addEventListener('click', function() {
+                const link = this.querySelector('a');
+                if (link) window.open(link.href, '_blank');
+            });
+        });
+    </script>
+</body>
+</html>

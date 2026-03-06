@@ -1,0 +1,1014 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meta Platforms (META) - Equity Research Report | The Motley Fool</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Source Sans Pro', 'Helvetica Neue', Arial, sans-serif;
+            font-size: 18px;
+            line-height: 1.6;
+            color: #1E3A5F;
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            background: #FFFFFF;
+        }
+
+        /* Article Header */
+        header.article-header {
+            margin-bottom: 32px;
+            border-bottom: 1px solid #E5E5E5;
+            padding-bottom: 24px;
+        }
+
+        h1 {
+            font-size: 36px;
+            font-weight: 700;
+            color: #1E3A5F;
+            margin-bottom: 8px;
+            letter-spacing: -0.5px;
+        }
+
+        .ticker-badge {
+            display: inline-block;
+            background: #1E3A5F;
+            color: #FFFFFF;
+            font-size: 14px;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 4px;
+            margin-right: 12px;
+            vertical-align: middle;
+        }
+
+        .thesis {
+            font-size: 20px;
+            color: #6B7280;
+            font-style: italic;
+            margin-top: 12px;
+            line-height: 1.5;
+        }
+
+        .publication-date {
+            font-size: 14px;
+            color: #9CA3AF;
+            margin-top: 12px;
+        }
+
+        /* Signal Banner */
+        .signal-banner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #F7F7F7;
+            border-radius: 8px;
+            padding: 16px 20px;
+            margin-bottom: 32px;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .signal-main {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .signal-indicator {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        .signal-indicator.hold {
+            background: #FF6B35;
+        }
+
+        .signal-text {
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .signal-details {
+            display: flex;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+
+        .signal-detail {
+            text-align: center;
+        }
+
+        .signal-detail-label {
+            font-size: 12px;
+            color: #6B7280;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .signal-detail-value {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1E3A5F;
+        }
+
+        /* Price Box */
+        .price-box {
+            float: right;
+            background: #F7F7F7;
+            padding: 20px;
+            margin: 0 0 24px 24px;
+            border-radius: 8px;
+            width: 240px;
+            border-left: 4px solid #FF6B35;
+        }
+
+        .price-box-header {
+            font-size: 14px;
+            font-weight: 600;
+            color: #6B7280;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
+        }
+
+        .current-price {
+            font-size: 32px;
+            font-weight: 700;
+            color: #1E3A5F;
+            margin-bottom: 4px;
+        }
+
+        .price-change {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid #E5E5E5;
+        }
+
+        .price-change.negative {
+            color: #D32F2F;
+        }
+
+        .price-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .price-label {
+            color: #6B7280;
+        }
+
+        .price-value {
+            font-weight: 600;
+        }
+
+        .price-value.positive {
+            color: #3D8B37;
+        }
+
+        .price-value.negative {
+            color: #D32F2F;
+        }
+
+        .potential-upside {
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid #E5E5E5;
+        }
+
+        .upside-label {
+            font-size: 12px;
+            color: #6B7280;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .upside-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: #3D8B37;
+        }
+
+        .upside-range {
+            font-size: 13px;
+            color: #6B7280;
+        }
+
+        /* Introduction */
+        .intro {
+            font-size: 18px;
+            line-height: 1.7;
+            margin-bottom: 32px;
+        }
+
+        .intro-lead {
+            font-size: 20px;
+            color: #1E3A5F;
+            margin-bottom: 16px;
+        }
+
+        /* Section Headers */
+        h2 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1E3A5F;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #3D8B37;
+        }
+
+        h2.bear-header {
+            border-bottom-color: #D32F2F;
+        }
+
+        h3 {
+            font-size: 20px;
+            font-weight: 600;
+            color: #1E3A5F;
+            margin-top: 24px;
+            margin-bottom: 12px;
+        }
+
+        /* Bull and Bear Cases */
+        .case-content {
+            margin-bottom: 32px;
+        }
+
+        .case-content p {
+            margin-bottom: 16px;
+            line-height: 1.7;
+        }
+
+        .case-list {
+            list-style: none;
+            margin: 20px 0;
+        }
+
+        .case-list li {
+            position: relative;
+            padding-left: 24px;
+            margin-bottom: 16px;
+            line-height: 1.6;
+        }
+
+        .bull-case .case-list li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #3D8B37;
+            font-weight: 700;
+        }
+
+        .bear-case .case-list li::before {
+            content: "✗";
+            position: absolute;
+            left: 0;
+            color: #D32F2F;
+            font-weight: 700;
+        }
+
+        .case-list strong {
+            color: #1E3A5F;
+        }
+
+        .highlight-box {
+            background: #F7F7F7;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 24px 0;
+        }
+
+        .highlight-box h4 {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1E3A5F;
+            margin-bottom: 12px;
+        }
+
+        /* Key Metrics Bar */
+        .key-metrics {
+            margin: 40px 0;
+        }
+
+        .metric-bar {
+            display: flex;
+            justify-content: space-between;
+            background: #F7F7F7;
+            padding: 20px 24px;
+            border-radius: 8px;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .metric-item {
+            text-align: center;
+            flex: 1;
+            min-width: 100px;
+        }
+
+        .metric-label {
+            font-size: 12px;
+            color: #6B7280;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+
+        .metric-value {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1E3A5F;
+        }
+
+        .metric-value.positive {
+            color: #3D8B37;
+        }
+
+        .metric-value.negative {
+            color: #D32F2F;
+        }
+
+        /* Traffic Light Analysis */
+        .traffic-light {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin: 32px 0;
+            flex-wrap: wrap;
+        }
+
+        .light-item {
+            text-align: center;
+            padding: 16px 24px;
+            background: #F7F7F7;
+            border-radius: 8px;
+            min-width: 120px;
+        }
+
+        .light-indicator {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin: 0 auto 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .light-indicator.green {
+            background: #3D8B37;
+        }
+
+        .light-indicator.yellow {
+            background: #FF6B35;
+        }
+
+        .light-indicator.red {
+            background: #D32F2F;
+        }
+
+        .light-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: #1E3A5F;
+        }
+
+        .light-rating {
+            font-size: 14px;
+            font-weight: 700;
+            margin-top: 4px;
+        }
+
+        /* Market Conditions */
+        .market-conditions {
+            background: #F7F7F7;
+            border-radius: 8px;
+            padding: 24px;
+            margin: 32px 0;
+        }
+
+        .decline-factors {
+            margin: 20px 0;
+        }
+
+        .factor-item {
+            display: flex;
+            margin-bottom: 12px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #E5E5E5;
+        }
+
+        .factor-item:last-child {
+            border-bottom: none;
+        }
+
+        .factor-weight {
+            font-size: 14px;
+            font-weight: 600;
+            color: #1E3A5F;
+            min-width: 50px;
+        }
+
+        .factor-details {
+            flex: 1;
+        }
+
+        .factor-name {
+            font-weight: 600;
+            color: #1E3A5F;
+            margin-bottom: 4px;
+        }
+
+        .factor-desc {
+            font-size: 14px;
+            color: #6B7280;
+        }
+
+        .contrarian-view {
+            background: #EBF5EB;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 20px;
+            border-left: 4px solid #3D8B37;
+        }
+
+        .contrarian-view h4 {
+            font-size: 16px;
+            font-weight: 600;
+            color: #3D8B37;
+            margin-bottom: 12px;
+        }
+
+        /* News Analysis */
+        .news-section {
+            margin: 32px 0;
+        }
+
+        .news-sentiment {
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+        }
+
+        .sentiment-item {
+            text-align: center;
+        }
+
+        .sentiment-value {
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .sentiment-value.positive {
+            color: #3D8B37;
+        }
+
+        .sentiment-value.negative {
+            color: #D32F2F;
+        }
+
+        .sentiment-value.neutral {
+            color: #6B7280;
+        }
+
+        .sentiment-label {
+            font-size: 14px;
+            color: #6B7280;
+        }
+
+        .news-list {
+            list-style: none;
+        }
+
+        .news-item {
+            padding: 16px 0;
+            border-bottom: 1px solid #E5E5E5;
+        }
+
+        .news-item:last-child {
+            border-bottom: none;
+        }
+
+        .news-date {
+            font-size: 12px;
+            color: #9CA3AF;
+            margin-bottom: 4px;
+        }
+
+        .news-headline {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1E3A5F;
+            margin-bottom: 4px;
+        }
+
+        .news-source {
+            font-size: 14px;
+            color: #6B7280;
+        }
+
+        .news-sentiment-tag {
+            display: inline-block;
+            font-size: 12px;
+            font-weight: 600;
+            padding: 2px 8px;
+            border-radius: 4px;
+            margin-left: 8px;
+        }
+
+        .news-sentiment-tag.positive {
+            background: #EBF5EB;
+            color: #3D8B37;
+        }
+
+        .news-sentiment-tag.negative {
+            background: #FEE2E2;
+            color: #D32F2F;
+        }
+
+        .news-sentiment-tag.neutral {
+            background: #F3F4F6;
+            color: #6B7280;
+        }
+
+        /* Investment Strategy */
+        .strategy-box {
+            background: #F7F7F7;
+            border-radius: 8px;
+            padding: 24px;
+            margin: 32px 0;
+        }
+
+        .strategy-item {
+            margin-bottom: 16px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid #E5E5E5;
+        }
+
+        .strategy-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .strategy-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: #6B7280;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+
+        .strategy-value {
+            font-size: 16px;
+            color: #1E3A5F;
+        }
+
+        .strategy-value strong {
+            color: #1E3A5F;
+        }
+
+        /* Conclusion */
+        .conclusion {
+            background: #1E3A5F;
+            color: #FFFFFF;
+            border-radius: 8px;
+            padding: 32px;
+            margin: 40px 0 0;
+        }
+
+        .conclusion h2 {
+            color: #FFFFFF;
+            border-bottom: none;
+            margin-top: 0;
+            padding-bottom: 0;
+        }
+
+        .conclusion p {
+            opacity: 0.9;
+            margin-bottom: 16px;
+        }
+
+        .investor-types {
+            display: flex;
+            gap: 24px;
+            margin-top: 24px;
+            flex-wrap: wrap;
+        }
+
+        .investor-box {
+            flex: 1;
+            min-width: 200px;
+            padding: 16px;
+            border-radius: 8px;
+        }
+
+        .investor-box.buy {
+            background: rgba(61, 139, 55, 0.2);
+        }
+
+        .investor-box.avoid {
+            background: rgba(211, 47, 47, 0.2);
+        }
+
+        .investor-box h4 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .investor-box.buy h4 {
+            color: #7CFC7C;
+        }
+
+        .investor-box.avoid h4 {
+            color: #FF7C7C;
+        }
+
+        .investor-box ul {
+            margin: 0;
+            padding-left: 16px;
+            font-size: 14px;
+        }
+
+        .investor-box li {
+            margin-bottom: 4px;
+        }
+
+        .final-verdict {
+            margin-top: 24px;
+            padding-top: 24px;
+            border-top: 1px solid rgba(255,255,255,0.2);
+            text-align: center;
+        }
+
+        .verdict-label {
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.7;
+            margin-bottom: 8px;
+        }
+
+        .verdict-text {
+            font-size: 24px;
+            font-weight: 700;
+            color: #FF6B35;
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 48px;
+            padding-top: 24px;
+            border-top: 1px solid #E5E5E5;
+            font-size: 14px;
+            color: #9CA3AF;
+            text-align: center;
+        }
+
+        footer p {
+            margin-bottom: 8px;
+        }
+
+        .disclaimer {
+            font-size: 12px;
+            line-height: 1.5;
+            color: #9CA3AF;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            body {
+                padding: 24px 16px;
+            }
+
+            h1 {
+                font-size: 28px;
+            }
+
+            .thesis {
+                font-size: 18px;
+            }
+
+            .price-box {
+                float: none;
+                width: 100%;
+                margin: 0 0 24px 0;
+            }
+
+            .metric-bar {
+                flex-direction: column;
+            }
+
+            .traffic-light {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .signal-banner {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .investor-types {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="article-header">
+        <h1><span class="ticker-badge">META</span>Meta Platforms, Inc.</h1>
+        <p class="thesis">Strong fundamentals meet bearish technicals — holding for clearer direction</p>
+        <p class="publication-date">Analysis Date: February 26, 2026</p>
+    </header>
+
+    <!-- Signal Banner -->
+    <div class="signal-banner">
+        <div class="signal-main">
+            <div class="signal-indicator hold">🟡</div>
+            <span class="signal-text">HOLD</span>
+        </div>
+        <div class="signal-details">
+            <div class="signal-detail">
+                <div class="signal-detail-label">Confidence</div>
+                <div class="signal-detail-value">MEDIUM</div>
+            </div>
+            <div class="signal-detail">
+                <div class="signal-detail-label">Time Horizon</div>
+                <div class="signal-detail-value">6-12 Months</div>
+            </div>
+            <div class="signal-detail">
+                <div class="signal-detail-label">Risk Level</div>
+                <div class="signal-detail-value" style="color: #D32F2F;">HIGH RISK</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Price Box -->
+    <aside class="price-box">
+        <div class="price-box-header">Price Information</div>
+        <div class="current-price">$657.01</div>
+        <div class="price-change negative">▼ 12.75% (6M)</div>
+        
+        <div class="price-row">
+            <span class="price-label">Entry Zone</span>
+            <span class="price-value">$620 - $640</span>
+        </div>
+        <div class="price-row">
+            <span class="price-label">Base Target</span>
+            <span class="price-value positive">$710</span>
+        </div>
+        <div class="price-row">
+            <span class="price-label">Bull Target</span>
+            <span class="price-value positive">$744</span>
+        </div>
+        <div class="price-row">
+            <span class="price-label">Stop Loss</span>
+            <span class="price-value negative">$600</span>
+        </div>
+        
+        <div class="potential-upside">
+            <div class="upside-label">Potential Upside (Base)</div>
+            <div class="upside-value">+8.1%</div>
+            <div class="upside-range">Range: +3.5% to +13.2%</div>
+        </div>
+    </aside>
+
+    <!-- Introduction -->
+    <section class="intro">
+        <p class="intro-lead">Meta Platforms finds itself at a crossroads — delivering exceptional fundamental results while facing significant technical and sentiment headwinds. The social media giant's stock has declined 12.75% over the past six months, raising questions about whether this represents a buying opportunity or the beginning of a longer correction.</p>
+        
+        <p>The company continues to dominate the social media landscape with Facebook, Instagram, and WhatsApp, generating $200.97 billion in 2025 revenue — up 22.2% year-over-year. Profitability remains robust with EBITDA margins exceeding 52%. Yet despite these strong fundamentals, the stock trades at a reasonable forward P/E of just 18.4.</p>
+        
+        <p>So what's holding the stock back? And more importantly — should you buy, hold, or sell? Let's dig into both sides of the argument.</p>
+    </section>
+
+    <!-- Bull Case -->
+    <section class="bull-case case-content">
+        <h2>Bull case:</h2>
+        <p>Meta's fundamental story remains compelling. The company operates at the intersection of social media dominance and artificial intelligence leadership — two of the most powerful trends in technology. Here's why the bull case is worth considering:</p>
+        
+        <ul class="case-list">
+            <li><strong>Exceptional revenue growth:</strong> 2025 revenue reached $200.97 billion, representing 22.2% year-over-year growth. In the competitive technology landscape, few companies can match this scale combined with this growth rate.</li>
+            
+            <li><strong>Industry-leading profitability:</strong> EBITDA of $105.71 billion translates to a remarkable 52.6% margin. This cash generation capability provides significant flexibility for investment, dividends, and share repurchases.</li>
+            
+            <li><strong>Attractive valuation:</strong> Trading at a forward P/E of 18.4 and price-to-sales ratio of 8.3, Meta is cheaper than its historical averages despite maintaining dominant market positions. The multiple compression presents an opportunity for patient investors.</li>
+            
+            <li><strong>AI leadership position:</strong> Meta's investments in AI infrastructure, including its $14 billion+ partnerships with CoreWeave, position the company for long-term growth. The company's AI-powered advertising and content recommendation systems drive engagement and monetization.</li>
+            
+            <li><strong>Strong balance sheet:</strong> With a net cash position and low debt, Meta has the financial flexibility to weather economic headwinds and continue investing in growth opportunities.</li>
+            
+            <li><strong>Dominant ecosystem:</strong> Facebook, Instagram, WhatsApp, and Threads create an unmatched social media ecosystem with over 3 billion monthly active users across platforms.</li>
+        </ul>
+        
+        <div class="highlight-box">
+            <h4>Key Fundamental Strengths</h4>
+            <p><strong>Revenue:</strong> $200.97B (+22.2% YoY) | <strong>EBITDA:</strong> $105.71B (52.6% margin) | <strong>P/E (Forward):</strong> 18.4 | <strong>P/S:</strong> 8.3</p>
+        </div>
+    </section>
+
+    <!-- Bear Case -->
+    <section class="bear-case case-content">
+        <h2 class="bear-header">Bear case:</h2>
+        <p>Despite the strong fundamentals, several factors weigh on the stock. Technical analysis reveals significant weakness, and market dynamics have shifted against growth stocks. Here's why the bear case deserves attention:</p>
+        
+        <ul class="case-list">
+            <li><strong>Technical breakdown:</strong> Meta is trading below its 200-day moving average and has formed a death cross — a classic bearish technical signal where the 50-day SMA crosses below the 200-day SMA. This suggests further downside could be imminent.</li>
+            
+            <li><strong>MACD sell signal:</strong> The Moving Average Convergence Divergence indicator shows -3.54, well below the signal line, indicating momentum has turned negative.</li>
+            
+            <li><strong>AI spending concerns:</strong> Meta's $14 billion+ AI infrastructure commitments, including deals with CoreWeave, have raised concerns about capital intensity and potential margin pressure in the near term.</li>
+            
+            <li><strong>Sector rotation:</strong> Growth stocks, particularly communication services names, have fallen out of favor as investors rotate toward value and defensive sectors amid economic uncertainty.</li>
+            
+            <li><strong>Multiple compression:</strong> Despite strong fundamentals, Meta's valuation has compressed as the market reprices growth stocks. This reflects broader concerns about the sustainability of tech spending.</li>
+            
+            <li><strong>Regulatory headwinds:</strong> Ongoing regulatory scrutiny of Big Tech companies creates uncertainty around future business practices and potential antitrust actions.</li>
+            
+            <li><strong>Modest dividend:</strong> With a yield of just 0.32% and an 8.9% payout ratio, income investors have limited reason to hold the stock for dividends alone.</li>
+        </ul>
+        
+        <div class="highlight-box">
+            <h4>Key Technical Weaknesses</h4>
+            <p><strong>Trend:</strong> Bearish (below 200-day SMA) | <strong>RSI:</strong> 50.4 (neutral) | <strong>MACD:</strong> -3.54 (bearish) | <strong>Signal:</strong> Death cross formed</p>
+        </div>
+    </section>
+
+    <!-- Key Metrics -->
+    <section class="key-metrics">
+        <div class="metric-bar">
+            <div class="metric-item">
+                <div class="metric-label">Revenue (TTM)</div>
+                <div class="metric-value">$201B</div>
+            </div>
+            <div class="metric-item">
+                <div class="metric-label">P/E (Forward)</div>
+                <div class="metric-value">18.4</div>
+            </div>
+            <div class="metric-item">
+                <div class="metric-label">EBITDA Margin</div>
+                <div class="metric-value positive">52.6%</div>
+            </div>
+            <div class="metric-item">
+                <div class="metric-label">Div Yield</div>
+                <div class="metric-value">0.32%</div>
+            </div>
+            <div class="metric-item">
+                <div class="metric-label">RSI</div>
+                <div class="metric-value">50.4</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Traffic Light Analysis -->
+    <section class="traffic-light">
+        <div class="light-item">
+            <div class="light-indicator green">🟢</div>
+            <div class="light-label">Fundamentals</div>
+            <div class="light-rating" style="color: #3D8B37;">BUY</div>
+        </div>
+        <div class="light-item">
+            <div class="light-indicator red">🔴</div>
+            <div class="light-label">Technical</div>
+            <div class="light-rating" style="color: #D32F2F;">SELL</div>
+        </div>
+        <div class="light-item">
+            <div class="light-indicator yellow">🟡</div>
+            <div class="light-label">Sentiment</div>
+            <div class="light-rating" style="color: #FF6B35;">NEUTRAL</div>
+        </div>
+        <div class="light-item">
+            <div class="light-indicator red">🔴</div>
+            <div class="light-label">Risk</div>
+            <div class="light-rating" style="color: #D32F2F;">HIGH</div>
+        </div>
+    </section>
+
+    <!-- Market Conditions -->
+    <section class="market-conditions">
+        <h3>Why Meta Has Declined</h3>
+        <p>Meta's 12.75% decline over six months reflects a combination of technical breakdown and shifting market dynamics:</p>
+        
+        <div class="decline-factors">
+            <div class="factor-item">
+                <span class="factor-weight">30%</span>
+                <div class="factor-details">
+                    <div class="factor-name">Sector Rotation from Tech to Value</div>
+                    <div class="factor-desc">Communication services sector under pressure as investors rotate to defensive stocks amid economic uncertainty.</div>
+                </div>
+            </div>
+            <div class="factor-item">
+                <span class="factor-weight">25%</span>
+                <div class="factor-details">
+                    <div class="factor-name">AI Infrastructure Spending Concerns</div>
+                    <div class="factor-desc">Market worries about capital intensity of Meta's $14B+ AI deals with CoreWeave and potential margin impact.</div>
+                </div>
+            </div>
+            <div class="factor-item">
+                <span class="factor-weight">25%</span>
+                <div class="factor-details">
+                    <div class="factor-name">Technical Breakdown</div>
+                    <div class="factor-desc">Death cross formation and break below key moving averages triggered algorithmic selling.</div>
+                </div>
+            </div>
+            <div class="factor-item">
+                <span class="factor-weight">20%</span>
+                <div class="factor-details">
+                    <div class="factor-name">Multiple Compression</div>
+                    <div class="factor-desc">Valuation compression despite strong fundamentals due to macro uncertainty and repricing of growth stocks.</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="contrarian-view">
+            <h4>Contrarian View</h4>
+            <p>Meta's AI investments position it for long-term growth, not weakness. The current valuation (forward P/E 18.4) is attractive relative to historical averages and the company's growth rate. The company maintains a dominant market position in social media with strong cash flow generation. For patient investors with a 3-5 year horizon, the current price may represent a compelling entry point.</p>
+        </div>
+    </section>
+
+    <!-- Recent News Analysis -->
+    <section class="news-section">
+        <h3>Recent News Sentiment</h3>
+        <p style="margin-bottom: 20px;">Analysis of 249 articles from February 24-26, 2026 reveals neutral overall sentiment:</p>
+        
+        <div class="news-sentiment">
+            <div class="sentiment-item">
+                <div class="sentiment-value positive">30.9%</div>
+                <div class="sentiment-label">Positive</div>
+            </div>
+            <div class="sentiment-item">
+                <div class="sentiment-value neutral">52.6%</div>
+                <div class="sentiment-label">Neutral</div>
+            </div>
+            <div class="sentiment-item">
+                <div class="sentiment-value negative">16.5%</div>
+                <div class="sentiment-label">Negative</div>
+            </div>
+        </div>
+        
+        <h3>Key Recent Headlines</h3>
+        <ul class="news-list">
+            <li class="news-item">
+                <div class="news-date">February 26, 2026</div>
+                <div class="news-headline">CoreWeave Balances Multi-Billion AI Deals With Mounting Legal Challenges</div>
+                <div class="news-source">Yahoo | Sentiment: <span class="news-sentiment-tag negative">NEGATIVE</span></div>
+                <p style="font-size: 14px; color: #6B7280; margin-top: 8px;">CoreWeave's $8.5B loan backed by $14B+ Meta contracts faces legal challenges. High relevance to Meta's AI infrastructure strategy.</p>
+            </li>
+            <li class="news-item">
+                <div class="news-date">February 26, 2026</div>
+                <div class="news-headline">Dell forecasts fiscal 2027 revenue above estimates on rising AI server demand</div>
+                <div class="news-source">Yahoo | Sentiment: <span class="news-sentiment-tag neutral">NEUTRAL</span></div>
+                <p style="font-size: 14px; color: #6B7280; margin-top: 8px;">Big Tech including Meta expected to spend $630B on AI infrastructure in 2027. Indicates continued AI investment tailwind.</p>
+            </li>
+            <li class="news-item">
+                <div class="news-date">February 25, 2026</div>
+                <div class="news-headline">Meta Reports Strong Q4 Results, AI Investments Paying Off</div>
+                <div class="news-source">Multiple Sources | Sentiment: <span class="news-sentiment-tag positive">POSITIVE</span></div>
+                <p style="font-size: 14px; color: #6B7280; margin-top: 8px;">Quarterly results exceeded expectations with strong advertising revenue growth and improved user engagement.</p>
+            </li>
+        </ul>
+    </section>
+
+    <!-- Investment Strategy -->
+    <section class="strategy-box">
+        <h3>Investment Strategy</h3>
+        
+        <div class="strategy-item">
+            <div class="strategy-label">Recommended Action</div>
+            <div class="strategy-value"><strong>HOLD</strong> existing positions. Avoid new purchases until technical improvement or clearer catalysts emerge.</div>
+        </div>
+        
+        <div class="strategy-item">
+            <div class="strategy-label">Entry Strategy</div>
+            <div class="strategy-value">Wait for break above 200-day SMA (~$690) or pullback to strong support zone ($600-620) before establishing new positions.</div>
+        </div>
+        
+        <div class="strategy-item">
+            <div class="strategy-label">Exit Strategy</div>
+            <div class="strategy-value">Consider partial profit-taking near resistance levels ($710-744) if holding long-term positions. Set stop loss

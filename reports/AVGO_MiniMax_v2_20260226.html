@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Broadcom Inc. (AVGO) Equity Research</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --fool-green: #3D8B37;
+            --fool-navy: #1E3A5F;
+            --fool-navy-light: #2c5282;
+            --text-dark: #333333;
+            --text-light: #666666;
+            --bg-light: #f9f9f9;
+            --border-color: #e0e0e0;
+            --red-negative: #D32F2F;
+            --green-positive: #388E3C;
+        }
+
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            color: var(--text-dark);
+            line-height: 1.6;
+            margin: 0 auto;
+            max-width: 700px;
+            padding: 20px;
+            background-color: #fff;
+        }
+
+        h1, h2, h3, h4 {
+            color: var(--fool-navy);
+            margin-top: 0;
+        }
+
+        .header-section {
+            border-bottom: 2px solid var(--fool-navy);
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+
+        .company-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .ticker-symbol {
+            color: var(--text-light);
+            font-weight: 600;
+            font-size: 18px;
+        }
+
+        /* Price Box */
+        .price-box {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 15px;
+            background-color: var(--bg-light);
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            margin-bottom: 25px;
+        }
+
+        .price-item {
+            text-align: center;
+        }
+
+        .price-label {
+            font-size: 12px;
+            text-transform: uppercase;
+            color: var(--text-light);
+            font-weight: 600;
+        }
+
+        .price-value {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--fool-navy);
+        }
+
+        .price-value.target { color: var(--fool-green); }
+        .price-value.stop { color: var(--red-negative); }
+
+        /* Executive Summary */
+        .exec-summary {
+            background-color: #eef7ef;
+            border-left: 5px solid var(--fool-green);
+            padding: 20px;
+            margin-bottom: 25px;
+        }
+
+        .signal-badge {
+            display: inline-block;
+            background-color: var(--fool-green);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .meta-row {
+            font-size: 14px;
+            color: var(--text-light);
+            margin-bottom: 10px;
+        }
+
+        /* Introduction */
+        .intro-section {
+            margin-bottom: 25px;
+            font-size: 17px;
+        }
+
+        /* Bull/Bear Cases */
+        .cases-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .case-box {
+            font-size: 15px;
+            padding: 16px;
+            border-radius: 8px;
+        }
+
+        .bull-case {
+            background: linear-gradient(to bottom, #e8f5e9, #ffffff);
+            border: 1px solid var(--fool-green);
+        }
+
+        .bear-case {
+            background: linear-gradient(to bottom, #ffebee, #ffffff);
+            border: 1px solid #ef5350;
+        }
+
+        .case-title {
+            font-weight: 700;
+            font-size: 18px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+        }
+
+        .bull-case .case-title { color: var(--fool-green); }
+        .bear-case .case-title { color: var(--red-negative); }
+
+        .case-list {
+            padding-left: 20px;
+            margin: 0;
+        }
+
+        .case-list li {
+            margin-bottom: 8px;
+        }
+
+        /* Traffic Light */
+        .traffic-light-container {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: var(--fool-navy);
+            border-radius: 8px;
+            color: white;
+        }
+
+        .tl-item {
+            text-align: center;
+        }
+
+        .tl-label {
+            font-size: 12px;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+            opacity: 0.9;
+        }
+
+        .tl-light {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            margin: 0 auto 5px auto;
+            border: 2px solid rgba(255,255,255,0.5);
+        }
+
+        .light-green { background-color: var(--fool-green); box-shadow: 0 0 10px var(--fool-green); }
+        .light-yellow { background-color: #FBC02D; box-shadow: 0 0 10px #FBC02D; }
+        .light-red { background-color: #D32F2F; box-shadow: 0 0 10px #D32F2F; }
+
+        .tl-rating {
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        /* P&L Styles (Exact Match) */
+        .pnl-section {
+            margin-bottom: 30px;
+            border: 1px solid var(--border-color);
+            padding: 20px;
+            border-radius: 8px;
+        }
+        .pnl-title {
+            font-size: 20px;
+            margin-bottom: 15px;
+            color: var(--fool-navy);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .estimate-tag {
+            font-size: 12px;
+            background: #eee;
+            padding: 2px 6px;
+            border-radius: 4px;
+            color: #666;
+            font-weight: normal;
+        }
+        .pnl-table-container {
+            overflow-x: auto;
+        }
+        .pnl-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+        .pnl-table th, .pnl-table td {
+            padding: 8px;
+            text-align: right;
+            border-bottom: 1px solid #eee;
+        }
+        .pnl-table th {
+            text-align: right;
+            font-weight: 600;
+            color: var(--fool-navy);
+            border-bottom: 2px solid var(--fool-navy);
+        }
+        .pnl-metric-col { text-align: left !important; }
+        .pnl-metric { text-align: left; font-weight: 600; }
+        .est-badge {
+            background: #3D8B37;
+            color: white;
+            font-size: 9px;
+            padding: 1px 3px;
+            border-radius: 2px;
+            margin-right: 2px;
+        }
+        .growth { font-size: 11px; margin-left: 4px; }
+        .growth.positive { color: #388E3C; }
+        .growth.negative { color: #D32F2F; }
+        .margin { color: #666; font-size: 11px; }
+        
+        .latest-quarter-box {
+            margin-top: 15px;
+            background: #f0f4f8;
+            padding: 15px;
+            border-radius: 6px;
+        }
+        .lq-header {
+            font-weight: 700;
+            color: var(--fool-navy);
+            margin-bottom: 10px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 5px;
+        }
+        .lq-metrics {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+        }
+        .lq-metric { text-align: center; }
+        .lq-label { font-size: 11px; color: #666; text-transform: uppercase; }
+        .lq-value { font-size: 16px; font-weight: 700; color: var(--fool-navy); }
+        .lq-sub { font-size: 11px; }
+        .positive { color: #388E3C; }
+        .pnl-note { font-size: 12px; color: #888; margin-top: 10px; font-style: italic; }
+
+        /* Market Conditions */
+        .market-section {
+            margin-bottom: 25px;
+        }
+        .factor-list {
+            list-style: none;
+            padding: 0;
+        }
+        .factor-item {
+            margin-bottom: 15px;
+            padding-left: 15px;
+            border-left: 3px solid var(--fool-navy);
+        }
+        .factor-header {
+            font-weight: 700;
+            display: block;
+        }
+        .factor-weight {
+            font-size: 12px;
+            color: var(--text-light);
+            background: #eee;
+            padding: 2px 5px;
+            border-radius: 3px;
+            margin-left: 5px;
+        }
+
+        /* Strategy */
+        .strategy-box {
+            background-color: var(--fool-navy);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+        }
+        .strategy-box h3 {
+            color: white;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+        .strategy-list li {
+            margin-bottom: 10px;
+        }
+        .strategy-list strong {
+            color: #a5d6a7;
+        }
+
+        /* Conclusion */
+        .conclusion-section {
+            margin-bottom: 20px;
+        }
+        .verdict-box {
+            background-color: #e8f5e9;
+            border: 2px solid var(--fool-green);
+            padding: 20px;
+            text-align: center;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        .verdict-text {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--fool-green);
+        }
+
+        @media (max-width: 600px) {
+            .cases-container { grid-template-columns: 1fr; }
+            .lq-metrics { grid-template-columns: 1fr 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <div class="header-section">
+        <div class="company-title">Broadcom Inc.</div>
+        <div class="ticker-symbol">NASDAQ: AVGO</div>
+    </div>
+
+    <!-- Price Box -->
+    <div class="price-box">
+        <div class="price-item">
+            <div class="price-label">Current Price</div>
+            <div class="price-value">$321.70</div>
+        </div>
+        <div class="price-item">
+            <div class="price-label">Entry Zone</div>
+            <div class="price-value">$305 - $325</div>
+        </div>
+        <div class="price-item">
+            <div class="price-label">Base Target</div>
+            <div class="price-value target">$415</div>
+        </div>
+        <div class="price-item">
+            <div class="price-label">Bull Case</div>
+            <div class="price-value target">$460</div>
+        </div>
+        <div class="price-item">
+            <div class="price-label">Stop Loss</div>
+            <div class="price-value stop">$295</div>
+        </div>
+    </div>
+
+    <!-- Executive Summary -->
+    <div class="exec-summary">
+        <div class="signal-badge">🟢 BUY (HIGH CONFIDENCE)</div>
+        <div class="meta-row">Time Horizon: 12-18 Months | Sector: Technology</div>
+        <p>
+            Broadcom presents a compelling <strong>BUY</strong> opportunity following a significant sector-driven pullback. The stock is down ~14.7% over 3 months, driven by a broad semiconductor sell-off despite the company's robust fundamental profile. The recent decline has created an attractive entry point for a high-quality, diversified semiconductor and infrastructure software leader. Strong revenue growth post-VMware integration, expanding margins, and a solid balance sheet underpin the thesis. Technically, the stock is oversold and testing key Fibonacci support, while sentiment is overly negative. The risk/reward is favorable for long-term investors.
+        </p>
+    </div>
+
+    <!-- Introduction -->
+    <div class="intro-section">
+        <h3>Introduction</h3>
+        <p>
+            Broadcom Inc. (AVGO) is a diversified semiconductor and infrastructure software leader, recently bolstered by the strategic VMware integration. Despite a recent pullback driven by broader market concerns regarding AI spending cycles and semiconductor cyclicality, the company's underlying fundamentals remain exceptionally strong. This report outlines why the current price weakness represents a strategic accumulation opportunity for patient, long-term investors.
+        </p>
+    </div>
+
+    <!-- Bull and Bear Cases -->
+    <h3>Bull vs. Bear Case</h3>
+    <div class="cases-container">
+        <div class="case-box bull-case">
+            <div class="case-title">🟢 Bull Case</div>
+            <ul class="case-list">
+                <li><strong>VMware Integration:</strong> Driving significant revenue and margin synergy, transforming AVGO into a diversified software giant.</li>
+                <li><strong>AI Infrastructure Leadership:</strong> Critical role in custom silicon and Ethernet switching for AI data centers.</li>
+                <li><strong>Cash Flow Machine:</strong> Strong free cash flow generation supports robust shareholder returns.</li>
+                <li><strong>Technical Oversold:</strong> Near key support levels with a favorable risk/reward setup.</li>
+                <li><strong>Resilient Portfolio:</strong> Diversification across networking, broadband, and enterprise software provides stability.</li>
+            </ul>
+        </div>
+        <div class="case-box bear-case">
+            <div class="case-title">🔴 Bear Case</div>
+            <ul class="case-list">
+                <li><strong>Valuation Risk:</strong> High absolute P/E multiples make the stock vulnerable to rate shifts.</li>
+                <li><strong>Cyclicality:</strong> Exposure to downturns in the broader semiconductor cycle.</li>
+                <li><strong>Execution Risk:</strong> Integration challenges with the massive VMware acquisition.</li>
+                <li><strong>Sentiment Drag:</strong> Sector-wide negative sentiment and selling pressure may persist.</li>
+                <li><strong>AI Fatigue:</strong> Concerns that AI infrastructure spending may be peaking.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Traffic Light Analysis -->
+    <h3>Traffic Light Scoring</h3>
+    <div class="traffic-light-container">
+        <div class="tl-item">
+            <div class="tl-label">Fundamental</div>
+            <div class="tl-light light-green"></div>
+            <div class="tl-rating">STRONG</div>
+        </div>
+        <div class="tl-item">
+            <div class="tl-label">Technical</div>
+            <div class="tl-light light-green"></div>
+            <div class="tl-rating">BULLISH</div>
+        </div>
+        <div class="tl-item">
+            <div class="tl-label">Sentiment</div>
+            <div class="tl-light light-yellow"></div>
+            <div class="tl-rating">NEUTRAL</div>
+        </div>
+        <div class="tl-item">
+            <div class="tl-label">Risk</div>
+            <div class="tl-light light-green"></div>
+            <div class="tl-rating">LOW</div>
+        </div>
+    </div>
+
+    <!-- P&L Section (Exact HTML) -->
+    <div class="pnl-section">
+        <h3 class="pnl-title">Financials <span class="estimate-tag">2026E = Estimated</span></h3>
+        <div class="pnl-table-container">
+            <table class="pnl-table">
+                <thead>
+                    <tr>
+                        <th class="pnl-metric-col">Metric</th>
+                        <th class="pnl-year-col estimate-col">2026E</th>
+                        <th class="pnl-year-col">2025</th>
+                        <th class="pnl-year-col">2024</th>
+                        <th class="pnl-year-col">2023</th>
+                        <th class="pnl-year-col">2022</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="pnl-row highlight">
+                        <td class="pnl-metric">Revenue</td>
+                        <td class="pnl-value"><span class="est-badge">E</span>$76.66B <span class="growth positive">+20.0%</span></td>
+                        <td class="pnl-value">$63.89B <span class="growth positive">+23.9%</span></td>
+                        <td class="pnl-value">$51.57B <span class="growth positive">+44.0%</span></td>
+                        <td class="pnl-value">$35.82B <span class="growth positive">+7.9%</span></td>
+                        <td class="pnl-value">$33.20B </td>
+                    </tr>
+                    <tr class="pnl-row highlight">
+                        <td class="pnl-metric">Gross Profit</td>
+                        <td class="pnl-value"><span class="est-badge">E</span>$51.95B <span class="margin">(67.8%)</span></td>
+                        <td class="pnl-value">$43.29B <span class="margin">(67.8%)</span></td>
+                        <td class="pnl-value">$32.51B <span class="margin">(63.0%)</span></td>
+                        <td class="pnl-value">$24.69B <span class="margin">(68.9%)</span></td>
+                        <td class="pnl-value">$22.09B <span class="margin">(66.5%)</span></td>
+                    </tr>
+                    <tr class="pnl-row highlight">
+                        <td class="pnl-metric">Operating Income</td>
+                        <td class="pnl-value"><span class="est-badge">E</span>$31.29B  <span class="margin">(40.8%)</span></td>
+                        <td class="pnl-value">$26.07B <span class="growth positive">+73.9%</span> <span class="margin">(40.8%)</span></td>
+                        <td class="pnl-value">$15.00B <span class="growth negative">-8.8%</span> <span class="margin">(29.1%)</span></td>
+                        <td class="pnl-value">$16.45B <span class="growth positive">+15.2%</span> <span class="margin">(45.9%)</span></td>
+                        <td class="pnl-value">$14.28B  <span class="margin">(43.0%)</span></td>
+                    </tr>
+                    <tr class="pnl-row highlight net-income">
+                        <td class="pnl-metric">Net Income</td>
+                        <td class="pnl-value"><strong><span class="est-badge">E</span>$27.75B</strong>  <span class="margin">(36.2%)</span></td>
+                        <td class="pnl-value"><strong>$23.13B</strong> <span class="growth positive">+292.3%</span> <span class="margin">(36.2%)</span></td>
+                        <td class="pnl-value"><strong>$5.89B</strong> <span class="growth negative">-58.1%</span> <span class="margin">(11.4%)</span></td>
+                        <td class="pnl-value"><strong>$14.08B</strong> <span class="growth positive">+22.5%</span> <span class="margin">(39.3%)</span></td>
+                        <td class="pnl-value"><strong>$11.49B</strong>  <span class="margin">(34.6%)</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="latest-quarter-box">
+            <div class="lq-header">Latest Quarter: 2025-10</div>
+            <div class="lq-metrics">
+                <div class="lq-metric">
+                    <div class="lq-label">Revenue</div>
+                    <div class="lq-value">$18.02B</div>
+                    <div class="lq-sub">QoQ: <span class="positive">+12.9%</span></div>
+                </div>
+                <div class="lq-metric">
+                    <div class="lq-label">Gross Margin</div>
+                    <div class="lq-value">68.0%</div>
+                </div>
+                <div class="lq-metric">
+                    <div class="lq-label">Operating Margin</div>
+                    <div class="lq-value">42.5%</div>
+                </div>
+                <div class="lq-metric">
+                    <div class="lq-label">Net Margin</div>
+                    <div class="lq-value">47.3%</div>
+                </div>
+                <div class="lq-metric">
+                    <div class="lq-label">EPS (Diluted)</div>
+                    <div class="lq-value">$1.74</div>
+                </div>
+            </div>
+        </div>
+        <p class="pnl-note">2026E = Analyst estimate based on company guidance. All values in billions USD.</p>
+    </div>
+
+    <!-- Market Conditions -->
+    <div class="market-section">
+        <h3>Market Conditions & News</h3>
+        <p><strong>Why the Stock Declined:</strong></p>
+        <ul class="factor-list">
+            <li class="factor-item">
+                <span class="factor-header">Sector-Wide Semiconductor Sell-Off <span class="factor-weight">40%</span></span>
+                Broad sell-off in chipmakers triggered by Nvidia's post-earnings decline, reflecting 'buy the rumor, sell the news' dynamics and profit-taking.
+            </li>
+            <li class="factor-item">
+                <span class="factor-header">Multiple Compression <span class="factor-weight">30%</span></span>
+                High trailing P/E (67) made the stock vulnerable as interest rate expectations shifted and investors rotated out of expensive growth/tech names.
+            </li>
+            <li class="factor-item">
+                <span class="factor-header">AI Spending Cycle Fears <span class="factor-weight">20%</span></span>
+                Concerns that the AI infrastructure spending boom may be peaking or due for a pause.
+            </li>
+        </ul>
+        
+        <p><strong>Recent News Sentiment:</strong></p>
+        <p>Analysis of 241 articles (Feb 14 - Feb 26) shows overall sentiment is <strong>Slightly Positive</strong> (33.6% Positive, 51.9% Neutral, 14.5% Negative). While near-term technical weakness persists, the fundamental narrative remains intact.</p>
+    </div>
+
+    <!-- Investment Strategy -->
+    <div class="strategy-box">
+        <h3>Investment Strategy</h3>
+        <ul class="strategy-list">
+            <li><strong>Recommended Action:</strong> ACCUMULATE on weakness. Initiate a core position in the $305-$325 entry zone.</li>
+            <li><strong>Entry Strategy:</strong> Scale in over 2-3 tranches. First tranche at current levels (~$322), second near $310, third if it tests the 200DMA (~$317).</li>
+            <li><strong>Exit Strategy:</strong> Take partial profits at base target ($415). Let remaining position run to bull case ($460) with a trailing stop. Full exit if stop-loss ($295) is breached.</li>
+            <li><strong>Timeframe:</strong> Primary investment horizon 12-18 months to allow for the fundamental story to play out.</li>
+        </ul>
+    </div>
+
+    <!-- Conclusion -->
+    <div class="conclusion-section">
+        <h3>Conclusion</h3>
+        <p>
+            Broadcom is a high-quality, diversified technology leader unfairly punished in a sector-wide sell-off. Its fundamental trajectory remains strong, driven by the VMware acquisition and its entrenched position in critical networking infrastructure for AI and data centers. The current price offers an attractive risk/reward setup for patient investors seeking exposure to AI infrastructure beyond pure-play GPU companies.
+        </p>
+        
+        <div class="verdict-box">
+            <div class="verdict-text">🟢 BUY</div>
+            <p style="color: var(--fool-navy); margin-top: 10px;">The Traffic Light Scoring system indicates a strong BUY signal. The recent decline is a buying opportunity.</p>
+        </div>
+    </div>
+
+</body>
+</html>

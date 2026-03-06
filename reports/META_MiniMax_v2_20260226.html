@@ -1,0 +1,1093 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meta Platforms, Inc. (META) - Equity Research Report</title>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --fool-green: #3D8B37;
+            --fool-navy: #1E3A5F;
+            --fool-red: #C41E3A;
+            --fool-gold: #D4AF37;
+            --light-gray: #f5f5f5;
+            --border-gray: #e0e0e0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 18px;
+            line-height: 1.6;
+            color: #333;
+            background: #fff;
+        }
+
+        .report-container {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header Section */
+        .article-header {
+            border-bottom: 3px solid var(--fool-green);
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+        }
+
+        .company-name {
+            font-size: 14px;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        .ticker-symbol {
+            display: inline-block;
+            background: var(--fool-navy);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 3px;
+            font-size: 14px;
+            font-weight: 700;
+            margin-right: 10px;
+        }
+
+        .report-title {
+            font-size: 32px;
+            color: var(--fool-navy);
+            font-weight: 700;
+            margin: 10px 0;
+            line-height: 1.2;
+        }
+
+        .report-date {
+            font-size: 14px;
+            color: #888;
+        }
+
+        /* Price Box */
+        .price-box {
+            background: var(--fool-navy);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+        }
+
+        .price-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .current-price-section {
+            text-align: left;
+        }
+
+        .price-label {
+            font-size: 14px;
+            opacity: 0.8;
+        }
+
+        .current-price {
+            font-size: 36px;
+            font-weight: 700;
+        }
+
+        .price-change {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .targets-section {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .target-item {
+            text-align: center;
+        }
+
+        .target-label {
+            font-size: 12px;
+            text-transform: uppercase;
+            opacity: 0.8;
+            letter-spacing: 0.5px;
+        }
+
+        .target-value {
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .target-value.green { color: #7CBF7C; }
+        .target-value.gold { color: var(--fool-gold); }
+        .target-value.red { color: #FF7B7B; }
+
+        .entry-zone {
+            background: rgba(255,255,255,0.1);
+            padding: 8px 12px;
+            border-radius: 4px;
+        }
+
+        /* Executive Summary */
+        .exec-summary {
+            background: var(--light-gray);
+            border-left: 4px solid var(--fool-green);
+            padding: 20px;
+            margin-bottom: 25px;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .exec-summary-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .signal-badge {
+            display: inline-block;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .signal-badge.hold {
+            background: var(--fool-gold);
+            color: white;
+        }
+
+        .confidence-badge {
+            font-size: 12px;
+            color: #666;
+            text-transform: uppercase;
+        }
+
+        .exec-summary h3 {
+            color: var(--fool-navy);
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .exec-summary p {
+            font-size: 16px;
+            color: #444;
+        }
+
+        /* Introduction */
+        .intro-section {
+            margin-bottom: 25px;
+        }
+
+        .intro-section h2 {
+            color: var(--fool-navy);
+            font-size: 22px;
+            margin-bottom: 12px;
+            border-bottom: 2px solid var(--fool-green);
+            padding-bottom: 8px;
+            display: inline-block;
+        }
+
+        /* Bull/Bear Cases */
+        .cases-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .case-box {
+            font-size: 15px;
+            padding: 16px;
+            border-radius: 8px;
+        }
+
+        .bull-case {
+            background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%);
+            border: 1px solid var(--fool-green);
+        }
+
+        .bear-case {
+            background: linear-gradient(135deg, #FFEBEE 0%, #FFCDD2 100%);
+            border: 1px solid var(--fool-red);
+        }
+
+        .case-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .bull-case .case-title {
+            color: var(--fool-green);
+        }
+
+        .bear-case .case-title {
+            color: var(--fool-red);
+        }
+
+        .case-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .case-list li {
+            padding: 6px 0;
+            padding-left: 20px;
+            position: relative;
+            font-size: 15px;
+        }
+
+        .bull-case .case-list li::before {
+            content: "▲";
+            color: var(--fool-green);
+            position: absolute;
+            left: 0;
+            font-size: 12px;
+            top: 8px;
+        }
+
+        .bear-case .case-list li::before {
+            content: "▼";
+            color: var(--fool-red);
+            position: absolute;
+            left: 0;
+            font-size: 12px;
+            top: 8px;
+        }
+
+        .target-price-box {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(0,0,0,0.1);
+            font-weight: 600;
+        }
+
+        /* Traffic Light Analysis */
+        .traffic-light-section {
+            margin-bottom: 30px;
+        }
+
+        .traffic-light-section h2 {
+            color: var(--fool-navy);
+            font-size: 22px;
+            margin-bottom: 15px;
+            border-bottom: 2px solid var(--fool-green);
+            padding-bottom: 8px;
+            display: inline-block;
+        }
+
+        .traffic-lights {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+
+        .light-box {
+            text-align: center;
+            padding: 15px 10px;
+            border-radius: 8px;
+            background: var(--light-gray);
+        }
+
+        .light-indicator {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin: 0 auto 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .light-indicator.green {
+            background: var(--fool-green);
+            box-shadow: 0 0 15px rgba(61, 139, 55, 0.4);
+        }
+
+        .light-indicator.yellow {
+            background: var(--fool-gold);
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
+        }
+
+        .light-indicator.red {
+            background: var(--fool-red);
+            box-shadow: 0 0 15px rgba(196, 30, 58, 0.4);
+        }
+
+        .light-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--fool-navy);
+            margin-bottom: 5px;
+        }
+
+        .light-rating {
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+        .light-rating.buy { color: var(--fool-green); }
+        .light-rating.hold { color: var(--fool-gold); }
+        .light-rating.sell { color: var(--fool-red); }
+        .light-rating.neutral { color: #666; }
+
+        /* P&L Section */
+        .pnl-section {
+            margin-bottom: 30px;
+        }
+
+        .pnl-title {
+            color: var(--fool-navy);
+            font-size: 22px;
+            margin-bottom: 15px;
+            border-bottom: 2px solid var(--fool-green);
+            padding-bottom: 8px;
+            display: inline-block;
+        }
+
+        .estimate-tag {
+            font-size: 12px;
+            font-weight: 400;
+            color: #666;
+            text-transform: none;
+        }
+
+        .pnl-table-container {
+            overflow-x: auto;
+        }
+
+        .pnl-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+
+        .pnl-table th {
+            background: var(--fool-navy);
+            color: white;
+            padding: 10px 8px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .pnl-table td {
+            padding: 10px 8px;
+            border-bottom: 1px solid var(--border-gray);
+        }
+
+        .pnl-table tr:nth-child(even) {
+            background: var(--light-gray);
+        }
+
+        .pnl-table .highlight {
+            font-weight: 600;
+        }
+
+        .pnl-table .net-income {
+            background: #E3F2FD !important;
+        }
+
+        .est-badge {
+            background: var(--fool-gold);
+            color: white;
+            padding: 1px 4px;
+            border-radius: 2px;
+            font-size: 10px;
+            margin-right: 3px;
+        }
+
+        .growth {
+            font-size: 12px;
+            margin-left: 5px;
+        }
+
+        .growth.positive { color: var(--fool-green); }
+        .growth.negative { color: var(--fool-red); }
+
+        .margin {
+            color: #666;
+            font-size: 12px;
+            margin-left: 5px;
+        }
+
+        .latest-quarter-box {
+            background: var(--fool-navy);
+            color: white;
+            border-radius: 8px;
+            margin-top: 15px;
+            overflow: hidden;
+        }
+
+        .lq-header {
+            background: rgba(0,0,0,0.2);
+            padding: 10px 15px;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .lq-metrics {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+            padding: 15px;
+        }
+
+        .lq-metric {
+            text-align: center;
+        }
+
+        .lq-label {
+            font-size: 11px;
+            opacity: 0.8;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+
+        .lq-value {
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+        .lq-sub {
+            font-size: 11px;
+            margin-top: 3px;
+        }
+
+        .lq-sub .positive { color: #7CBF7C; }
+
+        .pnl-note {
+            font-size: 12px;
+            color: #666;
+            margin-top: 10px;
+            font-style: italic;
+        }
+
+        /* Market Conditions */
+        .market-section {
+            margin-bottom: 30px;
+        }
+
+        .market-section h2 {
+            color: var(--fool-navy);
+            font-size: 22px;
+            margin-bottom: 15px;
+            border-bottom: 2px solid var(--fool-green);
+            padding-bottom: 8px;
+            display: inline-block;
+        }
+
+        .decline-factors {
+            margin-bottom: 20px;
+        }
+
+        .factor-item {
+            display: flex;
+            align-items: flex-start;
+            padding: 12px;
+            background: var(--light-gray);
+            border-radius: 6px;
+            margin-bottom: 10px;
+        }
+
+        .factor-weight {
+            background: var(--fool-red);
+            color: white;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-right: 12px;
+            min-width: 50px;
+            text-align: center;
+        }
+
+        .factor-content h4 {
+            color: var(--fool-navy);
+            font-size: 15px;
+            margin-bottom: 4px;
+        }
+
+        .factor-content p {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .contrarian-view {
+            background: linear-gradient(135deg, #E3F2FD 0%, #BBDEFB 100%);
+            border: 1px solid var(--fool-navy);
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        .contrarian-view h4 {
+            color: var(--fool-navy);
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+
+        .contrarian-view p {
+            font-size: 14px;
+            color: #444;
+        }
+
+        .sector-conditions {
+            background: var(--light-gray);
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        .sector-conditions h4 {
+            color: var(--fool-navy);
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        .sector-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            text-align: center;
+        }
+
+        .sector-item .label {
+            font-size: 12px;
+            color: #666;
+            text-transform: uppercase;
+        }
+
+        .sector-item .value {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--fool-navy);
+        }
+
+        /* News Section */
+        .news-section {
+            margin-bottom: 30px;
+        }
+
+        .news-section h2 {
+            color: var(--fool-navy);
+            font-size: 22px;
+            margin-bottom: 15px;
+            border-bottom: 2px solid var(--fool-green);
+            padding-bottom: 8px;
+            display: inline-block;
+        }
+
+        .news-sentiment-bar {
+            background: var(--light-gray);
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+
+        .sentiment-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .sentiment-label {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .sentiment-value {
+            font-weight: 600;
+        }
+
+        .sentiment-bar {
+            height: 8px;
+            background: #ddd;
+            border-radius: 4px;
+            overflow: hidden;
+            display: flex;
+        }
+
+        .sentiment-positive {
+            background: var(--fool-green);
+            width: 30.9%;
+        }
+
+        .sentiment-negative {
+            background: var(--fool-red);
+            width: 16.5%;
+        }
+
+        .sentiment-neutral-bar {
+            background: #999;
+            width: 52.6%;
+        }
+
+        .news-articles {
+            list-style: none;
+            padding: 0;
+        }
+
+        .news-item {
+            padding: 12px;
+            border-bottom: 1px solid var(--border-gray);
+        }
+
+        .news-item:last-child {
+            border-bottom: none;
+        }
+
+        .news-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 6px;
+        }
+
+        .news-date {
+            font-size: 12px;
+            color: #888;
+        }
+
+        .news-sentiment-tag {
+            font-size: 11px;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-weight: 600;
+        }
+
+        .news-sentiment-tag.positive {
+            background: #E8F5E9;
+            color: var(--fool-green);
+        }
+
+        .news-sentiment-tag.negative {
+            background: #FFEBEE;
+            color: var(--fool-red);
+        }
+
+        .news-sentiment-tag.neutral {
+            background: #ECEFF1;
+            color: #666;
+        }
+
+        .news-headline {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--fool-navy);
+            margin-bottom: 4px;
+        }
+
+        .news-summary {
+            font-size: 13px;
+            color: #666;
+        }
+
+        .news-source {
+            font-size: 12px;
+            color: #888;
+            font-style: italic;
+        }
+
+        /* Strategy Section */
+        .strategy-section {
+            margin-bottom: 30px;
+        }
+
+        .strategy-section h2 {
+            color: var(--fool-navy);
+            font-size: 22px;
+            margin-bottom: 15px;
+            border-bottom: 2px solid var(--fool-green);
+            padding-bottom: 8px;
+            display: inline-block;
+        }
+
+        .strategy-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .strategy-box {
+            background: var(--light-gray);
+            border-radius: 8px;
+            padding: 15px;
+        }
+
+        .strategy-box h4 {
+            color: var(--fool-navy);
+            font-size: 14px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+            letter-spacing: 0.5px;
+        }
+
+        .strategy-box p {
+            font-size: 15px;
+            color: #444;
+        }
+
+        /* Conclusion */
+        .conclusion-section {
+            background: linear-gradient(135deg, var(--fool-navy) 0%, #2a4a6f 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .conclusion-section h2 {
+            color: white;
+            font-size: 22px;
+            margin-bottom: 15px;
+            border-bottom: 2px solid var(--fool-gold);
+            padding-bottom: 8px;
+            display: inline-block;
+        }
+
+        .conclusion-section p {
+            font-size: 16px;
+            line-height: 1.7;
+            margin-bottom: 15px;
+        }
+
+        .verdict-box {
+            background: rgba(255,255,255,0.1);
+            border: 2px solid var(--fool-gold);
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .verdict-label {
+            font-size: 14px;
+            opacity: 0.8;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .verdict-value {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--fool-gold);
+        }
+
+        .investor-types {
+            margin-top: 20px;
+        }
+
+        .investor-types h4 {
+            font-size: 15px;
+            margin-bottom: 10px;
+            opacity: 0.9;
+        }
+
+        .investor-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .investor-box {
+            background: rgba(255,255,255,0.05);
+            border-radius: 6px;
+            padding: 12px;
+        }
+
+        .investor-box h5 {
+            font-size: 13px;
+            margin-bottom: 6px;
+            opacity: 0.8;
+        }
+
+        .investor-box ul {
+            list-style: none;
+            padding: 0;
+            font-size: 13px;
+        }
+
+        .investor-box li {
+            padding: 2px 0;
+            padding-left: 12px;
+            position: relative;
+        }
+
+        .investor-box li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+        }
+
+        /* Footer */
+        .disclaimer {
+            font-size: 11px;
+            color: #888;
+            border-top: 1px solid var(--border-gray);
+            padding-top: 15px;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 600px) {
+            .cases-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .traffic-lights {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .lq-metrics {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .sector-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .strategy-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .investor-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .price-row {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="report-container">
+        <!-- Header -->
+        <header class="article-header">
+            <div class="company-name">Communication Services</div>
+            <h1 class="report-title">Meta Platforms, Inc.</h1>
+            <div>
+                <span class="ticker-symbol">META</span>
+                <span class="report-date">Equity Research Report | February 2026</span>
+            </div>
+        </header>
+
+        <!-- Price Box -->
+        <div class="price-box">
+            <div class="price-row">
+                <div class="current-price-section">
+                    <div class="price-label">Current Price</div>
+                    <div class="current-price">$657.01</div>
+                    <div class="price-change">12.75% decline over 6 months</div>
+                </div>
+                <div class="targets-section">
+                    <div class="target-item">
+                        <div class="target-label">Entry Zone</div>
+                        <div class="target-value entry-zone">$620-640</div>
+                    </div>
+                    <div class="target-item">
+                        <div class="target-label">Base Target</div>
+                        <div class="target-value green">$710</div>
+                    </div>
+                    <div class="target-item">
+                        <div class="target-label">Bull Case</div>
+                        <div class="target-value gold">$744</div>
+                    </div>
+                    <div class="target-item">
+                        <div class="target-label">Stop Loss</div>
+                        <div class="target-value red">$600</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Executive Summary -->
+        <div class="exec-summary">
+            <div class="exec-summary-header">
+                <span class="signal-badge hold">HOLD</span>
+                <span class="confidence-badge">MEDIUM CONFIDENCE</span>
+            </div>
+            <h3>Executive Summary</h3>
+            <p>META presents a mixed investment case. Strong fundamentals with robust revenue growth and profitability are offset by a bearish technical setup, including a death cross and MACD sell signal. The stock has declined 12.75% over 6 months due to sector rotation, AI infrastructure spending concerns, and multiple compression. While valuation is reasonable (forward P/E 18.4), near-term headwinds suggest limited upside. Risk assessment is elevated due to volatility. A HOLD rating is appropriate pending clearer technical improvement or positive catalysts.</p>
+        </div>
+
+        <!-- Introduction -->
+        <section class="intro-section">
+            <h2>Investment Overview</h2>
+            <p>Meta Platforms, Inc. (NASDAQ: META) remains a dominant force in the global social media landscape, operating Facebook, Instagram, WhatsApp, and Threads. The company has been aggressively investing in artificial intelligence infrastructure to maintain its competitive edge and drive future growth. Despite strong fundamental performance, the stock faces near-term headwinds from technical weakness and sector rotation pressures.</p>
+        </section>
+
+        <!-- Bull/Bear Cases -->
+        <section class="cases-section">
+            <div class="cases-container">
+                <div class="case-box bull-case">
+                    <div class="case-title">▲ Bull Case</div>
+                    <ul class="case-list">
+                        <li>Strong revenue growth (22.2% YoY)</li>
+                        <li>Robust profitability (EBITDA margin 52.6%)</li>
+                        <li>Reasonable valuation (forward P/E 18.4)</li>
+                        <li>Dominant market position in social media</li>
+                        <li>AI investments position for long-term growth</li>
+                        <li>Strong cash flow generation</li>
+                    </ul>
+                    <div class="target-price-box">
+                        Bull Case Target: <strong>$744</strong>
+                    </div>
+                </div>
+                <div class="case-box bear-case">
+                    <div class="case-title">▼ Bear Case</div>
+                    <ul class="case-list">
+                        <li>Bearish technical setup (death cross)</li>
+                        <li>AI spending concerns pressuring margins</li>
+                        <li>Sector rotation away from tech</li>
+                        <li>Recent 12.75% decline over 6 months</li>
+                        <li>Regulatory concerns in key markets</li>
+                        <li>Advertising market uncertainty</li>
+                    </ul>
+                    <div class="target-price-box">
+                        Risk: <strong>$600</strong> (Stop Loss)
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Traffic Light Analysis -->
+        <section class="traffic-light-section">
+            <h2>Traffic Light Analysis</h2>
+            <div class="traffic-lights">
+                <div class="light-box">
+                    <div class="light-indicator green">●</div>
+                    <div class="light-label">Fundamental</div>
+                    <div class="light-rating buy">BUY</div>
+                </div>
+                <div class="light-box">
+                    <div class="light-indicator red">●</div>
+                    <div class="light-label">Technical</div>
+                    <div class="light-rating sell">SELL</div>
+                </div>
+                <div class="light-box">
+                    <div class="light-indicator yellow">●</div>
+                    <div class="light-label">Sentiment</div>
+                    <div class="light-rating neutral">NEUTRAL</div>
+                </div>
+                <div class="light-box">
+                    <div class="light-indicator red">●</div>
+                    <div class="light-label">Risk</div>
+                    <div class="light-rating sell">HIGH RISK</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- P&L Section -->
+        <div class="pnl-section">
+            <h3 class="pnl-title">Financials <span class="estimate-tag">2026E = Estimated</span></h3>
+            <div class="pnl-table-container">
+                <table class="pnl-table">
+                    <thead>
+                        <tr>
+                            <th class="pnl-metric-col">Metric</th>
+                            <th class="pnl-year-col estimate-col">2026E</th>
+                            <th class="pnl-year-col">2025</th>
+                            <th class="pnl-year-col">2024</th>
+                            <th class="pnl-year-col">2023</th>
+                            <th class="pnl-year-col">2022</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="pnl-row highlight">
+                            <td class="pnl-metric">Revenue</td>
+                            <td class="pnl-value"><span class="est-badge">E</span>$241.16B <span class="growth positive">+20.0%</span></td>
+                            <td class="pnl-value">$200.97B <span class="growth positive">+22.2%</span></td>
+                            <td class="pnl-value">$164.50B <span class="growth positive">+21.9%</span></td>
+                            <td class="pnl-value">$134.90B <span class="growth positive">+15.7%</span></td>
+                            <td class="pnl-value">$116.61B </td>
+                        </tr>
+                        <tr class="pnl-row highlight">
+                            <td class="pnl-metric">Gross Profit</td>
+                            <td class="pnl-value"><span class="est-badge">E</span>$197.75B <span class="margin">(82.0%)</span></td>
+                            <td class="pnl-value">$164.79B <span class="margin">(82.0%)</span></td>
+                            <td class="pnl-value">$134.34B <span class="margin">(81.7%)</span></td>
+                            <td class="pnl-value">$108.94B <span class="margin">(80.8%)</span></td>
+                            <td class="pnl-value">$91.36B <span class="margin">(78.3%)</span></td>
+                        </tr>
+                        <tr class="pnl-row highlight">
+                            <td class="pnl-metric">Operating Income</td>
+                            <td class="pnl-value"><span class="est-badge">E</span>$99.93B  <span class="margin">(41.4%)</span></td>
+                            <td class="pnl-value">$83.28B <span class="growth positive">+20.0%</span> <span class="margin">(41.4%)</span></td>
+                            <td class="pnl-value">$69.38B <span class="growth positive">+48.4%</span> <span class="margin">(42.2%)</span></td>
+                            <td class="pnl-value">$46.75B <span class="growth positive">+61.5%</span> <span class="margin">(34.7%)</span></td>
+                            <td class="pnl-value">$28.94B  <span class="margin">(24.8%)</span></td>
+                        </tr>
+                        <tr class="pnl-row highlight net-income">
+                            <td class="pnl-metric">Net Income</td>
+                            <td class="pnl-value"><strong><span class="est-badge">E</span>$72.55B</strong>  <span class="margin">(30.1%)</span></td>
+                            <td class="pnl-value"><strong>$60.46B</strong> <span class="growth negative">-3.1%</span> <span class="margin">(30.1%)</span></td>
+                            <td class="pnl-value"><strong>$62.36B</strong> <span class="growth positive">+59.5%</span> <span class="margin">(37.9%)</span></td>
+                            <td class="pnl-value"><strong>$39.10B</strong> <span class="growth positive">+68.5%</span> <span class="margin">(29.0%)</span></td>
+                            <td class="pnl-value"><strong>$23.20B</strong>  <span class="margin">(19.9%)</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="latest-quarter-box">
+                <div class="lq-header">Latest Quarter: 2025-12</div>
+                <div class="lq-metrics">
+                    <div class="lq-metric">
+                        <div class="lq-label">Revenue</div>
+                        <div class="lq-value">$59.89B</div>
+                        <div class="lq-sub">QoQ: <span class="positive">+16.9%</span></div>
+                    </div>
+                    <div class="lq-metric">
+                        <div class="lq-label">Gross Margin</div>
+                        <div class="lq-value">81.8%</div>
+                    </div>
+                    <div class="lq-metric">
+                        <div class="lq-label">Operating Margin</div>
+                        <div class="lq-value">41.3%</div>
+                    </div>
+                    <div class="lq-metric">
+                        <div class="lq-label">Net Margin</div>
+                        <div class="lq-value">38.0%</div>
+                    </div>
+                    <div class="lq-metric">
+                        <div class="lq-label">EPS (Diluted)</div>
+                        <div class="lq-value">$8.88</div>
+                    </div>
+                </div>
+            </div>
+            <p class="pnl-note">2026E = Analyst estimate based on company guidance. All values in billions USD.</p>
+        </div>
+
+        <!-- Market Conditions -->
+        <section class="market-section">
+            <h2>Market Conditions</h2>
+            
+            <div class="decline-factors">
+                <h3 style="color: var(--fool-navy); font-size: 18px; margin-bottom: 12px;">Why META Declined</h3>
+                
+                <div class="factor-item">
+                    <div class="factor-weight">30%</div>
+                    <div class="factor-content">
+                        <h4>Sector rotation from tech to value</h4>

@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NVDA Stock Report | NVIDIA Corporation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --fool-green: #3D8B37;
+            --fool-navy: #1E3A5F;
+            --fool-red: #C41E3A;
+            --fool-gold: #D4AF37;
+            --light-gray: #f5f5f5;
+            --border-gray: #e0e0e0;
+            --bull-gradient: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+            --bear-gradient: linear-gradient(135deg, #ffebee 0%, #ffcdd2 100%);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: #fafafa;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #fff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+
+        /* Article Header */
+        .article-header {
+            border-bottom: 3px solid var(--fool-green);
+            padding-bottom: 20px;
+            margin-bottom: 25px;
+        }
+
+        .ticker-badge {
+            display: inline-block;
+            background: var(--fool-navy);
+            color: #fff;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-weight: 700;
+            font-size: 14px;
+            margin-right: 10px;
+        }
+
+        .company-name {
+            font-size: 32px;
+            font-weight: 900;
+            color: var(--fool-navy);
+            margin: 10px 0 5px 0;
+        }
+
+        .sector-tag {
+            color: #666;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .thesis-line {
+            margin-top: 15px;
+            font-size: 18px;
+            color: #444;
+            font-style: italic;
+            border-left: 4px solid var(--fool-green);
+            padding-left: 15px;
+        }
+
+        /* Price Box */
+        .price-box {
+            background: var(--fool-navy);
+            color: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 25px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .price-item {
+            text-align: center;
+        }
+
+        .price-label {
+            font-size: 12px;
+            text-transform: uppercase;
+            opacity: 0.8;
+            letter-spacing: 0.5px;
+        }
+
+        .price-value {
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .price-value.target {
+            color: #4caf50;
+        }
+
+        .price-value.stop {
+            color: #f44336;
+        }
+
+        .price-value.entry {
+            color: var(--fool-gold);
+        }
+
+        /* Executive Summary */
+        .exec-summary {
+            background: linear-gradient(135deg, #e8f5e9 0%, #f1f8e9 100%);
+            border: 2px solid var(--fool-green);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 25px;
+        }
+
+        .signal-badge {
+            display: inline-flex;
+            align-items: center;
+            background: var(--fool-green);
+            color: #fff;
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-weight: 700;
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+
+        .signal-dot {
+            width: 12px;
+            height: 12px;
+            background: #fff;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+
+        .summary-text {
+            font-size: 16px;
+            color: #333;
+        }
+
+        .meta-tags {
+            margin-top: 15px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .meta-tag {
+            background: rgba(255,255,255,0.7);
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--fool-navy);
+        }
+
+        /* Introduction */
+        .section-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--fool-navy);
+            margin: 30px 0 15px 0;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--border-gray);
+        }
+
+        .intro-text {
+            font-size: 16px;
+            color: #444;
+            margin-bottom: 20px;
+        }
+
+        /* Bull/Bear Cases */
+        .cases-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 25px 0;
+        }
+
+        .case-box {
+            font-size: 15px;
+            padding: 16px;
+            border-radius: 8px;
+        }
+
+        .bull-case {
+            background: var(--bull-gradient);
+            border: 2px solid var(--fool-green);
+        }
+
+        .bear-case {
+            background: var(--bear-gradient);
+            border: 2px solid var(--fool-red);
+        }
+
+        .case-header {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+        }
+
+        .bull-case .case-header {
+            color: var(--fool-green);
+        }
+
+        .bear-case .case-header {
+            color: var(--fool-red);
+        }
+
+        .case-icon {
+            margin-right: 8px;
+            font-size: 20px;
+        }
+
+        .case-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .case-list li {
+            padding: 6px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .bull-case .case-list li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--fool-green);
+            font-weight: 700;
+        }
+
+        .bear-case .case-list li::before {
+            content: "✗";
+            position: absolute;
+            left: 0;
+            color: var(--fool-red);
+            font-weight: 700;
+        }
+
+        /* Traffic Light Analysis */
+        .traffic-light {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin: 25px 0;
+        }
+
+        .light-box {
+            text-align: center;
+            padding: 15px 10px;
+            border-radius: 8px;
+            background: #f5f5f5;
+            border: 2px solid #ddd;
+        }
+
+        .light-box.active-green {
+            background: #e8f5e9;
+            border-color: var(--fool-green);
+        }
+
+        .light-box.active-yellow {
+            background: #fff8e1;
+            border-color: var(--fool-gold);
+        }
+
+        .light-box.active-red {
+            background: #ffebee;
+            border-color: var(--fool-red);
+        }
+
+        .light-indicator {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            margin: 0 auto 10px;
+            background: #ccc;
+        }
+
+        .light-box.active-green .light-indicator {
+            background: var(--fool-green);
+            box-shadow: 0 0 10px var(--fool-green);
+        }
+
+        .light-box.active-yellow .light-indicator {
+            background: var(--fool-gold);
+            box-shadow: 0 0 10px var(--fool-gold);
+        }
+
+        .light-box.active-red .light-indicator {
+            background: var(--fool-red);
+            box-shadow: 0 0 10px var(--fool-red);
+        }
+
+        .light-label {
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: #666;
+        }
+
+        .light-rating {
+            font-size: 16px;
+            font-weight: 700;
+            margin-top: 5px;
+        }
+
+        .active-green .light-rating {
+            color: var(--fool-green);
+        }
+
+        .active-yellow .light-rating {
+            color: #f57c00;
+        }
+
+        .active-red .light-rating {
+            color: var(--fool-red);
+        }
+
+        /* P&L Section */
+        .pnl-section {
+            margin: 25px 0;
+            background: #fff;
+            border-radius: 8px;
+        }
+
+        .pnl-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--fool-navy);
+            margin-bottom: 15px;
+        }
+
+        .estimate-tag {
+            font-size: 12px;
+            font-weight: 400;
+            color: #666;
+            text-transform: none;
+        }
+
+        .pnl-table-container {
+            overflow-x: auto;
+        }
+
+        .pnl-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+
+        .pnl-table th {
+            background: var(--fool-navy);
+            color: #fff;
+            padding: 10px 8px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .pnl-table th.estimate-col {
+            background: #2a4a6f;
+        }
+
+        .pnl-table td {
+            padding: 10px 8px;
+            border-bottom: 1px solid var(--border-gray);
+        }
+
+        .pnl-row.highlight {
+            background: #fafafa;
+        }
+
+        .pnl-row.net-income {
+            background: #e3f2fd;
+        }
+
+        .pnl-metric {
+            font-weight: 600;
+        }
+
+        .pnl-value {
+            font-weight: 500;
+        }
+
+        .est-badge {
+            background: var(--fool-gold);
+            color: #fff;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 10px;
+            font-weight: 700;
+            margin-right: 4px;
+        }
+
+        .growth.positive {
+            color: var(--fool-green);
+            font-weight: 600;
+            font-size: 12px;
+        }
+
+        .growth.negative {
+            color: var(--fool-red);
+            font-weight: 600;
+            font-size: 12px;
+        }
+
+        .margin {
+            color: #666;
+            font-size: 12px;
+        }
+
+        .latest-quarter-box {
+            background: linear-gradient(135deg, #e3f2fd 0%, #f3e5f5 100%);
+            border: 2px solid var(--fool-navy);
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 15px;
+        }
+
+        .lq-header {
+            font-weight: 700;
+            color: var(--fool-navy);
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+
+        .lq-metrics {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+        }
+
+        .lq-metric {
+            text-align: center;
+        }
+
+        .lq-label {
+            font-size: 11px;
+            color: #666;
+            text-transform: uppercase;
+        }
+
+        .lq-value {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--fool-navy);
+        }
+
+        .lq-sub {
+            font-size: 11px;
+            color: #666;
+        }
+
+        .lq-sub .positive {
+            color: var(--fool-green);
+            font-weight: 600;
+        }
+
+        .pnl-note {
+            font-size: 12px;
+            color: #888;
+            margin-top: 10px;
+            font-style: italic;
+        }
+
+        /* Market Conditions */
+        .market-conditions {
+            margin: 25px 0;
+        }
+
+        .decline-factors {
+            background: #fff3e0;
+            border-left: 4px solid #ff9800;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .decline-factors h4 {
+            color: #e65100;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .factor-item {
+            display: flex;
+            margin: 8px 0;
+            font-size: 14px;
+        }
+
+        .factor-weight {
+            font-weight: 700;
+            color: #e65100;
+            min-width: 50px;
+        }
+
+        .contrarian-box {
+            background: #e8f5e9;
+            border: 2px solid var(--fool-green);
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+
+        .contrarian-box h4 {
+            color: var(--fool-green);
+            margin-bottom: 10px;
+        }
+
+        .contrarian-box p {
+            font-size: 14px;
+        }
+
+        .news-grid {
+            display: grid;
+            gap: 12px;
+            margin-top: 15px;
+        }
+
+        .news-item {
+            background: #f5f5f5;
+            padding: 12px;
+            border-radius: 6px;
+            border-left: 4px solid #ccc;
+        }
+
+        .news-item.positive {
+            border-left-color: var(--fool-green);
+        }
+
+        .news-item.negative {
+            border-left-color: var(--fool-red);
+        }
+
+        .news-item.neutral {
+            border-left-color: var(--fool-gold);
+        }
+
+        .news-date {
+            font-size: 11px;
+            color: #888;
+            margin-bottom: 4px;
+        }
+
+        .news-headline {
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 4px;
+        }
+
+        .news-source {
+            font-size: 12px;
+            color: #666;
+        }
+
+        .sentiment-badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 3px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .sentiment-badge.positive {
+            background: #c8e6c9;
+            color: var(--fool-green);
+        }
+
+        .sentiment-badge.negative {
+            background: #ffcdd2;
+            color: var(--fool-red);
+        }
+
+        .sentiment-badge.neutral {
+            background: #fff9c4;
+            color: #f57c00;
+        }
+
+        /* Investment Strategy */
+        .strategy-box {
+            background: #f5f5f5;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+
+        .strategy-item {
+            margin: 15px 0;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border-gray);
+        }
+
+        .strategy-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .strategy-label {
+            font-weight: 700;
+            color: var(--fool-navy);
+            font-size: 14px;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+
+        .strategy-text {
+            font-size: 15px;
+            color: #333;
+        }
+
+        /* Conclusion */
+        .conclusion-box {
+            background: linear-gradient(135deg, var(--fool-navy) 0%, #2a4a6f 100%);
+            color: #fff;
+            border-radius: 8px;
+            padding: 25px;
+            margin: 25px 0;
+        }
+
+        .conclusion-box h3 {
+            font-size: 20px;
+            margin-bottom: 15px;
+            color: #fff;
+        }
+
+        .conclusion-box p {
+            font-size: 15px;
+            line-height: 1.7;
+            margin-bottom: 15px;
+        }
+
+        .verdict-badge {
+            display: inline-block;
+            background: var(--fool-green);
+            color: #fff;
+            padding: 10px 25px;
+            border-radius: 25px;
+            font-weight: 700;
+            font-size: 18px;
+            margin-top: 10px;
+        }
+
+        .investor-types {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .investor-box {
+            padding: 15px;
+            border-radius: 6px;
+        }
+
+        .investor-box.buy {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .investor-box.avoid {
+            background: rgba(0,0,0,0.2);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .investor-box h4 {
+            font-size: 14px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .investor-box.buy h4 {
+            color: #81c784;
+        }
+
+        .investor-box.avoid h4 {
+            color: #ef9a9a;
+        }
+
+        .investor-box ul {
+            list-style: none;
+            font-size: 13px;
+        }
+
+        .investor-box.buy ul li::before {
+            content: "✓ ";
+            color: #81c784;
+        }
+
+        .investor-box.avoid ul li::before {
+            content: "✗ ";
+            color: #ef9a9a;
+        }
+
+        /* Footer */
+        .disclaimer {
+            font-size: 11px;
+            color: #888;
+            text-align: center;
+            padding: 20px;
+            border-top: 1px solid var(--border-gray);
+            margin-top: 30px;
+        }
+
+        @media (max-width: 600px) {
+            .cases-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .traffic-light {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .lq-metrics {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .investor-types {
+                grid-template-columns: 1fr;
+            }
+            
+            .price-box {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Article Header -->
+        <div class="article-header">
+            <span class="ticker-badge">NVDA</span>
+            <span class="sector-tag">Technology • Semiconductor</span>
+            <h1 class="company-name">NVIDIA Corporation</h1>
+            <p class="thesis-line">Dominant AI infrastructure play presenting a compelling buying opportunity following post-earnings weakness.</p>
+        </div>
+
+        <!-- Price Box -->
+        <div class="price-box">
+            <div class="price-item">
+                <div class="price-label">Current Price</div>
+                <div class="price-value">$184.92</div>
+            </div>
+            <div class="price-item">
+                <div class="price-label">Entry Zone</div>
+                <div class="price-value entry">$175 - $185</div>
+            </div>
+            <div class="price-item">
+                <div class="price-label">Base Target</div>
+                <div class="price-value target">$240</div>
+            </div>
+            <div class="price-item">
+                <div class="price-label">Bull Case</div>
+                <div class="price-value target">$275</div>
+            </div>
+            <div class="price-item">
+                <div class="price-label">Stop Loss</div>
+                <div class="price-value stop">$165</div>
+            </div>
+            <div class="price-item">
+                <div class="price-label">Time Horizon</div>
+                <div class="price-value">12-18 Mo</div>
+            </div>
+        </div>
+
+        <!-- Executive Summary -->
+        <div class="exec-summary">
+            <div class="signal-badge">
+                <span class="signal-dot"></span>
+                🟢 BUY (HIGH Confidence)
+            </div>
+            <p class="summary-text">NVIDIA presents a compelling BUY opportunity following a significant post-earnings selloff (-5.44% today). The decline is attributed to short-term fears and profit-taking, overshadowing a dominant fundamental position in the AI infrastructure build-out. The company's revenue and earnings have grown exponentially, and its forward P/E of 17.4x is attractive relative to its growth runway. We view the current weakness as a buying opportunity for long-term investors.</p>
+            <div class="meta-tags">
+                <span class="meta-tag">Risk: MODERATE</span>
+                <span class="meta-tag">Horizon: 12-18 Months</span>
+                <span class="meta-tag">Beta: 2.31</span>
+            </div>
+        </div>
+
+        <!-- Introduction -->
+        <h2 class="section-title">Investment Overview</h2>
+        <p class="intro-text">NVIDIA Corporation (NASDAQ: NVDA) is the undisputed leader in AI and data center accelerators, powering the infrastructure of the artificial intelligence revolution. The company has transformed from a gaming-focused GPU manufacturer into the most critical semiconductor player in the AI era, with its GPUs serving as the foundational architecture for virtually every major AI deployment globally.</p>
+        <p class="intro-text">Despite delivering exceptional financial results that continue to exceed analyst expectations, the stock experienced a significant selloff following recent earnings. This report examines the fundamental drivers, technical setup, and strategic considerations for investors evaluating NVIDIA at current levels.</p>
+
+        <!-- Bull/Bear Cases -->
+        <h2 class="section-title">Bull & Bear Cases</h2>
+        <div class="cases-container">
+            <div class="case-box bull-case">
+                <div class="case-header">
+                    <span class="case-icon">📈</span> Bull Case
+                </div>
+                <ul class="case-list">
+                    <li>Dominant market position in AI/Data Center accelerators</li>
+                    <li>Exponential revenue and earnings growth with expanding margins</li>
+                    <li>Long-term AI infrastructure investment cycle remains early</li>
+                    <li>Attractive forward P/E relative to growth potential (17.4x)</li>
+                    <li>Strong technical support near $170-$174 (SMA200, Fib levels)</li>
+                    <li>TSMC guiding to 60% AI chip CAGR through 2029</li>
+                </ul>
+            </div>
+            <div class="case-box bear-case">
+                <div class="case-header">
+                    <span class="case-icon">📉</span> Bear Case
+                </div>
+                <ul class="case-list">
+                    <li>High valuation on trailing metrics invites volatility</li>
+                    <li>Market fears about AI growth sustainability and cyclicality</li>
+                    <li>Extreme outperformance leads to vulnerability to profit-taking</li>
+                    <li>High beta (2.31) stock sensitive to broad market swings</li>
+                    <li>Gaming segment facing supply constraints</li>
+                    <li>Valuation already prices in significant slowdown</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Traffic Light Analysis -->
+        <h2 class="section-title">Traffic Light Analysis</h2>
+        <div class="traffic-light">
+            <div class="light-box active-green">
+                <div class="light-indicator"></div>
+                <div class="light-label">Fundamental</div>
+                <div class="light-rating">STRONG BUY</div>
+            </div>
+            <div class="light-box active-yellow">
+                <div class="light-indicator"></div>
+                <div class="light-label">Technical</div>
+                <div class="light-rating">HOLD</div>
+            </div>
+            <div class="light-box active-yellow">
+                <div class="light-indicator"></div>
+                <div class="light-label">Sentiment</div>
+                <div class="light-rating">NEUTRAL</div>
+            </div>
+            <div class="light-box active-yellow">
+                <div class="light-indicator"></div>
+                <div class="light-label">Risk</div>
+                <div class="light-rating">MODERATE</div>
+            </div>
+        </div>
+
+        <!-- P&L Section - Included Exactly as Provided -->
+        <div class="pnl-section">
+            <h3 class="pnl-title">Financials <span class="estimate-tag">2026E = Estimated</span></h3>
+            <div class="pnl-table-container">
+                <table class="pnl-table">
+                    <thead>
+                        <tr>
+                            <th class="pnl-metric-col">Metric</th>
+                            <th class="pnl-year-col estimate-col">2026E</th>
+                            <th class="pnl-year-col">2025</th>
+                            <th class="pnl-year-col">2024</th>
+                            <th class="pnl-year-col">2023</th>
+                            <th class="pnl-year-col">2022</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="pnl-row highlight">
+                            <td class="pnl-metric">Revenue</td>
+                            <td class="pnl-value"><span class="est-badge">E</span>$224.57B <span class="growth positive">+20.0%</span></td>
+                            <td class="pnl-value">$130.50B <span class="growth positive">+114.2%</span></td>
+                            <td class="pnl-value">$60.92B <span class="growth positive">+125.9%</span></td>
+                            <td class="pnl-value">$26.97B <span class="growth positive">+0.2%</span></td>
+                            <td class="pnl-value">$26.91B </td>
+                        </tr>
+                        <tr class="pnl-row highlight">
+                            <td class="pnl-metric">Gross Profit</td>
+                            <td class="pnl-value"><span class="est-badge">E</span>$168.40B <span class="margin">(75.0%)</span></td>
+                            <td class="pnl-value">$97.86B <span class="margin">(75.0%)</span></td>
+                            <td class="pnl-value">$44.30B <span class="margin">(72.7%)</span></td>
+                            <td class="pnl-value">$15.36B <span class="margin">(56.9%)</span></td>
+                            <td class="pnl-value">$17.48B <span class="margin">(64.9%)</span></td>
+                        </tr>
+                        <tr class="pnl-row highlight">
+                            <td class="pnl-metric">Operating Income</td>
+                            <td class="pnl-value"><span class="est-badge">E</span>$140.17B  <span class="margin">(62.4%)</span></td>
+                            <td class="pnl-value">$81.45B <span class="growth positive">+147.0%</span> <span class="margin">(62.4%)</span></td>
+                            <td class="pnl-value">$32.97B <span class="growth positive">+491.2%</span> <span class="margin">(54.1%)</span></td>
+                            <td class="pnl-value">$5.58B <span class="growth negative">-44.5%</span> <span class="margin">(20.7%)</span></td>
+                            <td class="pnl-value">$10.04B  <span class="margin">(37.3%)</span></td>
+                        </tr>
+                        <tr class="pnl-row highlight net-income">
+                            <td class="pnl-metric">Net Income</td>
+                            <td class="pnl-value"><strong><span class="est-badge">E</span>$125.42B</strong>  <span class="margin">(55.8%)</span></td>
+                            <td class="pnl-value"><strong>$72.88B</strong> <span class="growth positive">+144.9%</span> <span class="margin">(55.8%)</span></td>
+                            <td class="pnl-value"><strong>$29.76B</strong> <span class="growth positive">+581.3%</span> <span class="margin">(48.8%)</span></td>
+                            <td class="pnl-value"><strong>$4.37B</strong> <span class="growth negative">-55.2%</span> <span class="margin">(16.2%)</span></td>
+                            <td class="pnl-value"><strong>$9.75B</strong>  <span class="margin">(36.2%)</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="latest-quarter-box">
+                <div class="lq-header">Latest Quarter: 2025-10</div>
+                <div class="lq-metrics">
+                    <div class="lq-metric">
+                        <div class="lq-label">Revenue</div>
+                        <div class="lq-value">$57.01B</div>
+                        <div class="lq-sub">QoQ: <span class="positive">+22.0%</span></div>
+                    </div>
+                    <div class="lq-metric">
+                        <div class="lq-label">Gross Margin</div>
+                        <div class="lq-value">73.4%</div>
+                    </div>
+                    <div class="lq-metric">
+                        <div class="lq-label">Operating Margin</div>
+                        <div class="lq-value">63.2%</div>
+                    </div>
+                    <div class="lq-metric">
+                        <div class="lq-label">Net Margin</div>
+                        <div class="lq-value">56.0%</div>
+                    </div>
+                    <div class="lq-metric">
+                        <div class="lq-label">EPS (Diluted)</div>
+                        <div class="lq-value">$1.30</div>
+                    </div>
+                </div>
+            </div>
+            <p class="pnl-note">2026E = Analyst estimate based on company guidance. All values in billions USD.</p>
+        </div>
+
+        <!-- Market Conditions -->
+        <h2 class="section-title">Market Conditions & News</h2>
+        <div class="market-conditions">
+            <h3 class="section-title" style="font-size: 18px; margin-top: 0;">Why the Stock Declined</h3>
+            <div class="decline-factors">
+                <h4>Primary Factors Behind Post-Earnings Weakness</h4>
+                <div class="factor-item">
+                    <span class="factor-weight">40%</span>
+                    <span><strong>Post-Earnings Profit-Taking & AI Growth Fears:</strong> Despite strong results, the selloff reflects investor concerns about the sustainability of the AI investment cycle and potential for a growth deceleration.</span>
+                </div>
+                <div class="factor-item">
+                    <span class="factor-weight">30%</span>
+                    <span><strong>Valuation Compression:</strong> After a massive run-up, the market is compressing forward earnings multiples, questioning if the growth premium is fully priced.</span>
+                </div>
+                <div class="factor-item">
+                    <span class="factor-weight">20%</span>
+                    <span><strong>Sector-Wide Pressure & Rotation:</strong> Broad technology and semiconductor sector weakness, possibly due to fears of higher interest rates or rotation into other market segments.</span>
+                </div>
+                <div class="factor-item">
+                    <span class="factor-weight">10%</span>
+                    <span><strong>Supply Chain Commentary:</strong> Management comments on gaming chip shortages persisting may have raised concerns about broader supply chain issues.</span>
+                </div>
+            </div>
+
+            <div class="contrarian-box">
+                <h4>🎯 Contrarian View</h4>
+                <p>The selloff is an overreaction. NVIDIA's competitive moat in AI accelerators is wider than ever. The long-term AI infrastructure build-out is in its early innings (TSMC guiding to 60% AI chip CAGR through 2029). Current valuation (17.4x forward P/E) already prices in a significant growth slowdown, which may not materialize. The decline to key technical support offers an attractive entry point.</p>
+            </div>
+
+            <h3 class="section-title" style="font-size: 18px;">Recent News Sentiment</h3>
+            <p style="font-size: 14px; color: #666; margin-bottom: 15px;">Analyzed 249 articles (Feb 25-26, 2026) • Overall Sentiment: <strong>Slightly Positive</strong></p>
+            
+            <div class="news-grid">
+                <div class="news-item negative">
+                    <div class="news-date">Feb 26, 2026</div>
+                    <div class="news-headline">AI Concerns Among Factors Driving Nvidia Post-Earnings Selloff, BofA Says</div>
+                    <div class="news-source">Yahoo • <span class="sentiment-badge negative">NEGATIVE</span></div>
+                </div>
+                <div class="news-item positive">
+                    <div class="news-date">Feb 26, 2026</div>
+                    <div class="news-headline">TSMC Expects AI Chip Revenue to Grow at a
