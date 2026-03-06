@@ -34,17 +34,19 @@ stock_analysis/
 │   └── {ticker}_news_data.json
 ├── recommendations/         # AI-generated JSON recommendations
 │   └── {ticker}_recommendation.json
-├── reports/                 # Final HTML reports
+├── reports/                 # Final HTML reports + landing page
+│   ├── index.html          # Landing page with hero + news
 │   └── {ticker}_*_report.html
 ├── lambda_edgar_fetcher.py  # AWS Lambda: SEC EDGAR filing fetcher
 ├── price_fetcher_lambda.py  # AWS Lambda: Real-time price fetcher
-├── pull_sec_data.py         # SEC EDGAR integration (legacy)
+├── generate_landing_page.py # Landing page generator (hero + news)
 ├── pull_news_data.py        # Finnhub news + sentiment
 ├── generate_recommendation.py  # DeepSeek AI recommendations
-├── generate_html_report_fool.py  # Motley Fool style HTML (LLM-based)
 ├── generate_fool_report_direct.py # Motley Fool style HTML (direct)
 ├── styles_fool_format.md    # Motley Fool design specification
-└── AGENTS.md                # This file
+├── .github/workflows/       # CI/CD automation
+│   └── deploy.yml          # Amplify auto-deploy workflow
+└── AGENTS.md               # This file
 ```
 
 ## API Configuration
@@ -54,6 +56,13 @@ stock_analysis/
 |-------------|--------|-------|
 | `OpenRouterAPIKey` | `{"api_key": "sk-or-v1-..."}` | LLM calls |
 | `finnhub-api-key` | Plain string | News data |
+
+### GitHub Secrets (for Amplify Deploy)
+| Secret Name | Value |
+|-------------|-------|
+| `AWS_ACCESS_KEY_ID` | AWS access key with Amplify permissions |
+| `AWS_SECRET_ACCESS_KEY` | AWS secret key |
+| `AMPLIFY_APP_ID` | `d2oj62s24a5j4l` |
 
 ### LLM Models
 | Model | Cost | Use Case | Status |
@@ -208,7 +217,28 @@ s3://{bucket}/
 - **Typography**: Source Sans Pro, 18px body, generous line-height
 - **Layout**: Max-width 700px, centered, mobile-responsive
 
-## Current Status (2026-02-25)
+## Deployment
+
+### AWS Amplify Hosting
+- **App ID**: `d2oj62s24a5j4l`
+- **Region**: us-east-2
+- **Console**: https://console.aws.amazon.com/amplify/apps/d2oj62s24a5j4l/
+- **GitHub Repo**: https://github.com/rventra/stock-analysis-dashboard
+- **Auto-deploy**: GitHub Actions triggers on push to master
+
+### Landing Page (`generate_landing_page.py`)
+- Hero section with stock count, buy signals, average upside
+- Features section (AI Analysis, Traffic Lights, Price Targets, News)
+- Aggregated news grid from all tracked tickers
+- Stock recommendations table with signals and links to reports
+- Dark theme with Motley Fool color palette
+
+### GitHub Actions Workflow
+- File: `.github/workflows/deploy.yml`
+- Triggers: Push to master branch
+- Steps: Checkout → Generate Landing Page → Deploy to Amplify
+
+## Current Status (2026-03-06)
 
 ### ✅ Completed
 - [x] Data pipeline (fundamental, technical, news)
@@ -221,7 +251,9 @@ s3://{bucket}/
 - [x] EDGAR Fetcher Lambda (daily 6 AM ET)
 - [x] CIK lookup with S3 caching
 - [x] Rolling 4 filing maintenance
-- [x] ACN full dataset pulled and analyzed
+- [x] Landing page with hero + news section
+- [x] AWS Amplify hosting setup
+- [x] GitHub Actions auto-deploy
 
 ### ⚠️ Known Issues
 1. **MiniMax M2.5 Timeout**: 180s+ response times for HTML generation
@@ -259,6 +291,21 @@ python generate_fool_report_direct.py  # Enter: ACN
 ```bash
 cd stock_analysis
 echo "ACN" | python generate_fool_report_direct.py
+```
+
+### Generate Landing Page
+```bash
+cd stock_analysis
+python generate_landing_page.py
+# Outputs: reports/index.html
+```
+
+### Deploy to Amplify
+```bash
+# Push to master - auto-deploys via GitHub Actions
+git add .
+git commit -m "Update reports"
+git push
 ```
 
 ## Future Enhancements
